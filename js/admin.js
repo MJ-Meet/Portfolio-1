@@ -1125,6 +1125,51 @@ function handleExport() {
   }
 }
 
+function handleExportCollectionCSV(name) {
+  if (exportCollectionCSV(name)) {
+    showAdminToast(`${name.charAt(0).toUpperCase() + name.slice(1)} exported to CSV! 📊`);
+  } else {
+    showAdminToast(`Failed to export ${name} CSV.`, "error");
+  }
+}
+
+function handleExportAllCSV() {
+  const collections = ["projects", "skills", "certificates", "experience", "timeline", "learning", "messages"];
+  let delay = 0;
+  collections.forEach((col) => {
+    setTimeout(() => exportCollectionCSV(col), delay);
+    delay += 400;
+  });
+  showAdminToast("Exporting portfolio CSV files... 📊", "info");
+}
+
+function handleImportCollectionCSV(name) {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".csv,text/csv";
+  input.addEventListener("change", async () => {
+    const file = input.files[0];
+    const result = await importCollectionCSV(name, file);
+    if (result.success) {
+      showAdminToast(`Successfully imported ${result.count} ${name} from CSV! ✅`);
+      const refreshMap = {
+        projects: loadProjectsSection,
+        skills: renderSkillsTable,
+        certificates: renderCertsTable,
+        experience: loadExperienceSection,
+        timeline: loadTimelineSection,
+        learning: loadLearningSection,
+        messages: loadMessagesSection
+      };
+      refreshMap[name]?.();
+      loadDashboard();
+    } else {
+      showAdminToast(`CSV Import failed: ${result.error}`, "error");
+    }
+  });
+  input.click();
+}
+
 function handleImport() {
   const input = document.createElement("input");
   input.type = "file";
@@ -1218,6 +1263,7 @@ function bindGlobalButtons() {
 
   // Export / Import / Preview / Reset
   el("exportBtn")?.addEventListener("click", handleExport);
+  el("exportCsvBtn")?.addEventListener("click", handleExportAllCSV);
   el("importBtn")?.addEventListener("click", handleImport);
   el("resetBtn")?.addEventListener("click", handleReset);
   el("previewBtn")?.addEventListener("click", () => window.open("index.html", "_blank"));
@@ -1225,6 +1271,13 @@ function bindGlobalButtons() {
   el("importBtnSettings")?.addEventListener("click", handleImport);
   el("resetBtnSettings")?.addEventListener("click", handleReset);
   el("previewBtnSettings")?.addEventListener("click", () => window.open("index.html", "_blank"));
+
+  // CSV section buttons
+  el("exportProjectsCsvBtn")?.addEventListener("click", () => handleExportCollectionCSV("projects"));
+  el("importProjectsCsvBtn")?.addEventListener("click", () => handleImportCollectionCSV("projects"));
+  el("exportSkillsCsvBtn")?.addEventListener("click", () => handleExportCollectionCSV("skills"));
+  el("importSkillsCsvBtn")?.addEventListener("click", () => handleImportCollectionCSV("skills"));
+  el("exportMessagesCsvBtn")?.addEventListener("click", () => handleExportCollectionCSV("messages"));
 }
 
 /* ═══════════════════════════════════════════════════════
