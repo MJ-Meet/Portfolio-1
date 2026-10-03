@@ -381,12 +381,32 @@
                 <input type="url" class="form-control" id="prof_linkedin" />
               </div>
               <div class="col-md-6">
-                <label for="prof_resume" class="form-label">Resume PDF Path or URL</label>
-                <input type="text" class="form-control" id="prof_resume" />
+                <label class="form-label d-flex justify-content-between align-items-center mb-1">
+                  <span>Resume (PDF)</span>
+                  <span class="text-muted small">Upload or URL</span>
+                </label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="prof_resume" placeholder="resume/resume.pdf or URL" />
+                  <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('prof_resume_file').click()">
+                    📁 Upload PDF
+                  </button>
+                </div>
+                <input type="file" id="prof_resume_file" accept=".pdf,application/pdf" class="d-none" />
+                <div id="prof_resume_status" class="small text-muted mt-1"></div>
               </div>
               <div class="col-md-6">
-                <label for="prof_profileImage" class="form-label">Profile Image Path / URL</label>
-                <input type="text" class="form-control" id="prof_profileImage" placeholder="e.g. images/avatar.jpg" />
+                <label class="form-label d-flex justify-content-between align-items-center mb-1">
+                  <span>Profile Avatar Image</span>
+                  <span class="text-muted small">Upload or URL</span>
+                </label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="prof_profileImage" placeholder="images/avatar.jpg or URL" />
+                  <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('prof_profileImage_file').click()">
+                    📁 Upload Image
+                  </button>
+                </div>
+                <input type="file" id="prof_profileImage_file" accept="image/*" class="d-none" />
+                <div id="prof_avatar_preview" class="d-flex align-items-center gap-2 mt-1"></div>
               </div>
               <div class="col-12">
                 <label for="prof_careerObjective" class="form-label">Career Objective</label>
@@ -759,8 +779,18 @@
               <input type="url" class="form-control" id="pf_demo" />
             </div>
             <div class="col-md-6">
-              <label for="pf_image" class="form-label">Project Image URL or Path</label>
-              <input type="text" class="form-control" id="pf_image" placeholder="images/projects/project1.jpg" />
+              <label class="form-label d-flex justify-content-between align-items-center mb-1">
+                <span>Project Image</span>
+                <span class="text-muted small">Upload or URL</span>
+              </label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="pf_image" placeholder="images/projects/project1.jpg or URL" />
+                <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('pf_image_file').click()">
+                  📁 Upload
+                </button>
+              </div>
+              <input type="file" id="pf_image_file" accept="image/*" class="d-none" />
+              <div id="pf_image_preview" class="d-flex align-items-center gap-2 mt-1"></div>
             </div>
             <div class="col-md-6">
               <label for="pf_date" class="form-label">Date / Timeline</label>
@@ -881,8 +911,18 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="cf_image" class="form-label">Badge / Image URL</label>
-            <input type="text" class="form-control" id="cf_image" placeholder="images/certificates/cert.jpg" />
+            <label class="form-label d-flex justify-content-between align-items-center mb-1">
+              <span>Badge / Certificate Image / PDF</span>
+              <span class="text-muted small">Upload or URL</span>
+            </label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="cf_image" placeholder="images/certificates/cert.jpg or URL" />
+              <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('cf_image_file').click()">
+                📁 Upload
+              </button>
+            </div>
+            <input type="file" id="cf_image_file" accept="image/*,.pdf,application/pdf" class="d-none" />
+            <div id="cf_image_preview" class="d-flex align-items-center gap-2 mt-1"></div>
           </div>
           <div class="mb-3">
             <label for="cf_verification" class="form-label">Credential Verification URL</label>
@@ -938,8 +978,18 @@
               <textarea class="form-control" id="ef_desc" rows="3"></textarea>
             </div>
             <div class="col-12">
-              <label for="ef_certUrl" class="form-label">Certificate / Letter of Recommendation URL</label>
-              <input type="url" class="form-control" id="ef_certUrl" />
+              <label class="form-label d-flex justify-content-between align-items-center mb-1">
+                <span>Certificate / Letter of Recommendation (PDF or Image)</span>
+                <span class="text-muted small">Upload or URL</span>
+              </label>
+              <div class="input-group">
+                <input type="url" class="form-control" id="ef_certUrl" placeholder="https://... or upload from device" />
+                <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('ef_certFile').click()">
+                  📁 Upload
+                </button>
+              </div>
+              <input type="file" id="ef_certFile" accept="image/*,.pdf,application/pdf" class="d-none" />
+              <div id="ef_cert_status" class="small text-muted d-flex align-items-center gap-2 mt-1"></div>
             </div>
           </div>
         </form>

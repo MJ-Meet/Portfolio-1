@@ -60,6 +60,196 @@ function showAdminToast(message, type = "success") {
 }
 
 /* ═══════════════════════════════════════════════════════
+   FILE UPLOADS & DEVICE ATTACHMENTS
+═══════════════════════════════════════════════════════ */
+function handleFileUpload(file, callback, options = {}) {
+  if (!file) return;
+
+  const isImage = file.type.startsWith("image/");
+  if (file.size > 4 * 1024 * 1024) {
+    showAdminToast("File is larger than 4MB. Browser storage might exceed limits.", "warning");
+  }
+
+  if (isImage) {
+    const reader = new FileReader();
+    reader.onerror = () => showAdminToast("Failed to read image file.", "error");
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onerror = () => callback(e.target.result, file.name);
+      img.onload = () => {
+        const maxWidth = options.maxWidth || 1000;
+        const maxHeight = options.maxHeight || 1000;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const outputFormat = file.type === "image/png" ? "image/png" : "image/jpeg";
+        const compressed = canvas.toDataURL(outputFormat, 0.85);
+        callback(compressed, file.name);
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  } else {
+    // PDFs and documents
+    const reader = new FileReader();
+    reader.onerror = () => showAdminToast("Failed to read document.", "error");
+    reader.onload = (e) => {
+      callback(e.target.result, file.name);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function updateAvatarPreview(url) {
+  const container = el("prof_avatar_preview");
+  if (!container) return;
+  if (!url) { container.innerHTML = ""; return; }
+  container.innerHTML = `
+    <img src="${url}" alt="Avatar preview" style="width:44px;height:44px;object-fit:cover;border-radius:50%;border:2px solid var(--border);" onerror="this.style.display='none'" />
+    <span class="small text-muted">Preview ready</span>
+    <button type="button" class="btn btn-sm btn-link text-danger p-0 ms-auto text-decoration-none" onclick="el('prof_profileImage').value='';updateAvatarPreview('');">Clear</button>
+  `;
+}
+
+function updateResumeStatus(url, filename = "") {
+  const container = el("prof_resume_status");
+  if (!container) return;
+  if (!url) { container.innerHTML = ""; return; }
+  const isData = url.startsWith("data:");
+  const label = filename || (isData ? "PDF Document Uploaded" : url.split("/").pop() || "Resume File");
+  container.innerHTML = `
+    <span class="badge bg-success-subtle text-success border border-success-subtle">📄 ${escapeHtml(label)}</span>
+    <a href="${url}" target="_blank" class="small ms-2 text-decoration-none" download="resume.pdf">Test View</a>
+    <button type="button" class="btn btn-sm btn-link text-danger p-0 ms-auto text-decoration-none" onclick="el('prof_resume').value='';updateResumeStatus('');">Clear</button>
+  `;
+}
+
+function updateProjImagePreview(url) {
+  const container = el("pf_image_preview");
+  if (!container) return;
+  if (!url) { container.innerHTML = ""; return; }
+  container.innerHTML = `
+    <img src="${url}" alt="Project preview" style="width:58px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--border);" onerror="this.style.display='none'" />
+    <span class="small text-muted">Preview ready</span>
+    <button type="button" class="btn btn-sm btn-link text-danger p-0 ms-auto text-decoration-none" onclick="el('pf_image').value='';updateProjImagePreview('');">Clear</button>
+  `;
+}
+
+function updateCertImagePreview(url) {
+  const container = el("cf_image_preview");
+  if (!container) return;
+  if (!url) { container.innerHTML = ""; return; }
+  const isPdf = url.startsWith("data:application/pdf") || url.toLowerCase().endsWith(".pdf");
+  if (isPdf) {
+    container.innerHTML = `
+      <span class="badge bg-info-subtle text-info border border-info-subtle">📄 PDF Certificate</span>
+      <a href="${url}" target="_blank" class="small ms-2 text-decoration-none">Preview PDF</a>
+      <button type="button" class="btn btn-sm btn-link text-danger p-0 ms-auto text-decoration-none" onclick="el('cf_image').value='';updateCertImagePreview('');">Clear</button>
+    `;
+  } else {
+    container.innerHTML = `
+      <img src="${url}" alt="Certificate preview" style="width:58px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--border);" onerror="this.style.display='none'" />
+      <span class="small text-muted">Preview ready</span>
+      <button type="button" class="btn btn-sm btn-link text-danger p-0 ms-auto text-decoration-none" onclick="el('cf_image').value='';updateCertImagePreview('');">Clear</button>
+    `;
+  }
+}
+
+function updateExpCertStatus(url, filename = "") {
+  const container = el("ef_cert_status");
+  if (!container) return;
+  if (!url) { container.innerHTML = ""; return; }
+  const isPdf = url.startsWith("data:application/pdf") || url.toLowerCase().endsWith(".pdf");
+  const isData = url.startsWith("data:");
+  const label = filename || (isPdf ? "PDF Document" : isData ? "Document Uploaded" : "Link attached");
+  container.innerHTML = `
+    <span class="badge bg-success-subtle text-success border border-success-subtle">${isPdf ? "📄" : "📎"} ${escapeHtml(label)}</span>
+    <a href="${url}" target="_blank" class="small ms-2 text-decoration-none">Test View</a>
+    <button type="button" class="btn btn-sm btn-link text-danger p-0 ms-auto text-decoration-none" onclick="el('ef_certUrl').value='';updateExpCertStatus('');">Clear</button>
+  `;
+}
+
+function initFileUploads() {
+  // Avatar
+  el("prof_profileImage_file")?.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileUpload(file, (dataUrl) => {
+        if (el("prof_profileImage")) el("prof_profileImage").value = dataUrl;
+        updateAvatarPreview(dataUrl);
+        showAdminToast("Avatar loaded from device! Remember to save profile.", "info");
+      }, { maxWidth: 600, maxHeight: 600 });
+    }
+  });
+  el("prof_profileImage")?.addEventListener("input", (e) => updateAvatarPreview(e.target.value.trim()));
+
+  // Resume
+  el("prof_resume_file")?.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileUpload(file, (dataUrl, fname) => {
+        if (el("prof_resume")) el("prof_resume").value = dataUrl;
+        updateResumeStatus(dataUrl, fname);
+        showAdminToast("Resume loaded from device! Remember to save profile.", "info");
+      });
+    }
+  });
+  el("prof_resume")?.addEventListener("input", (e) => updateResumeStatus(e.target.value.trim()));
+
+  // Project Image
+  el("pf_image_file")?.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileUpload(file, (dataUrl) => {
+        if (el("pf_image")) el("pf_image").value = dataUrl;
+        updateProjImagePreview(dataUrl);
+      }, { maxWidth: 1000, maxHeight: 800 });
+    }
+  });
+  el("pf_image")?.addEventListener("input", (e) => updateProjImagePreview(e.target.value.trim()));
+
+  // Certificate Image / PDF
+  el("cf_image_file")?.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileUpload(file, (dataUrl) => {
+        if (el("cf_image")) el("cf_image").value = dataUrl;
+        updateCertImagePreview(dataUrl);
+      }, { maxWidth: 1000, maxHeight: 800 });
+    }
+  });
+  el("cf_image")?.addEventListener("input", (e) => updateCertImagePreview(e.target.value.trim()));
+
+  // Experience Certificate / LoR
+  el("ef_certFile")?.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleFileUpload(file, (dataUrl, fname) => {
+        if (el("ef_certUrl")) el("ef_certUrl").value = dataUrl;
+        updateExpCertStatus(dataUrl, fname);
+      });
+    }
+  });
+  el("ef_certUrl")?.addEventListener("input", (e) => updateExpCertStatus(e.target.value.trim()));
+}
+
+/* ═══════════════════════════════════════════════════════
    ADMIN LOGIN / AUTH
 ═══════════════════════════════════════════════════════ */
 function isLoggedIn() {
@@ -247,6 +437,10 @@ function loadProfileSection() {
   // Typing phrases
   const tpEl = el("prof_typingPhrases");
   if (tpEl) tpEl.value = (profile.typingPhrases || []).join("\n");
+
+  // Previews
+  updateAvatarPreview(profile.profileImage || "");
+  updateResumeStatus(profile.resume || "");
 }
 
 function initProfileForm() {
@@ -328,6 +522,8 @@ function openProjectForm(id = null) {
     form.reset();
     el("projFormTitle").textContent = "Add Project";
   }
+
+  updateProjImagePreview(id && p ? p.image : "");
 
   const modal = new bootstrap.Modal(el("projectFormModal"));
   modal.show();
@@ -518,6 +714,7 @@ function openCertForm(id = null) {
     el("certForm").reset();
     el("certFormTitle").textContent = "Add Certificate";
   }
+  updateCertImagePreview(id && c ? c.image : "");
   new bootstrap.Modal(el("certFormModal")).show();
 }
 
@@ -599,6 +796,7 @@ function openExpForm(id = null) {
     el("expForm").reset();
     el("expFormTitle").textContent = "Add Experience";
   }
+  updateExpCertStatus(id && exp ? exp.certificateUrl : "");
   new bootstrap.Modal(el("expFormModal")).show();
 }
 
@@ -1036,6 +1234,7 @@ function initAdminApp() {
   initAdminTheme();
   initSidebar();
   initProfileForm();
+  initFileUploads();
   initQuickActions();
   bindGlobalButtons();
   showSection("dashboard");

@@ -133,9 +133,25 @@ function renderHero(profile) {
   if (navBrand) navBrand.textContent = profile.shortName || "MJ";
   if (img && profile.profileImage) {
     img.src = profile.profileImage;
-    img.alt = profile.name;
+    img.alt = profile.name || "Meet Jethawa";
+    img.style.display = "block";
+    const ph = el("heroPH");
+    if (ph) ph.style.display = "none";
   }
-  if (resumeBtn && profile.resume) resumeBtn.href = profile.resume;
+  const resumeBtn = el("resumeBtn");
+  const resumeBtn2 = el("resumeBtn2");
+  if (profile.resume) {
+    const isData = profile.resume.startsWith("data:");
+    const downloadName = `${(profile.name || "Meet_Jethawa").replace(/\s+/g, "_")}_Resume.pdf`;
+    if (resumeBtn) {
+      resumeBtn.href = profile.resume;
+      if (isData) resumeBtn.setAttribute("download", downloadName);
+    }
+    if (resumeBtn2) {
+      resumeBtn2.href = profile.resume;
+      if (isData) resumeBtn2.setAttribute("download", downloadName);
+    }
+  }
   if (githubBtn && profile.github)  githubBtn.href = profile.github;
   if (linkedinBtn && profile.linkedin) linkedinBtn.href = profile.linkedin;
 
@@ -454,7 +470,7 @@ function renderExperience(experiences) {
           ${exp.location ? `<p class="text-muted small mb-2">📍 ${escapeHtml(exp.location)}</p>` : ""}
           <p class="mb-3">${escapeHtml(exp.description || "")}</p>
           ${skills ? `<div class="mb-2">${skills}</div>` : ""}
-          ${exp.certificateUrl ? `<a href="${exp.certificateUrl}" target="_blank" class="btn btn-sm btn-outline-primary mt-1">View Certificate</a>` : ""}
+          ${exp.certificateUrl ? `<a href="${exp.certificateUrl}" target="_blank" ${exp.certificateUrl.startsWith("data:") ? 'download="experience-document.pdf"' : ""} class="btn btn-sm btn-outline-primary mt-1">📄 View Credential / LoR</a>` : ""}
         </div>
       </div>`;
   }).join("");
@@ -491,14 +507,23 @@ function renderCertificatesFiltered() {
     return;
   }
 
-  container.innerHTML = filtered.map(cert => `
+  container.innerHTML = filtered.map(cert => {
+    const isPdf = cert.image && (cert.image.startsWith("data:application/pdf") || cert.image.toLowerCase().endsWith(".pdf"));
+    const certVisual = cert.image
+      ? (isPdf
+          ? `<div class="cert-placeholder d-flex flex-column align-items-center justify-content-center bg-primary-subtle" style="height:160px;">
+               <span style="font-size:2.8rem;">📄</span>
+               <span class="badge bg-primary text-white mt-1">PDF Certificate</span>
+             </div>`
+          : `<img src="${cert.image}" class="card-img-top cert-img" alt="${escapeHtml(cert.title)}" loading="lazy">`)
+      : `<div class="cert-placeholder d-flex align-items-center justify-content-center">
+           <span style="font-size:3.5rem;">🏆</span>
+         </div>`;
+
+    return `
     <div class="col-sm-6 col-md-4 col-lg-3">
       <div class="card cert-card h-100 border-0 shadow-sm">
-        ${cert.image
-          ? `<img src="${cert.image}" class="card-img-top cert-img" alt="${escapeHtml(cert.title)}" loading="lazy">`
-          : `<div class="cert-placeholder d-flex align-items-center justify-content-center">
-               <span style="font-size:3.5rem;">🏆</span>
-             </div>`}
+        ${certVisual}
         <div class="card-body d-flex flex-column">
           <h6 class="card-title fw-semibold mb-1">${escapeHtml(cert.title)}</h6>
           <p class="text-muted small mb-1">${escapeHtml(cert.issuer || "")}</p>
@@ -507,7 +532,8 @@ function renderCertificatesFiltered() {
           <button class="btn btn-sm btn-outline-primary mt-auto view-cert-btn" data-id="${cert.id}">View Certificate</button>
         </div>
       </div>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 
   container.querySelectorAll(".view-cert-btn").forEach(btn => {
     btn.addEventListener("click", () => openCertModal(btn.dataset.id));
@@ -524,8 +550,32 @@ function openCertModal(id) {
   el("certModalCat").textContent    = cert.category || "";
 
   const imgEl = el("certModalImg");
-  if (cert.image) { imgEl.src = cert.image; imgEl.style.display = ""; }
-  else imgEl.style.display = "none";
+  const isPdf = cert.image && (cert.image.startsWith("data:application/pdf") || cert.image.toLowerCase().endsWith(".pdf"));
+  if (cert.image) {
+    if (isPdf) {
+      imgEl.style.display = "none";
+      const existingPdfLink = el("certModalPdfBtn");
+      if (existingPdfLink) existingPdfLink.remove();
+      imgEl.insertAdjacentHTML("afterend", `
+        <div id="certModalPdfBtn" class="text-center py-4 bg-light rounded mb-3">
+          <div style="font-size:3rem;">📄</div>
+          <div class="fw-semibold mt-1 mb-2">PDF Certificate Document</div>
+          <a href="${cert.image}" target="_blank" download="${(cert.title || "Certificate").replace(/\s+/g, "_")}.pdf" class="btn btn-primary btn-sm">
+            📥 Download / View Full PDF
+          </a>
+        </div>
+      `);
+    } else {
+      const existingPdfLink = el("certModalPdfBtn");
+      if (existingPdfLink) existingPdfLink.remove();
+      imgEl.src = cert.image;
+      imgEl.style.display = "";
+    }
+  } else {
+    imgEl.style.display = "none";
+    const existingPdfLink = el("certModalPdfBtn");
+    if (existingPdfLink) existingPdfLink.remove();
+  }
 
   const verifyBtn = el("certModalVerify");
   if (verifyBtn) {
