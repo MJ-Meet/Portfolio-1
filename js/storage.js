@@ -26,11 +26,14 @@ const STORAGE_KEYS = {
 function loadData(key) {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS[key]);
-    if (raw !== null) return JSON.parse(raw);
-    return DEFAULT_DATA[key] ?? null;
+    if (raw !== null && raw !== "" && raw !== "undefined" && raw !== "null") {
+      const parsed = JSON.parse(raw);
+      if (parsed !== null && parsed !== undefined) return parsed;
+    }
+    return DEFAULT_DATA[key] !== undefined ? JSON.parse(JSON.stringify(DEFAULT_DATA[key])) : null;
   } catch (e) {
-    console.error(`[Storage] loadData error for key "${key}":`, e);
-    return DEFAULT_DATA[key] ?? null;
+    console.warn(`[Storage] loadData error for key "${key}":`, e);
+    return DEFAULT_DATA[key] !== undefined ? JSON.parse(JSON.stringify(DEFAULT_DATA[key])) : null;
   }
 }
 
@@ -435,7 +438,8 @@ function generateId(prefix = "id") {
 ───────────────────────────────────────────── */
 function initStorage() {
   Object.keys(STORAGE_KEYS).forEach(key => {
-    if (localStorage.getItem(STORAGE_KEYS[key]) === null) {
+    const raw = localStorage.getItem(STORAGE_KEYS[key]);
+    if (raw === null || raw === "undefined" || raw === "null" || raw === "") {
       saveData(key, DEFAULT_DATA[key]);
     }
   });

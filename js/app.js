@@ -138,7 +138,6 @@ function renderHero(profile) {
     const ph = el("heroPH");
     if (ph) ph.style.display = "none";
   }
-  const resumeBtn = el("resumeBtn");
   const resumeBtn2 = el("resumeBtn2");
   if (profile.resume) {
     const isData = profile.resume.startsWith("data:");
@@ -813,17 +812,17 @@ function escapeHtml(str) {
 /* ═══════════════════════════════════════════════════════
    MAIN INIT
 ═══════════════════════════════════════════════════════ */
-document.addEventListener("DOMContentLoaded", () => {
+function startApp() {
   initStorage();
   initTheme();
 
-  const profile      = loadData("profile");
-  const projects     = loadData("projects")     || [];
-  const skills       = loadData("skills")       || [];
-  const certificates = loadData("certificates") || [];
-  const experience   = loadData("experience")   || [];
-  const timeline     = loadData("timeline")     || [];
-  const learning     = loadData("learning")     || [];
+  const profile      = loadData("profile")      || DEFAULT_DATA.profile;
+  const projects     = loadData("projects")     || DEFAULT_DATA.projects || [];
+  const skills       = loadData("skills")       || DEFAULT_DATA.skills || [];
+  const certificates = loadData("certificates") || DEFAULT_DATA.certificates || [];
+  const experience   = loadData("experience")   || DEFAULT_DATA.experience || [];
+  const timeline     = loadData("timeline")     || DEFAULT_DATA.timeline || [];
+  const learning     = loadData("learning")     || DEFAULT_DATA.learning || [];
 
   renderHero(profile);
   renderAbout(profile);
@@ -843,4 +842,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initNavbar();
   initBackToTop();
   initSmoothScroll();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", startApp);
+} else {
+  startApp();
+}

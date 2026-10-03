@@ -1293,7 +1293,13 @@ function initAdminApp() {
   showSection("dashboard");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function startAdmin() {
   initStorage();
   initAuth();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", startAdmin);
+} else {
+  startAdmin();
+}
