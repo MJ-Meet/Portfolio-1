@@ -1,0 +1,162 @@
+[
+  {
+    "id": "sk_python",
+    "name": "Python",
+    "category": "Programming",
+    "level": "Advanced",
+    "percentage": 88,
+    "icon": "bi-filetype-py",
+    "color": "#3776ab",
+    "description": "Primary language for GenAI, ML algorithms, data pipelines, and automation."
+  },
+  {
+    "id": "sk_cpp",
+    "name": "C / C++",
+    "category": "Programming",
+    "level": "Advanced",
+    "percentage": 85,
+    "icon": "bi-filetype-raw",
+    "color": "#00599c",
+    "description": "Strong foundation in data structures, algorithms, and computational efficiency."
+  },
+  {
+    "id": "sk_java",
+    "name": "Java",
+    "category": "Programming",
+    "level": "Intermediate",
+    "percentage": 75,
+    "icon": "bi-filetype-java",
+    "color": "#e76f00",
+    "description": "Object-oriented software development and enterprise fundamentals."
+  },
+  {
+    "id": "sk_sql",
+    "name": "SQL",
+    "category": "Programming",
+    "level": "Intermediate",
+    "percentage": 80,
+    "icon": "bi-database",
+    "color": "#0284c7",
+    "description": "Relational queries, database management, schema design, and data retrieval."
+  },
+  {
+    "id": "sk_js",
+    "name": "JavaScript",
+    "category": "Web Development",
+    "level": "Intermediate",
+    "percentage": 75,
+    "icon": "bi-filetype-js",
+    "color": "#eab308",
+    "description": "Modern ES6+ development, DOM manipulation, asynchronous APIs."
+  },
+  {
+    "id": "sk_genai",
+    "name": "Generative AI & LLMs",
+    "category": "AI & ML",
+    "level": "Advanced",
+    "percentage": 88,
+    "icon": "bi-stars",
+    "color": "#ec4899",
+    "description": "Large Language Models, OCI GenAI Service, prompt engineering, and token optimization."
+  },
+  {
+    "id": "sk_rag",
+    "name": "RAG Architecture",
+    "category": "AI & ML",
+    "level": "Advanced",
+    "percentage": 85,
+    "icon": "bi-diagram-3",
+    "color": "#8b5cf6",
+    "description": "Retrieval-Augmented Generation, vector databases, and semantic search pipelines."
+  },
+  {
+    "id": "sk_prompting",
+    "name": "Prompt Engineering",
+    "category": "AI & ML",
+    "level": "Advanced",
+    "percentage": 90,
+    "icon": "bi-chat-left-quote",
+    "color": "#06b6d4",
+    "description": "Chain-of-thought, few-shot prompting, and hallucination reduction techniques."
+  },
+  {
+    "id": "sk_ml",
+    "name": "Machine Learning",
+    "category": "AI & ML",
+    "level": "Intermediate",
+    "percentage": 80,
+    "icon": "bi-cpu",
+    "color": "#6366f1",
+    "description": "Supervised and unsupervised learning, model benchmarking, and scikit-learn."
+  },
+  {
+    "id": "sk_oci",
+    "name": "Oracle Cloud (OCI)",
+    "category": "Cloud & Tools",
+    "level": "Certified",
+    "percentage": 85,
+    "icon": "bi-cloud-check",
+    "color": "#f80000",
+    "description": "OCI Generative AI Service, cloud compute, architecture deployment, and AI services."
+  },
+  {
+    "id": "sk_sac",
+    "name": "SAP Analytics Cloud (SAC)",
+    "category": "Data Science",
+    "level": "Certified",
+    "percentage": 88,
+    "icon": "bi-bar-chart-steps",
+    "color": "#008fd3",
+    "description": "Data modeling, story creation, predictive analytics, planning, and forecasting."
+  },
+  {
+    "id": "sk_dataviz",
+    "name": "Data Visualization",
+    "category": "Data Science",
+    "level": "Intermediate",
+    "percentage": 82,
+    "icon": "bi-graph-up",
+    "color": "#f59e0b",
+    "description": "Transforming raw numbers into executive visual stories and interactive charts."
+  },
+  {
+    "id": "sk_pandas",
+    "name": "Pandas & NumPy",
+    "category": "Data Science",
+    "level": "Intermediate",
+    "percentage": 80,
+    "icon": "bi-table",
+    "color": "#150458",
+    "description": "Exploratory data analysis (EDA), data cleaning, and vectorized computation."
+  },
+  {
+    "id": "sk_git",
+    "name": "Git & GitHub",
+    "category": "Cloud & Tools",
+    "level": "Intermediate",
+    "percentage": 82,
+    "icon": "bi-github",
+    "color": "#333",
+    "description": "Version control, collaborative workflows, and repository management."
+  },
+  {
+    "id": "sk_rest",
+    "name": "REST APIs",
+    "category": "Cloud & Tools",
+    "level": "Intermediate",
+    "percentage": 78,
+    "icon": "bi-arrow-left-right",
+    "color": "#10b981",
+    "description": "API consumption, integration with cloud foundation models, and web services."
+  },
+  {
+    "id": "sk_dsa",
+    "name": "Data Structures & Algorithms",
+    "category": "Programming",
+    "level": "Advanced",
+    "percentage": 84,
+    "icon": "bi-code-square",
+    "color": "#4f46e5",
+    "description": "Algorithmic problem-solving, complexity analysis, and efficient data processing."
+  }
+]

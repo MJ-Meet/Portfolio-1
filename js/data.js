@@ -1,31 +1,75 @@
 /**
- * data.js — Dynamic Portfolio Data Loader
+ * data.js — Dynamic Modular Portfolio Data Loader
  * Meet Jethawa (MJ) Portfolio
  * 
- * Centralizes all portfolio records into data/portfolio-full.json.
- * Fetches the JSON dataset asynchronously and populates global state.
+ * Fetches dedicated domain JSON datasets in parallel from data/
+ * (profile, skills, projects, experience, certificates, journey, achievements)
+ * and merges them into a clean, reactive global state.
  */
 
 let PORTFOLIO_DATA = {};
 
 /**
- * Asynchronously fetch and load portfolio data from JSON
+ * Asynchronously fetch and load portfolio data from modular JSON files
  * @returns {Promise<Object|null>}
  */
 async function fetchPortfolioData() {
   try {
-    const response = await fetch("data/portfolio-full.json");
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
+    const [
+      profile,
+      skills,
+      projects,
+      experience,
+      certificates,
+      journey,
+      achievements
+    ] = await Promise.all([
+      fetch("data/profile.json").then(r => {
+        if (!r.ok) throw new Error("profile.json not found");
+        return r.json();
+      }),
+      fetch("data/skills.json").then(r => {
+        if (!r.ok) throw new Error("skills.json not found");
+        return r.json();
+      }),
+      fetch("data/projects.json").then(r => {
+        if (!r.ok) throw new Error("projects.json not found");
+        return r.json();
+      }),
+      fetch("data/experience.json").then(r => {
+        if (!r.ok) throw new Error("experience.json not found");
+        return r.json();
+      }),
+      fetch("data/certificates.json").then(r => {
+        if (!r.ok) throw new Error("certificates.json not found");
+        return r.json();
+      }),
+      fetch("data/journey.json").then(r => {
+        if (!r.ok) throw new Error("journey.json not found");
+        return r.json();
+      }),
+      fetch("data/achievements.json").then(r => {
+        if (!r.ok) throw new Error("achievements.json not found");
+        return r.json();
+      })
+    ]);
+
+    const data = {
+      profile,
+      skills,
+      projects,
+      experience,
+      certificates,
+      journey,
+      achievements
+    };
 
     // Assign globally
     PORTFOLIO_DATA = data;
     window.PORTFOLIO_DATA = data;
     return data;
   } catch (error) {
-    console.error("Failed to load portfolio-full.json:", error);
+    console.error("Failed to load modular portfolio JSON datasets:", error);
     if (window.location.protocol === "file:") {
       console.warn(
         "Notice: Browsers block fetch() on file:/// URLs due to CORS security.\n" +

@@ -1,0 +1,17 @@
+ID,Name,Category,Level,Percentage,Icon,Color,Description
+sk_python,Python,Programming,Advanced,88,bi-filetype-py,#3776ab,"Primary language for GenAI, ML algorithms, data pipelines, and automation."
+sk_cpp,C / C++,Programming,Advanced,85,bi-filetype-raw,#00599c,"Strong foundation in data structures, algorithms, and computational efficiency."
+sk_java,Java,Programming,Intermediate,75,bi-filetype-java,#e76f00,Object-oriented software development and enterprise fundamentals.
+sk_sql,SQL,Programming,Intermediate,80,bi-database,#0284c7,"Relational queries, database management, schema design, and data retrieval."
+sk_js,JavaScript,Web Development,Intermediate,75,bi-filetype-js,#eab308,"Modern ES6+ development, DOM manipulation, asynchronous APIs."
+sk_genai,Generative AI & LLMs,AI & ML,Advanced,88,bi-stars,#ec4899,"Large Language Models, OCI GenAI Service, prompt engineering, and token optimization."
+sk_rag,RAG Architecture,AI & ML,Advanced,85,bi-diagram-3,#8b5cf6,"Retrieval-Augmented Generation, vector databases, and semantic search pipelines."
+sk_prompting,Prompt Engineering,AI & ML,Advanced,90,bi-chat-left-quote,#06b6d4,"Chain-of-thought, few-shot prompting, and hallucination reduction techniques."
+sk_ml,Machine Learning,AI & ML,Intermediate,80,bi-cpu,#6366f1,"Supervised and unsupervised learning, model benchmarking, and scikit-learn."
+sk_oci,Oracle Cloud (OCI),Cloud & Tools,Certified,85,bi-cloud-check,#f80000,"OCI Generative AI Service, cloud compute, architecture deployment, and AI services."
+sk_sac,SAP Analytics Cloud (SAC),Data Science,Certified,88,bi-bar-chart-steps,#008fd3,"Data modeling, story creation, predictive analytics, planning, and forecasting."
+sk_dataviz,Data Visualization,Data Science,Intermediate,82,bi-graph-up,#f59e0b,Transforming raw numbers into executive visual stories and interactive charts.
+sk_pandas,Pandas & NumPy,Data Science,Intermediate,80,bi-table,#150458,"Exploratory data analysis (EDA), data cleaning, and vectorized computation."
+sk_git,Git & GitHub,Cloud & Tools,Intermediate,82,bi-github,#333,"Version control, collaborative workflows, and repository management."
+sk_rest,REST APIs,Cloud & Tools,Intermediate,78,bi-arrow-left-right,#10b981,"API consumption, integration with cloud foundation models, and web services."
+sk_dsa,Data Structures & Algorithms,Programming,Advanced,84,bi-code-square,#4f46e5,"Algorithmic problem-solving, complexity analysis, and efficient data processing."
