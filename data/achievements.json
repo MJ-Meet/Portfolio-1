@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ach_edunet_ibm_hackathon",
+    "title": "Hackathon Excellence Award",
+    "event": "Edunet Hackathon in collaboration with IBM SkillsBuild on IBM Bob",
+    "organization": "Edunet Foundation × IBM SkillsBuild",
+    "date": "September 28, 2026",
+    "location": "Ahmedabad, Gujarat, India",
+    "institution": "Indus University",
+    "badge": "🏆 Hackathon Excellence Trophy",
+    "description": "Awarded for successfully showcasing an innovative project through Stage Presentation at the Edunet Hackathon in collaboration with IBM SkillsBuild on IBM Bob – Gujarat under the IBM SkillsBuild University Engagements Program. Recognized for outstanding project-based learning, creativity, and practical demonstration of emerging technologies leveraging IBM Bob, LangFlow, Agentic AI, IBM Granite, and IBM SkillsBuild.",
+    "trophyImage": "assets/achievements/edunet-ibm-hackathon-trophy.jpg",
+    "certificateImage": "assets/achievements/edunet-ibm-hackathon-certificate.jpg",
+    "technologies": [
+      "Agentic AI",
+      "IBM Granite",
+      "LangFlow",
+      "IBM Bob",
+      "IBM SkillsBuild",
+      "Stage Presentation"
+    ]
+  }
+]

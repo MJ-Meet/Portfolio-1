@@ -1,0 +1,51 @@
+[
+  {
+    "id": "exp_myjobgrow_iitb",
+    "organization": "My Job Grow × Techfest (IIT Bombay)",
+    "role": "Web Development Intern",
+    "period": "Nov 2024 – Jan 2025",
+    "badge": "IIT Bombay Techfest Partner",
+    "location": "Mumbai, India (Remote)",
+    "description": "Completed an intensive web development internship in collaboration with Techfest (Annual Science & Technology Festival of IIT Bombay). Engineered responsive frontend interfaces, implemented dynamic web applications, and collaborated on advanced project implementations.",
+    "skills": [
+      "Web Development",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Frontend Engineering",
+      "UI/UX"
+    ]
+  },
+  {
+    "id": "exp_edunet_ibm",
+    "organization": "Edunet Foundation × AICTE × IBM SkillsBuild",
+    "role": "Emerging Technologies Intern (Agentic AI & Quantum)",
+    "period": "June 2025 – July 2025",
+    "badge": "IBM SkillsBuild & AICTE",
+    "location": "Virtual Internship",
+    "description": "Selected for an advanced internship program in Emerging Technologies. Leveraged IBM Cloud, IBM SkillsBuild, and IBM BoB to architect autonomous agentic AI workflows, examine quantum computing paradigms, and apply modern cybersecurity practices.",
+    "skills": [
+      "Agentic AI",
+      "IBM Cloud",
+      "IBM SkillsBuild",
+      "Cyber Security",
+      "Quantum Computing"
+    ]
+  },
+  {
+    "id": "exp_decodelabs",
+    "organization": "DecodeLabs",
+    "role": "Data Analytics Intern",
+    "period": "June 2025 – July 2025",
+    "badge": "Global Internship Credential",
+    "location": "Virtual Internship",
+    "description": "Engaged in hands-on data analytics workflows across diverse business datasets. Performed data hygiene, feature engineering, exploratory data analysis (EDA), and generated visual insight reports in a collaborative team setting.",
+    "skills": [
+      "Data Analytics",
+      "Exploratory Data Analysis",
+      "Statistical Modeling",
+      "Python",
+      "Data Visualization"
+    ]
+  }
+]

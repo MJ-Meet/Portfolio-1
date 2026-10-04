@@ -480,6 +480,17 @@ function openCertModal(certId) {
   $("modalCertIssuer").textContent = cert.issuer;
   $("modalCertDate").textContent = cert.date || "2024";
 
+  const idEl = $("modalCertId");
+  const idWrap = $("modalCertIdWrapper");
+  if (idEl && idWrap) {
+    if (cert.credentialId) {
+      idEl.textContent = cert.credentialId;
+      idWrap.style.display = "inline-block";
+    } else {
+      idWrap.style.display = "none";
+    }
+  }
+
   const img = $("modalCertImage");
   if (img) {
     img.src = cert.image || "assets/certificates/certificate-placeholder.svg";
@@ -506,45 +517,163 @@ function openCertModal(certId) {
 /* ─────────────────────────────────────────────────────────
    10. Render Experience & Timeline
 ───────────────────────────────────────────────────────── */
-function renderExperience(experience, timeline) {
-  // Experience cards
+function renderExperience(experience) {
   const expContainer = $("experienceContainer");
-  if (expContainer && experience) {
-    expContainer.innerHTML = experience.map(exp => `
-      <div class="card-modern p-4 mb-4">
-        <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
-          <div>
+  if (!expContainer || !experience) return;
+
+  expContainer.innerHTML = experience.map(exp => `
+    <div class="col-lg-4 col-md-6">
+      <div class="card-modern p-4 h-100 d-flex flex-column justify-content-between">
+        <div>
+          <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
             <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 mb-2 d-inline-block">
               ${escapeHtml(exp.badge || 'Virtual Internship')}
             </span>
-            <h4 class="fw-bold mb-1 fs-5">${escapeHtml(exp.role)}</h4>
-            <h5 class="text-primary fs-6 mb-0">${escapeHtml(exp.organization)}</h5>
+            <span class="text-muted small fw-semibold"><i class="bi bi-calendar3 me-1"></i> ${escapeHtml(exp.period || '2025')}</span>
           </div>
-          <span class="text-muted small fw-semibold"><i class="bi bi-calendar3 me-1"></i> ${escapeHtml(exp.period || '2024')}</span>
+          <h4 class="fw-bold mb-1 fs-5">${escapeHtml(exp.role)}</h4>
+          <h5 class="text-primary fs-6 mb-3">${escapeHtml(exp.organization)}</h5>
+          <p class="text-muted small mb-3">${escapeHtml(exp.description)}</p>
         </div>
-        <p class="text-muted small mt-2 mb-3">${escapeHtml(exp.description)}</p>
-        <div class="d-flex flex-wrap gap-1">
+        <div class="d-flex flex-wrap gap-1 pt-3 border-top" style="border-color: var(--border-color) !important;">
           ${(exp.skills || []).map(s => `<span class="tech-tag">${escapeHtml(s)}</span>`).join('')}
         </div>
       </div>
-    `).join("");
-  }
+    </div>
+  `).join("");
+}
 
-  // Milestones Timeline
-  const tlContainer = $("timelineContainer");
-  if (tlContainer && timeline) {
-    tlContainer.innerHTML = timeline.map(item => `
-      <div class="timeline-item">
-        <div class="timeline-node">
-          <i class="bi ${item.icon || 'bi-mortarboard'}"></i>
+/* ─────────────────────────────────────────────────────────
+   10b. Render Learning Journey (Alternating Timeline)
+───────────────────────────────────────────────────────── */
+function renderJourney(journey) {
+  const container = $("journeyTimelineContainer");
+  if (!container || !journey) return;
+
+  container.innerHTML = journey.map(item => `
+    <div class="journey-item">
+      <div class="journey-node">
+        <i class="bi ${item.icon || 'bi-mortarboard-fill'}"></i>
+      </div>
+      <div class="journey-card">
+        <span class="journey-year">${escapeHtml(item.year)}</span>
+        <h4 class="journey-title">${escapeHtml(item.title)}</h4>
+        <p class="journey-desc">${escapeHtml(item.description)}</p>
+      </div>
+    </div>
+  `).join("");
+}
+
+/* ─────────────────────────────────────────────────────────
+   10c. Render Achievements & Awards Showcase
+───────────────────────────────────────────────────────── */
+function renderAchievements(achievements) {
+  const container = $("achievementsContainer");
+  if (!container || !achievements || achievements.length === 0) return;
+
+  const placeholderSvg = 'assets/achievements/achievement-placeholder.svg';
+
+  container.innerHTML = achievements.map(ach => {
+    const trophyImg = ach.trophyImage || placeholderSvg;
+    const certImg = ach.certificateImage || placeholderSvg;
+
+    return `
+    <div class="card-modern achievement-card p-4 p-lg-5 mb-4">
+      <div class="row g-4 align-items-center">
+        <!-- Visuals: Trophy & Certificate -->
+        <div class="col-lg-6">
+          <div class="achievement-media-grid">
+            <div class="achievement-media-box" onclick="openAchievementModal('${trophyImg}', '${escapeHtml(ach.title)} — Trophy', '${escapeHtml(ach.badge)}')">
+              <img src="${trophyImg}" alt="Trophy" class="achievement-img" onerror="this.src='${placeholderSvg}'" />
+              <div class="achievement-media-overlay">
+                <span class="badge bg-warning text-dark fw-bold rounded-pill px-3 py-1">
+                  <i class="bi bi-trophy-fill me-1"></i> Trophy
+                </span>
+                <span class="view-hint"><i class="bi bi-arrows-fullscreen"></i> View</span>
+              </div>
+            </div>
+            <div class="achievement-media-box" onclick="openAchievementModal('${certImg}', '${escapeHtml(ach.title)} — Certificate', '📜 Award Certificate')">
+              <img src="${certImg}" alt="Certificate" class="achievement-img" onerror="this.src='${placeholderSvg}'" />
+              <div class="achievement-media-overlay">
+                <span class="badge bg-primary text-white fw-bold rounded-pill px-3 py-1">
+                  <i class="bi bi-award-fill me-1"></i> Certificate
+                </span>
+                <span class="view-hint"><i class="bi bi-arrows-fullscreen"></i> View</span>
+              </div>
+            </div>
+          </div>
+          <p class="text-center text-muted small mt-2 mb-0">
+            <i class="bi bi-zoom-in me-1"></i> Click on trophy or certificate to enlarge
+          </p>
         </div>
-        <div class="card-modern timeline-card">
-          <span class="text-gradient fw-bold small text-uppercase mb-1 d-block">${escapeHtml(item.year)}</span>
-          <h5 class="fw-bold mb-1 fs-6">${escapeHtml(item.title)}</h5>
-          <p class="text-muted small mb-0">${escapeHtml(item.description)}</p>
+
+        <!-- Details -->
+        <div class="col-lg-6">
+          <div class="ps-lg-3">
+            <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+              <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-3 py-1 fw-bold">
+                <i class="bi bi-trophy-fill me-1"></i> ${escapeHtml(ach.badge || 'Excellence Award')}
+              </span>
+              <span class="text-muted small"><i class="bi bi-calendar3 me-1"></i> ${escapeHtml(ach.date || '2026')}</span>
+            </div>
+
+            <h3 class="fw-bold mb-2 fs-3">${escapeHtml(ach.title)}</h3>
+            <h5 class="text-primary fs-6 mb-3 fw-semibold">
+              <i class="bi bi-flag-fill me-1 text-danger"></i> ${escapeHtml(ach.event)}
+            </h5>
+
+            <div class="p-3 rounded-3 mb-3" style="background: rgba(79, 70, 229, 0.05); border: 1px solid var(--border-color);">
+              <div class="d-flex justify-content-between small text-muted mb-1 flex-wrap">
+                <span><strong>Organizer:</strong> ${escapeHtml(ach.organization)}</span>
+              </div>
+              <div class="d-flex justify-content-between small text-muted flex-wrap">
+                <span><strong>Institution:</strong> ${escapeHtml(ach.institution)} (${escapeHtml(ach.location)})</span>
+              </div>
+            </div>
+
+            <p class="text-muted small leading-relaxed mb-4">${escapeHtml(ach.description)}</p>
+
+            <h6 class="fw-bold mb-2 small text-uppercase text-muted" style="letter-spacing: 1px;">Demonstrated Technologies:</h6>
+            <div class="d-flex flex-wrap gap-1 mb-4">
+              ${(ach.technologies || []).map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('')}
+            </div>
+
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-modern-primary btn-sm" onclick="openAchievementModal('${trophyImg}', '${escapeHtml(ach.title)} — Trophy', '${escapeHtml(ach.badge)}')">
+                <i class="bi bi-trophy me-1"></i> View Trophy
+              </button>
+              <button class="btn btn-modern-outline btn-sm" onclick="openAchievementModal('${certImg}', '${escapeHtml(ach.title)} — Certificate', '📜 Award Certificate')">
+                <i class="bi bi-file-earmark-image me-1"></i> View Certificate
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    `).join("");
+    </div>
+  `;
+  }).join("");
+}
+
+function openAchievementModal(imageSrc, caption, badgeText) {
+  const modalImg = $("modalAchImage");
+  const modalCaption = $("modalAchCaption");
+  const modalBadge = $("modalAchBadge");
+  const modalTitle = $("modalAchTitle");
+
+  const defaultSvg = "assets/achievements/achievement-placeholder.svg";
+
+  if (modalImg) {
+    modalImg.src = imageSrc || defaultSvg;
+    modalImg.onerror = function() { this.src = defaultSvg; };
+  }
+  if (modalCaption) modalCaption.textContent = caption || "";
+  if (modalBadge) modalBadge.textContent = badgeText || "Award";
+  if (modalTitle) modalTitle.textContent = caption || "Achievement Preview";
+
+  const modalEl = $("achievementModal");
+  if (modalEl && window.bootstrap) {
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
   }
 }
 
@@ -674,12 +803,16 @@ function escapeHtml(str) {
 /* ─────────────────────────────────────────────────────────
    Application Entrypoint
 ───────────────────────────────────────────────────────── */
-function startApp() {
+async function startApp() {
   initTheme();
   initNavigation();
 
-  // Load portfolio data from data.js
-  const data = window.PORTFOLIO_DATA || (typeof PORTFOLIO_DATA !== "undefined" ? PORTFOLIO_DATA : {});
+  // Dynamically load portfolio data from JSON
+  const data = typeof fetchPortfolioData === "function"
+    ? await fetchPortfolioData()
+    : (window.PORTFOLIO_DATA || {});
+
+  if (!data) return;
 
   renderHero(data.profile);
   renderStats(data);
@@ -687,7 +820,9 @@ function startApp() {
   renderSkills(data.skills);
   renderProjects(data.projects);
   renderCertificates(data.certificates);
-  renderExperience(data.experience, data.timeline);
+  renderExperience(data.experience);
+  renderJourney(data.journey);
+  renderAchievements(data.achievements);
   initContactForm();
 
   // Set page year

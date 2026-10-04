@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0f19" />
+      <stop offset="50%" stop-color="#111827" />
+      <stop offset="100%" stop-color="#1f2937" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#8b5cf6" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#ef4444" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#bg)" />
+
+  <!-- Grid Lines -->
+  <g stroke="rgba(255,255,255,0.05)" stroke-width="1">
+    <line x1="0" y1="90" x2="800" y2="90" />
+    <line x1="0" y1="180" x2="800" y2="180" />
+    <line x1="0" y1="270" x2="800" y2="270" />
+    <line x1="0" y1="360" x2="800" y2="360" />
+    <line x1="160" y1="0" x2="160" y2="450" />
+    <line x1="320" y1="0" x2="320" y2="450" />
+    <line x1="480" y1="0" x2="480" y2="450" />
+    <line x1="640" y1="0" x2="640" y2="450" />
+  </g>
+
+  <!-- Title Badge -->
+  <rect x="40" y="35" width="230" height="32" rx="16" fill="rgba(6,182,212,0.15)" stroke="rgba(6,182,212,0.4)" stroke-width="1" />
+  <text x="56" y="56" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#38bdf8" letter-spacing="1">BEHAVIORAL ML ENGINE</text>
+
+  <!-- Main Heading -->
+  <text x="40" y="115" font-family="system-ui, sans-serif" font-size="34" font-weight="900" fill="#f8fafc">Life Pattern Detector</text>
+  <text x="40" y="145" font-family="system-ui, sans-serif" font-size="16" fill="#94a3b8">Hidden Cycles Discovery &amp; Burnout Prediction</text>
+
+  <!-- Metric Cards -->
+  <g transform="translate(40, 180)">
+    <!-- Card 1: Sleep & Energy -->
+    <rect width="220" height="110" rx="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    <text x="20" y="32" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">7-DAY SLEEP CYCLE</text>
+    <text x="20" y="65" font-family="system-ui, sans-serif" font-size="28" font-weight="800" fill="#38bdf8">8.2 hrs</text>
+    <path d="M 20 88 Q 60 70, 100 88 T 180 80" fill="none" stroke="url(#cyanGrad)" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <g transform="translate(285, 180)">
+    <!-- Card 2: Productivity Loop -->
+    <rect width="220" height="110" rx="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    <text x="20" y="32" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">CLUSTER COHERENCE</text>
+    <text x="20" y="65" font-family="system-ui, sans-serif" font-size="28" font-weight="800" fill="#10b981">94.6%</text>
+    <path d="M 20 85 C 60 95, 110 65, 180 82" fill="none" stroke="url(#emeraldGrad)" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <g transform="translate(530, 180)">
+    <!-- Card 3: Burnout Risk -->
+    <rect width="230" height="110" rx="16" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    <text x="20" y="32" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#94a3b8">BURNOUT RISK FACTOR</text>
+    <text x="20" y="65" font-family="system-ui, sans-serif" font-size="28" font-weight="800" fill="#f59e0b">Low (12%)</text>
+    <path d="M 20 82 Q 70 88, 120 78 T 190 85" fill="none" stroke="url(#amberGrad)" stroke-width="3" stroke-linecap="round" />
+  </g>
+
+  <!-- Waveform Flow Chart at Bottom -->
+  <g transform="translate(40, 320)">
+    <rect width="720" height="95" rx="16" fill="rgba(15,23,42,0.6)" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    <path d="M 25 55 Q 60 15, 110 55 T 200 55 T 290 20 T 380 70 T 470 30 T 560 60 T 650 40 T 700 55" fill="none" stroke="url(#cyanGrad)" stroke-width="3.5" filter="url(#glow)" />
+    <circle cx="290" cy="20" r="5" fill="#38bdf8" />
+    <circle cx="470" cy="30" r="5" fill="#a855f7" />
+    <text x="25" y="85" font-family="system-ui, sans-serif" font-size="11" fill="#64748b">INTERPRETABLE LIFE PATTERN PIPELINE • N8N AUTOMATION HOOKS • REAL-TIME WELLNESS FORECASTING</text>
+  </g>
+</svg>

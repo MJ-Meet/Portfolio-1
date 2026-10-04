@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+
+    <!-- Golden Metallic Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="25%" stop-color="#f59e0b" />
+      <stop offset="50%" stop-color="#fbbf24" />
+      <stop offset="75%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Warm Amber Radial Glow -->
+    <radialGradient id="glowRadial" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25" />
+      <stop offset="50%" stop-color="#6366f1" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Shadow for Trophy -->
+    <filter id="trophyShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000000" flood-opacity="0.6" />
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#f59e0b" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="800" height="600" fill="url(#bgGrad)" />
+
+  <!-- Radial Background Illumination -->
+  <circle cx="400" cy="270" r="340" fill="url(#glowRadial)" />
+
+  <!-- Subtle Hexagonal / Geometric Grid Accent -->
+  <g stroke="rgba(255,255,255,0.03)" stroke-width="1" fill="none">
+    <circle cx="400" cy="270" r="180" />
+    <circle cx="400" cy="270" r="230" stroke-dasharray="6,6" />
+    <circle cx="400" cy="270" r="280" />
+    <line x1="120" y1="270" x2="680" y2="270" stroke-dasharray="4,8" />
+    <line x1="400" y1="50" x2="400" y2="490" stroke-dasharray="4,8" />
+  </g>
+
+  <!-- Decorative Sparkles / Floating Stars -->
+  <g fill="#fbbf24" opacity="0.6">
+    <path d="M 230 160 Q 230 175 215 175 Q 230 175 230 190 Q 230 175 245 175 Q 230 175 230 160" />
+    <path d="M 570 150 Q 570 162 558 162 Q 570 162 570 174 Q 570 162 582 162 Q 570 162 570 150" />
+    <path d="M 210 360 Q 210 370 200 370 Q 210 370 210 380 Q 210 370 220 370 Q 210 370 210 360" opacity="0.4" />
+    <path d="M 590 350 Q 590 362 578 362 Q 590 362 590 374 Q 590 362 602 362 Q 590 362 590 350" opacity="0.4" />
+  </g>
+
+  <!-- Laurel Wreath -->
+  <g fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" opacity="0.85">
+    <!-- Left Wreath Branch -->
+    <path d="M 270 340 C 240 270, 250 180, 310 130" />
+    <!-- Left Leaves -->
+    <g fill="url(#goldGrad)" stroke="none">
+      <path d="M 275 320 C 260 315, 250 325, 255 335 C 265 335, 275 330, 275 320 Z" />
+      <path d="M 260 280 C 245 272, 235 282, 240 294 C 252 294, 260 288, 260 280 Z" />
+      <path d="M 255 235 C 240 225, 230 235, 238 248 C 250 247, 256 242, 255 235 Z" />
+      <path d="M 264 190 C 250 178, 242 188, 250 200 C 262 200, 268 195, 264 190 Z" />
+      <path d="M 285 152 C 275 140, 265 148, 272 160 C 284 162, 289 157, 285 152 Z" />
+      <path d="M 310 130 C 304 116, 292 122, 298 134 C 308 138, 312 133, 310 130 Z" />
+    </g>
+
+    <!-- Right Wreath Branch -->
+    <path d="M 530 340 C 560 270, 550 180, 490 130" />
+    <!-- Right Leaves -->
+    <g fill="url(#goldGrad)" stroke="none">
+      <path d="M 525 320 C 540 315, 550 325, 545 335 C 535 335, 525 330, 525 320 Z" />
+      <path d="M 540 280 C 555 272, 565 282, 560 294 C 548 294, 540 288, 540 280 Z" />
+      <path d="M 545 235 C 560 225, 570 235, 562 248 C 550 247, 544 242, 545 235 Z" />
+      <path d="M 536 190 C 550 178, 558 188, 550 200 C 538 200, 532 195, 536 190 Z" />
+      <path d="M 515 152 C 525 140, 535 148, 528 160 C 516 162, 511 157, 515 152 Z" />
+      <path d="M 490 130 C 496 116, 508 122, 502 134 C 492 138, 488 133, 490 130 Z" />
+    </g>
+  </g>
+
+  <!-- Central Trophy Icon & Pedestal -->
+  <g filter="url(#trophyShadow)">
+    <!-- Trophy Cup Base Stand -->
+    <path d="M 330 380 L 470 380 L 455 350 L 345 350 Z" fill="url(#goldGrad)" />
+    <rect x="320" y="380" width="160" height="20" rx="6" fill="url(#goldGrad)" />
+    <rect x="340" y="340" width="120" height="12" rx="4" fill="#d97706" />
+    
+    <!-- Trophy Cup Stem -->
+    <path d="M 382 340 L 382 300 Q 382 285 370 280 L 430 280 Q 418 285 418 300 L 418 340 Z" fill="url(#goldGrad)" />
+
+    <!-- Trophy Cup Body -->
+    <path d="M 335 170 C 335 270, 465 270, 465 170 Z" fill="url(#goldGrad)" />
+    <ellipse cx="400" cy="170" rx="65" ry="12" fill="#fef08a" />
+    <ellipse cx="400" cy="170" rx="55" ry="8" fill="#d97706" />
+
+    <!-- Trophy Handles -->
+    <!-- Left Handle -->
+    <path d="M 342 185 C 290 190, 290 255, 355 260 L 358 248 C 310 244, 310 200, 345 197 Z" fill="url(#goldGrad)" />
+    <!-- Right Handle -->
+    <path d="M 458 185 C 510 190, 510 255, 445 260 L 442 248 C 490 244, 490 200, 455 197 Z" fill="url(#goldGrad)" />
+
+    <!-- Embossed 5-Point Star on Cup Body -->
+    <polygon points="400,195 406,214 425,214 410,226 415,244 400,233 385,244 390,226 375,214 394,214" fill="#fef08a" filter="url(#softGlow)" />
+  </g>
+
+  <!-- Elegant Bottom Text Box -->
+  <g transform="translate(0, 440)">
+    <!-- Pill Tag -->
+    <g transform="translate(400, 10)">
+      <rect x="-105" y="0" width="210" height="28" rx="14" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.4)" stroke-width="1" />
+      <text x="0" y="19" font-family="'Outfit', system-ui, sans-serif" font-size="11" font-weight="800" fill="#fbbf24" letter-spacing="2" text-anchor="middle">AWARD &amp; RECOGNITION</text>
+    </g>
+
+    <!-- Main Title -->
+    <text x="400" y="72" font-family="'Outfit', system-ui, sans-serif" font-size="26" font-weight="800" fill="#f8fafc" text-anchor="middle" letter-spacing="-0.5">
+      Excellence &amp; Achievement
+    </text>
+
+    <!-- Subtitle -->
+    <text x="400" y="98" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="14" font-weight="500" fill="#94a3b8" text-anchor="middle">
+      Competition Honors · Competitive Awards · Verified Accolades
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,150 @@
+[
+  {
+    "id": "cert_oracle_oci",
+    "title": "Oracle Cloud Infrastructure 2025 Certified Generative AI Professional",
+    "issuer": "Oracle University",
+    "date": "October 03, 2025",
+    "badge": "Oracle Certified Professional",
+    "credentialId": "322786393OCI25GAIOCP",
+    "category": "Generative AI",
+    "description": "Official Oracle Certified Professional Certificate of Recognition issued by Oracle University (Damien Carey, SVP). Validates expertise in deploying and managing generative AI, large language models, RAG architectures, and AI services on Oracle Cloud Infrastructure (OCI).",
+    "image": "assets/certificates/oracle-genai-professional.png",
+    "verification": "https://catalog-education.oracle.com/ords/certview/sharebadge?id=722CF0E594D59A80B867A0ABD461CB9733A4FA4277C25C1011D580C9C787A90A",
+    "skills": [
+      "Oracle Cloud Infrastructure",
+      "OCI Generative AI Service",
+      "LLMs",
+      "RAG"
+    ]
+  },
+  {
+    "id": "cert_sap_sac",
+    "title": "Data Analyst — SAP Analytics Cloud (Certified)",
+    "issuer": "SAP",
+    "date": "2026",
+    "badge": "SAP Certified",
+    "credentialId": "Credly Badge: 8c96f125-fa5d-42bd-8d24-d9d2fedd29fa",
+    "category": "Data Analytics",
+    "description": "Industry-recognized certification validating professional competency in SAP Analytics Cloud, covering data modeling, story creation, predictive analytics, executive dashboards, and planning.",
+    "image": "assets/certificates/sap-analytics-cloud.png",
+    "verification": "https://www.credly.com/badges/8c96f125-fa5d-42bd-8d24-d9d2fedd29fa",
+    "skills": [
+      "SAP Analytics Cloud",
+      "Data Modeling",
+      "Predictive Analytics",
+      "Planning & Forecasting"
+    ]
+  },
+  {
+    "id": "cert_udemy_python",
+    "title": "100 Days of Code: The Complete Python Pro Bootcamp",
+    "issuer": "Udemy (Dr. Angela Yu)",
+    "date": "July 8, 2025",
+    "badge": "Python Mastery (56.5 Hours)",
+    "credentialId": "UC-8b864c05-2107-4579-8844-94c430416f10",
+    "category": "Programming",
+    "description": "Comprehensive 56.5-hour mastery bootcamp covering Python from core data structures to advanced automation, data science, web development, and algorithmic problem-solving.",
+    "image": "assets/certificates/udemy-python-bootcamp.png",
+    "verification": "https://ude.my/UC-8b864c05-2107-4579-8844-94c430416f10",
+    "skills": [
+      "Python",
+      "Algorithms",
+      "Object-Oriented Programming",
+      "Data Science"
+    ]
+  },
+  {
+    "id": "cert_hp_life_ai",
+    "title": "AI for Beginners",
+    "issuer": "HP LIFE (HP Foundation)",
+    "date": "August 11, 2025",
+    "badge": "HP Certified",
+    "credentialId": "f20137f8-cd75-470f-ae9a-0938c9414660",
+    "category": "Artificial Intelligence",
+    "description": "Accredited by the HP Foundation. Covers core concepts of artificial intelligence, ethical AI considerations, data importance in AI, and enterprise applications of machine intelligence.",
+    "image": "assets/certificates/hp-life-ai-beginners.png",
+    "verification": "https://www.life-global.org",
+    "skills": [
+      "Artificial Intelligence",
+      "AI Ethics",
+      "Data for AI",
+      "Enterprise AI"
+    ]
+  },
+  {
+    "id": "cert_decodelabs_da",
+    "title": "Virtual Internship — Data Analytics",
+    "issuer": "DecodeLabs",
+    "date": "July 11, 2026",
+    "badge": "Global Internship Credential",
+    "credentialId": "DA073781",
+    "category": "Data Analytics",
+    "description": "Completed virtual internship program in Data Analytics, demonstrating dedication, consistency, and hands-on problem-solving across real-world datasets and collaborative analytics tasks (June 10 – July 10, 2026).",
+    "image": "assets/certificates/decodelabs-data-analytics.png",
+    "verification": "",
+    "skills": [
+      "Data Analytics",
+      "Problem Solving",
+      "Exploratory Data Analysis",
+      "Collaborative Analytics"
+    ]
+  },
+  {
+    "id": "cert_edunet_ibm",
+    "title": "Emerging Technologies Internship (Agentic AI & Quantum Computing)",
+    "issuer": "Edunet Foundation × AICTE × IBM SkillsBuild",
+    "date": "July 10, 2026",
+    "badge": "IBM SkillsBuild & AICTE",
+    "credentialId": "STU69469aed276691766234861",
+    "category": "Emerging Technologies",
+    "description": "Successfully completed 4-week internship in Emerging Technologies (Agentic AI, Cyber Security, and Quantum Computing), leveraging IBM SkillsBuild, IBM Cloud and IBM BoB (12th June – 10th July 2026).",
+    "image": "assets/certificates/edunet-ibm-internship.png",
+    "verification": "https://www.edunetfoundation.org",
+    "skills": [
+      "Agentic AI",
+      "IBM Cloud",
+      "IBM SkillsBuild",
+      "Cyber Security",
+      "Quantum Computing"
+    ]
+  },
+  {
+    "id": "cert_tata_genai",
+    "title": "GenAI Powered Data Analytics Job Simulation",
+    "issuer": "Tata | Forage",
+    "date": "August 15, 2025",
+    "badge": "Tata Verified Simulation",
+    "credentialId": "Enrolment: GzDuLeeY4PRuPKRbT | User: Gho7CJibJnMAYsMxk",
+    "category": "Data Science",
+    "description": "Completed practical enterprise tasks in exploratory data analysis and risk profiling, predicting delinquency with AI, business reporting & data storytelling for collections strategy, and implementing an AI-driven collections strategy (Tom Brunskill, CEO Forage).",
+    "image": "assets/certificates/tata-genai-analytics.png",
+    "verification": "https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/ifobHAoMjQs9s6bKS/gMTdCXwDdLYoXZ3wG_ifobHAoMjQs9s6bKS_Gho7CJibJnMAYsMxk_1755238859049_completion_certificate.pdf",
+    "skills": [
+      "Generative AI",
+      "Risk Profiling",
+      "Predicting Delinquency with AI",
+      "Data Storytelling",
+      "AI Collections Strategy"
+    ]
+  },
+  {
+    "id": "cert_myjobgrow_iitb",
+    "title": "Web Development Internship & Project Completion",
+    "issuer": "My Job Grow × Techfest (IIT Bombay)",
+    "date": "January 22, 2025",
+    "badge": "IIT Bombay Techfest Partner",
+    "credentialId": "MJG1124WEBD196",
+    "category": "Web Development",
+    "description": "Certificate of Internship completion issued for outstanding achievement in Web Development. Recognizes successful completion of internship and advanced projects in collaboration with Techfest (Annual Science & Technology festival of IIT Bombay).",
+    "image": "assets/certificates/myjobgrow-techfest-iitbombay.png",
+    "verification": "",
+    "skills": [
+      "Web Development",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "Frontend Engineering",
+      "Advanced Projects"
+    ]
+  }
+]

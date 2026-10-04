@@ -69,6 +69,8 @@
           <li class="nav-item"><a class="nav-link nav-link-custom" href="#projects">Projects</a></li>
           <li class="nav-item"><a class="nav-link nav-link-custom" href="#experience">Experience</a></li>
           <li class="nav-item"><a class="nav-link nav-link-custom" href="#certificates">Certificates</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#journey">Journey</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#achievements">Achievements</a></li>
           <li class="nav-item"><a class="nav-link nav-link-custom" href="#contact">Contact</a></li>
         </ul>
       </div>
@@ -455,31 +457,13 @@
   <section id="experience" class="py-5">
     <div class="container">
       <div class="text-center mb-5">
-        <span class="section-tag">Career &amp; Learning</span>
-        <h2 class="section-title">Experience &amp; Milestones</h2>
-        <p class="section-subtitle">Real-world internship experiences, key technological breakthroughs, and academic progress.</p>
+        <span class="section-tag">Career &amp; Practical Work</span>
+        <h2 class="section-title">Internship Experience</h2>
+        <p class="section-subtitle">Real-world engineering internships across web architecture, agentic AI, and data analytics.</p>
       </div>
 
-      <div class="row g-4 g-lg-5">
-        <!-- Experience Column -->
-        <div class="col-lg-6">
-          <h3 class="fw-bold mb-4 fs-4 d-flex align-items-center gap-2">
-            <i class="bi bi-briefcase-fill text-primary"></i> Practical Experience
-          </h3>
-          <div id="experienceContainer">
-            <!-- Rendered dynamically via app.js -->
-          </div>
-        </div>
-
-        <!-- Milestones Timeline Column -->
-        <div class="col-lg-6">
-          <h3 class="fw-bold mb-4 fs-4 d-flex align-items-center gap-2">
-            <i class="bi bi-clock-history text-secondary"></i> Growth Timeline
-          </h3>
-          <div id="timelineContainer" class="timeline-modern">
-            <!-- Rendered dynamically via app.js -->
-          </div>
-        </div>
+      <div id="experienceContainer" class="row g-4">
+        <!-- Rendered dynamically via app.js -->
       </div>
     </div>
   </section>
@@ -516,13 +500,76 @@
           <div class="rounded-4 overflow-hidden border mb-3" style="border-color: var(--border-color) !important;">
             <img id="modalCertImage" src="" alt="Certificate" class="w-100 h-auto" />
           </div>
-          <div class="small text-muted"><i class="bi bi-calendar3 me-1"></i> Issued: <span id="modalCertDate">2024</span></div>
+          <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap small text-muted">
+            <div><i class="bi bi-calendar3 me-1"></i> Issued: <span id="modalCertDate">2024</span></div>
+            <div id="modalCertIdWrapper" style="display:none;"><i class="bi bi-patch-check-fill me-1 text-primary"></i> ID: <span id="modalCertId" class="font-monospace fw-bold text-primary"></span></div>
+          </div>
         </div>
         <div class="modal-footer border-top d-flex justify-content-between" style="border-color: var(--border-color) !important;">
           <button type="button" class="btn btn-modern-outline btn-sm" data-bs-dismiss="modal">Close</button>
           <a id="modalCertVerification" href="#" target="_blank" class="btn btn-modern-primary btn-sm">
             <i class="bi bi-shield-check me-1"></i> Verify Credential
           </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LEARNING JOURNEY SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="journey" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="journey-badge-pill">JOURNEY</span>
+        <h2 class="section-title mt-2 mb-2">Learning Journey</h2>
+        <div class="journey-title-bar"></div>
+      </div>
+
+      <div class="journey-timeline-wrapper">
+        <div id="journeyTimelineContainer" class="journey-timeline">
+          <!-- Rendered dynamically via app.js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       ACHIEVEMENTS & AWARDS SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="achievements" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-tag">Recognition</span>
+        <h2 class="section-title">Awards &amp; Achievements</h2>
+        <p class="section-subtitle">Hackathon excellence awards, competitive trophies, and honors earned across engineering &amp; AI challenges.</p>
+      </div>
+
+      <div id="achievementsContainer">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievement Image Preview Modal -->
+  <div class="modal fade" id="achievementModal" tabindex="-1" aria-labelledby="modalAchTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content card-modern border-0">
+        <div class="modal-header border-bottom" style="border-color: var(--border-color) !important;">
+          <div>
+            <span id="modalAchBadge" class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill px-3 py-1 mb-1">Award</span>
+            <h5 class="modal-title fw-bold" id="modalAchTitle">Achievement</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4 text-center">
+          <div class="rounded-4 overflow-hidden border mb-3 bg-dark-subtle d-flex align-items-center justify-content-center" style="border-color: var(--border-color) !important; min-height: 300px; max-height: 600px;">
+            <img id="modalAchImage" src="" alt="Achievement Preview" class="w-100 h-auto object-fit-contain" style="max-height: 580px;" />
+          </div>
+          <p id="modalAchCaption" class="text-muted small mb-0"></p>
+        </div>
+        <div class="modal-footer border-top" style="border-color: var(--border-color) !important;">
+          <button type="button" class="btn btn-modern-outline btn-sm" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -652,12 +699,15 @@
         Computer Science Student specializing in Artificial Intelligence, Machine Learning, and Data Analytics. Passionate about building intelligent systems.
       </p>
 
-      <div class="d-flex justify-content-center gap-3 mb-4">
+      <div class="d-flex justify-content-center gap-3 mb-4 flex-wrap">
         <a href="#home" class="text-muted small text-decoration-none">Home</a>
         <a href="#about" class="text-muted small text-decoration-none">About</a>
         <a href="#skills" class="text-muted small text-decoration-none">Skills</a>
         <a href="#projects" class="text-muted small text-decoration-none">Projects</a>
+        <a href="#experience" class="text-muted small text-decoration-none">Experience</a>
         <a href="#certificates" class="text-muted small text-decoration-none">Certificates</a>
+        <a href="#journey" class="text-muted small text-decoration-none">Journey</a>
+        <a href="#achievements" class="text-muted small text-decoration-none">Achievements</a>
         <a href="#contact" class="text-muted small text-decoration-none">Contact</a>
       </div>
 

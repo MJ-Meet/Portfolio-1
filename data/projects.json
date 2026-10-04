@@ -1,0 +1,219 @@
+[
+  {
+    "id": "proj_mechmind",
+    "title": "MechMind — AI-Powered Industrial Reliability Copilot",
+    "category": "AI/ML",
+    "badge": "IBM watsonx.ai & FastAPI",
+    "shortDescription": "Industrial reliability copilot powered by IBM watsonx.ai (Granite-8b) and Python FastAPI for equipment troubleshooting and OEM technical document analysis.",
+    "fullDescription": "MechMind is an AI-powered industrial reliability copilot engineered with Python FastAPI and IBM watsonx.ai foundation models (Granite-8b). It empowers reliability engineers to troubleshoot complex equipment failures, parse OEM operating manuals, and generate actionable root-cause analysis with high-accuracy context-aware reasoning.",
+    "technologies": [
+      "Python",
+      "FastAPI",
+      "IBM watsonx.ai",
+      "Granite-8b",
+      "Docker",
+      "REST API",
+      "Tailwind / HTML5"
+    ],
+    "image": "assets/projects/mechmind.png",
+    "github": "https://github.com/MJ-Meet/Mech-Mind-Agent",
+    "demo": "https://mech-mind-agent.vercel.app/",
+    "date": "2025",
+    "featured": true,
+    "highlights": [
+      "Integrated with IBM watsonx.ai Granite-8b foundation models for domain-specific industrial reasoning",
+      "Built high-performance async REST API with Python FastAPI and session-scoped OEM document parsing",
+      "Live deployment on Vercel with modern slate-dark interactive UI and responsive client architecture"
+    ]
+  },
+  {
+    "id": "proj_brain_tumor",
+    "title": "NeuroScan AI — Brain Tumor Detection",
+    "category": "AI/ML",
+    "badge": "EfficientNet-B0 & TensorFlow",
+    "shortDescription": "End-to-end deep learning clinical screening pipeline for binary tumour classification from 3,846 axial brain MRI scans using EfficientNet-B0 and Streamlit.",
+    "fullDescription": "NeuroScan AI is a clinical deep learning pipeline for binary tumour classification from 3,846 YOLO-annotated axial brain MRI scans. Features rigorous statistical hypothesis testing (Mann-Whitney U, Chi-square, Levene), fine-tuned EfficientNet-B0 backbone with learning rate scheduling, Grad-CAM interpretability heatmaps, and a real-time Streamlit clinical screening portal with radial confidence gauges.",
+    "technologies": [
+      "Python",
+      "TensorFlow 2",
+      "EfficientNet-B0",
+      "Computer Vision",
+      "Streamlit",
+      "Statistical Analysis",
+      "Grad-CAM"
+    ],
+    "image": "assets/projects/brain-tumor.png",
+    "github": "https://github.com/MJ-Meet/Brain-Tumor-Detection",
+    "demo": "",
+    "date": "2025",
+    "featured": true,
+    "highlights": [
+      "Fine-tuned EfficientNet-B0 on 3,846 axial brain MRI scans with learning rate scheduling and early stopping",
+      "Conducted statistical data validation including Mann-Whitney U, Chi-squared, and Levene tests",
+      "Engineered an interactive Streamlit clinical screening portal with radial gauge risk assessment",
+      "Implemented Grad-CAM explainability heatmaps for transparent clinical AI decision-making"
+    ]
+  },
+  {
+    "id": "proj_waveform",
+    "title": "Waveform — Offline Audiophile Music Player",
+    "category": "Web Development",
+    "badge": "React Native & Expo SDK 57",
+    "shortDescription": "A premium offline music player built with React Native, Expo SDK 57, TypeScript, SQLite persistent caching, and dark glassmorphic UI.",
+    "fullDescription": "Waveform is a premium, fully offline mobile audio player engineered with React Native, Expo SDK 57, and TypeScript for audiophiles. Features dark glassmorphic design language, smooth gesture-driven seeking, animated waveform visualization, Zustand state management, lock-screen media controls via Expo Audio, and high-performance SQLite caching for large audio libraries.",
+    "technologies": [
+      "React Native",
+      "Expo SDK 57",
+      "TypeScript",
+      "SQLite",
+      "Zustand",
+      "Expo Audio",
+      "Expo Haptics"
+    ],
+    "image": "assets/projects/waveform.png",
+    "github": "https://github.com/MJ-Meet/Waveform-MusicPlayer",
+    "demo": "",
+    "date": "2025",
+    "featured": true,
+    "highlights": [
+      "Architected service-oriented playback engine utilizing React Native, TypeScript, and Expo SDK 57",
+      "Embedded high-performance SQLite database caching for instant audio library indexing",
+      "Built OS-level lock screen media bindings and background audio playback with Expo Audio",
+      "Crafted dark glassmorphic interface with tactile Expo Haptics feedback and gesture seeking"
+    ]
+  },
+  {
+    "id": "proj_iris",
+    "title": "Iris Flower Classification Pipeline",
+    "category": "Machine Learning",
+    "badge": "ML Pipeline & scikit-learn",
+    "shortDescription": "Complete machine learning pipeline implementing KNN and Decision Tree classifiers with cross-validation and evaluation metrics.",
+    "fullDescription": "A complete machine learning classification pipeline benchmarking classic algorithms (K-Nearest Neighbors and Decision Trees) on morphological flower features. Includes comprehensive exploratory data analysis, pairwise feature distributions with Seaborn, hyperparameter tuning, and cross-validated ROC/AUC performance matrices.",
+    "technologies": [
+      "Python",
+      "scikit-learn",
+      "Pandas",
+      "Matplotlib",
+      "Seaborn",
+      "Machine Learning"
+    ],
+    "image": "assets/projects/iris.png",
+    "github": "https://github.com/MJ-Meet/Iris-Dataset",
+    "demo": "",
+    "date": "2024",
+    "featured": false,
+    "highlights": [
+      "Comparative machine learning implementation evaluating KNN vs Decision Trees",
+      "Exploratory data analysis with pairplots, violin plots, and correlation matrices",
+      "Achieved high classification accuracy with cross-validation and hyperparameter tuning"
+    ]
+  },
+  {
+    "id": "proj_smart_sales",
+    "title": "Smart Sales Lead Prioritization System (AI CRM V2)",
+    "category": "AI/ML",
+    "badge": "Flask & Celery AI CRM",
+    "shortDescription": "AI-powered CRM platform to intelligently score, prioritize, and manage sales leads with interactive Kanban pipeline and background workers.",
+    "fullDescription": "An enterprise AI CRM platform designed to predict lead conversion probabilities and streamline B2B sales pipelines. Combines Flask REST backend, Celery & Redis background task workers, PostgreSQL database, and an interactive drag-and-drop Kanban board with modern glassmorphism styling.",
+    "technologies": [
+      "Python",
+      "Flask",
+      "Celery",
+      "Redis",
+      "PostgreSQL",
+      "Machine Learning",
+      "JavaScript"
+    ],
+    "image": "assets/projects/smart-sales.png",
+    "github": "https://github.com/MJ-Meet/Smart-Sales-Lead-Prioritization-System",
+    "demo": "",
+    "date": "2025",
+    "featured": false,
+    "highlights": [
+      "AI-driven lead scoring algorithm dynamically evaluating lead conversion probability",
+      "Interactive drag-and-drop Kanban pipeline board for multi-stage lead management",
+      "Asynchronous background task processing using Celery and Redis message queues",
+      "Executive sales dashboard analytics tracking conversion rates and rep activities"
+    ]
+  },
+  {
+    "id": "proj_life_pattern",
+    "title": "Life Pattern Detector — Behavioral Cycle & Burnout Prediction",
+    "category": "Machine Learning",
+    "badge": "Behavioral ML & n8n",
+    "shortDescription": "Production-grade personal life pattern detection system that discovers hidden behavioural cycles and predicts burnout using machine learning.",
+    "fullDescription": "An interpretable machine learning system that tracks daily habits (sleep, deep work, mood, energy, stress) to discover hidden life cycles, predict burnout risks before they happen, and cluster similar behavioral routines into actionable insights. Features automated webhooks via n8n for real-time notifications.",
+    "technologies": [
+      "Python",
+      "Machine Learning",
+      "Clustering",
+      "n8n Automation",
+      "SQLite",
+      "Data Science"
+    ],
+    "image": "assets/projects/life-pattern.svg",
+    "github": "https://github.com/MJ-Meet/life-pattern-detector",
+    "demo": "",
+    "date": "2025",
+    "featured": false,
+    "highlights": [
+      "Multi-layer intelligence tracking 7-day to 21-day behavioral patterns and cycles",
+      "Unsupervised clustering grouping daily routines into identifiable 'life loops'",
+      "Predictive burnout risk calculation with automated alert triggers via n8n webhooks",
+      "Interpretable ML outputs converting raw feature vectors into human-readable advice"
+    ]
+  },
+  {
+    "id": "proj_dataviz_toolkit",
+    "title": "Multimodal Data Analysis & Visualization Toolkit",
+    "category": "Data Analytics",
+    "badge": "Image & Text Analytics",
+    "shortDescription": "Practical analytics toolkit combining image dominant color extraction, text mining, sentiment scoring, and relational database storage.",
+    "fullDescription": "A comprehensive data analysis toolkit that processes multimodal data sources. Combines computer vision image color profiling using extcolors, review text mining for frequency distributions, and lexicon-based sentiment scoring. Stores all structured outputs into relational Microsoft Access databases with interactive Jupyter notebooks and visual dashboard exports.",
+    "technologies": [
+      "Python",
+      "extcolors",
+      "Matplotlib",
+      "Microsoft Access / SQL",
+      "NLP",
+      "Jupyter Notebook"
+    ],
+    "image": "assets/projects/dataviz.png",
+    "github": "https://github.com/MJ-Meet/Data-Visualization-Project",
+    "demo": "",
+    "date": "2024",
+    "featured": false,
+    "highlights": [
+      "Automated dominant color extraction and palette profiling from image metadata",
+      "Text mining and lexicon-based sentiment analysis pipelines for customer reviews",
+      "Structured relational storage in Access database with query helpers and notebooks"
+    ]
+  },
+  {
+    "id": "proj_bushido",
+    "title": "Bushido: Ultimate Showdown — 2D Fighting Game",
+    "category": "Web Development",
+    "badge": "Canvas Engine & Flask",
+    "shortDescription": "Browser-based 2D fighting game featuring 35 unique playable characters, smooth HTML5 canvas physics animations, and Python Flask backend.",
+    "fullDescription": "A full-featured browser-based 2D combat game featuring 35 unique characters across warriors, ninjas, sorcerers, and cyborgs. Powered by a custom JavaScript canvas physics engine with fluid sprite animations, hitboxes, particle systems, combo mechanics, two-player local mode, and a Python/Flask REST backend.",
+    "technologies": [
+      "JavaScript",
+      "HTML5 Canvas",
+      "Python",
+      "Flask",
+      "REST API",
+      "Physics Engine"
+    ],
+    "image": "assets/projects/bushido.png",
+    "github": "https://github.com/MJ-Meet/Bushido-ultimate-showdown",
+    "demo": "",
+    "date": "2024",
+    "featured": false,
+    "highlights": [
+      "Custom JavaScript game engine with 60 FPS requestAnimationFrame canvas rendering",
+      "Roster of 35 distinct playable characters with unique combat moves, hitboxes, and particle effects",
+      "Two-player local duel mode with keyboard input handling and real-time collision detection",
+      "Python/Flask backend serving game state, character stats, and leaderboard endpoints"
+    ]
+  }
+]
