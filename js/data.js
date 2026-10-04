@@ -22,8 +22,8 @@ const PORTFOLIO_DATA = {
     phone: "+91 98765 43210",
     github: "https://github.com/MJ-Meet",
     linkedin: "https://linkedin.com/in/meetjethawa",
-    resume: "assets/resume/resume.pdf",
-    profileImage: "assets/images/profile.jpg",
+    resume: "assets/resume/MJ_Resume.pdf",
+    profileImage: "assets/images/meet.png",
     currentFocus: "Generative AI, Large Language Models (LLMs) & Agentic AI",
     heroTagline: "Engineering the Future with AI, Machine Learning & Data Intelligence",
     typingPhrases: [

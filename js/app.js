@@ -104,7 +104,7 @@ function renderHero(profile) {
   if ($("brandName")) $("brandName").textContent = profile.shortName || "MJ";
 
   // Resume buttons
-  const resumeUrl = profile.resume || "assets/resume/resume.pdf";
+  const resumeUrl = profile.resume || "assets/resume/MJ_Resume.pdf";
   ["navResumeBtn", "heroResumeBtn", "aboutResumeBtn"].forEach((id) => {
     const btn = $(id);
     if (btn) {
@@ -121,7 +121,7 @@ function renderHero(profile) {
   // Avatar Image with Fallback to SVG
   const avatarImg = $("heroAvatarImg");
   if (avatarImg) {
-    avatarImg.src = profile.profileImage || "assets/images/profile.jpg";
+    avatarImg.src = profile.profileImage || "assets/images/meet.png";
     avatarImg.onerror = function () {
       this.src = "assets/images/profile-placeholder.svg";
     };

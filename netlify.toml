@@ -3,7 +3,7 @@
 
 [[redirects]]
   from = "/resume"
-  to = "/assets/resume/resume.pdf"
+  to = "/assets/resume/MJ_Resume.pdf"
   status = 200
 
 [[redirects]]

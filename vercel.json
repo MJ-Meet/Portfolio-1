@@ -4,7 +4,7 @@
   "rewrites": [
     {
       "source": "/resume",
-      "destination": "/assets/resume/resume.pdf"
+      "destination": "/assets/resume/MJ_Resume.pdf"
     }
   ]
 }
