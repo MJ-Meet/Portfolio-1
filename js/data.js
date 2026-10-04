@@ -1,256 +1,279 @@
 /**
  * data.js — Personal Portfolio Data for Meet Jethawa (MJ)
  * Computer Science Student | AI/ML | Data Analytics
- *
- * Update your information, projects, skills, and certificates directly here.
- * Files (photos, resume, certificate scans, project screenshots) go in the /assets folder.
+ * Updated with exact details from MJ_Resume.pdf
  */
 
 const PORTFOLIO_DATA = {
   profile: {
     name: "Meet Jethawa",
     shortName: "MJ",
-    title: "Meet Jethawa — AI/ML & Data Science Portfolio",
-    headline: "Computer Science Student | AI/ML | Data Analytics",
-    heroBadge: "✨ Available for AI/ML & Data Internships",
-    bio: "I'm a passionate Computer Science student specializing in Artificial Intelligence, Machine Learning, and Data Analytics. I love building intelligent software systems that turn raw data into actionable insights and deploying autonomous AI agents.",
-    aboutText: "I am a dedicated Computer Science undergraduate with a deep focus on machine learning algorithms, deep learning models, data exploration, and intelligent systems. Through hands-on projects and virtual internships with organizations like IBM and Edunet Foundation, I have developed expertise in building NLP summarizers, predictive analytics models, and agentic workflows.",
-    careerObjective: "To leverage artificial intelligence, machine learning, and advanced analytics to solve high-impact, real-world problems while continuously expanding my technical mastery in Generative AI, LLMs, and intelligent autonomous agents.",
-    education: "B.Tech / B.Sc. in Computer Science (Ongoing)",
-    location: "Gujarat, India",
+    title: "Meet Jethawa — Generative AI & Data Analytics Portfolio",
+    headline: "Computer Science Undergraduate | Generative AI | Data Analytics | Cloud Infrastructure",
+    heroBadge: "✨ Oracle & SAP Certified | Generative AI & Cloud",
+    bio: "Motivated Computer Science undergraduate at Indus University with hands-on expertise in Data Analytics, Generative AI, RAG Architectures, and Cloud Infrastructure. Certified by Oracle, SAP, and Tata in AI-powered analytics and enterprise cloud platforms.",
+    aboutText: "I am a Computer Science student at Indus University with deep practical focus on Generative AI, Large Language Models (LLMs), Retrieval-Augmented Generation (RAG), and Business Intelligence. I have earned industry credentials from Oracle, SAP, and Tata, and developed enterprise-grade prototypes spanning RAG chatbots on Oracle Cloud Infrastructure (OCI) and automated data storytelling with SAP Analytics Cloud.",
+    careerObjective: "Seeking a software engineering or data-focused internship role at leading technology organizations to build intelligent systems, scale generative AI architectures, and apply analytical problem-solving at scale.",
+    education: "B.Tech in Computer Science and Engineering — Indus University (2024 – 2028)",
+    location: "Ahmedabad, Gujarat, India",
     email: "meetjethava07@gmail.com",
-    phone: "+91 98765 43210",
+    phone: "+91 83208 40035",
     github: "https://github.com/MJ-Meet",
-    linkedin: "https://linkedin.com/in/meetjethawa",
+    linkedin: "https://linkedin.com/in/meet-jethawa",
     resume: "assets/resume/MJ_Resume.pdf",
     profileImage: "assets/images/meet.png",
-    currentFocus: "Generative AI, Large Language Models (LLMs) & Agentic AI",
-    heroTagline: "Engineering the Future with AI, Machine Learning & Data Intelligence",
+    currentFocus: "RAG Architecture, OCI Generative AI, SAP Analytics Cloud & Agentic Systems",
+    heroTagline: "Engineering the Future with Generative AI, Cloud Infrastructure & Data Analytics",
     typingPhrases: [
-      "AI & Machine Learning Enthusiast",
-      "Data Analytics & Insights Explorer",
-      "Python & Deep Learning Developer",
-      "Agentic AI & LLMs Explorer",
-      "Computer Science Student"
+      "Generative AI & LLMs Developer",
+      "Oracle Certified OCI GenAI Professional",
+      "SAP Certified Data Analyst",
+      "RAG Architecture & Prompt Engineer",
+      "Computer Science Student @ Indus University"
     ],
     stats: {
       projectsCount: 5,
-      skillsCount: 15,
-      certificatesCount: 3,
+      skillsCount: 16,
+      certificatesCount: 5,
       experienceCount: 1
     }
   },
 
   projects: [
     {
+      id: "proj_rag_chatbot",
+      title: "RAG-Based Intelligent Chatbot",
+      category: "AI/ML",
+      badge: "Oracle OCI GenAI",
+      shortDescription: "Enterprise Retrieval-Augmented Generation (RAG) chatbot built on Oracle Cloud Infrastructure Generative AI Service with vector database retrieval.",
+      fullDescription: "Architected and deployed an enterprise Retrieval-Augmented Generation (RAG) chatbot using the Oracle Cloud Infrastructure (OCI) Generative AI Service. Integrated high-dimensional vector databases for sub-second semantic retrieval across technical documents, optimized prompt chaining to reduce hallucinations by 40%, and built a scalable architecture supporting 100+ concurrent queries.",
+      technologies: ["Python", "Oracle Cloud (OCI)", "OCI GenAI Service", "LLMs", "RAG", "Vector Databases", "Prompt Engineering"],
+      image: "assets/projects/project-placeholder.svg",
+      github: "https://github.com/MJ-Meet",
+      demo: "",
+      date: "2025",
+      featured: true,
+      highlights: [
+        "Deployed on Oracle Cloud Infrastructure (OCI) Generative AI Service",
+        "Integrated vector databases for semantic document search",
+        "Reduced hallucinations by 40% with advanced prompt engineering",
+        "Sub-2-second response times under 100+ concurrent user loads"
+      ]
+    },
+    {
+      id: "proj_genai_analytics",
+      title: "GenAI-Powered Data Analytics Platform",
+      category: "Data Analytics",
+      badge: "SAP Analytics Cloud",
+      shortDescription: "An AI-driven analytics solution combining Python and SAP Analytics Cloud for automated insights generation and strategic forecasting.",
+      fullDescription: "Developed an AI-driven analytics platform leveraging generative AI for automated data storytelling, KPI correlation, and natural language summary generation. Integrated with SAP Analytics Cloud (SAC) to produce interactive visual dashboards, predictive models, and planning workflows, reducing manual analysis time by 60%.",
+      technologies: ["Python", "SAP Analytics Cloud", "Generative AI", "Predictive Analytics", "Data Storytelling"],
+      image: "assets/projects/project-placeholder.svg",
+      github: "https://github.com/MJ-Meet",
+      demo: "",
+      date: "2025",
+      featured: true,
+      highlights: [
+        "Reduced manual reporting time by 60% with automated AI storytelling",
+        "Constructed predictive models and planning workflows in SAP Analytics Cloud",
+        "Designed executive KPI monitoring dashboards for strategic decision-making"
+      ]
+    },
+    {
+      id: "proj_sac_dashboard",
+      title: "Enterprise Data Analytics Dashboard",
+      category: "Data Analytics",
+      badge: "Business Intelligence",
+      shortDescription: "Interactive multi-dimensional data dashboards with drill-down capabilities for business KPI monitoring using SAP Analytics Cloud.",
+      fullDescription: "Designed and built interactive data dashboards with comprehensive drill-down capabilities for monitoring mission-critical business KPIs. Applied advanced data modeling, story-creation techniques, and dimension hierarchy structures to transform raw enterprise datasets into actionable visual insights.",
+      technologies: ["SAP Analytics Cloud", "Data Modeling", "Business Intelligence", "KPI Monitoring", "Data Visualization"],
+      image: "assets/projects/project-placeholder.svg",
+      github: "https://github.com/MJ-Meet",
+      demo: "",
+      date: "2026",
+      featured: true,
+      highlights: [
+        "Interactive drill-down analytics for real-time KPI observation",
+        "Engineered robust data models and multidimensional stories",
+        "Empowered stakeholders with instant executive summaries"
+      ]
+    },
+    {
       id: "proj_mechmind",
       title: "MechMind — Agentic AI Assistant",
       category: "AI/ML",
-      badge: "Featured AI Project",
-      shortDescription: "An intelligent autonomous agent system built on IBM Watsonx ecosystem to assist mechanical engineers with rapid technical solutions.",
-      fullDescription: "MechMind is an agentic AI solution engineered using IBM Watsonx. It harnesses the power of multi-agent LLM architectures to automate troubleshooting, technical literature queries, and domain-specific engineering equations. The system utilizes semantic search, prompt chaining, and tool-augmented LLM reasoning to ensure zero hallucinations and rapid information retrieval.",
-      technologies: ["Python", "IBM Watsonx", "Agentic AI", "LangChain", "LLMs", "NLP"],
-      image: "assets/projects/mechmind.jpg",
-      github: "https://github.com/MJ-Meet/Portfolio-1",
-      demo: "https://portfolio-1-mj-meets-projects.vercel.app",
-      date: "2024",
-      featured: true,
-      highlights: [
-        "Multi-agent autonomous architecture for context-aware engineering support",
-        "Integrated with IBM Watsonx foundation models",
-        "Sub-second response time for domain technical lookups"
-      ]
-    },
-    {
-      id: "proj_life_pattern",
-      title: "Life Pattern Detector & Analytics",
-      category: "Data Analytics",
-      badge: "Data Science",
-      shortDescription: "An end-to-end data analytics platform detecting lifestyle patterns, habit anomalies, and productivity insights from multi-stream behavioral data.",
-      fullDescription: "Life Pattern Detector processes behavioral time-series data to identify correlations between sleep, daily habits, screen time, and peak productivity hours. Utilizing Pandas for heavy feature engineering and Matplotlib/Seaborn for interactive exploratory analysis, the platform produces actionable health and routine recommendations.",
-      technologies: ["Python", "Data Analytics", "Pandas", "NumPy", "Matplotlib", "Seaborn"],
-      image: "assets/projects/life-pattern.jpg",
-      github: "https://github.com/MJ-Meet/Portfolio-1",
-      demo: "https://portfolio-1-mj-meets-projects.vercel.app",
-      date: "2024",
-      featured: true,
-      highlights: [
-        "Processed high-dimensional lifestyle logs with statistical outlier detection",
-        "Generated visual insight dashboards and correlation heatmaps",
-        "Empowers users to optimize daily focus cycles and recovery"
-      ]
-    },
-    {
-      id: "proj_ai_summarizer",
-      title: "AI Note & Document Summarizer",
-      category: "AI/ML",
-      badge: "NLP System",
-      shortDescription: "A natural language processing application that transforms voluminous notes and academic papers into concise executive summaries.",
-      fullDescription: "AI Note Summarizer utilizes advanced extractive and abstractive NLP algorithms to ingest extensive lecture notes, technical PDFs, and research papers, returning structured bullet points and key takeaway highlights. Built with a clean Python backend and optimized text tokenization pipelines.",
-      technologies: ["Python", "NLP", "TextRank", "Transformers", "Streamlit/Web"],
-      image: "assets/projects/ai-summarizer.jpg",
-      github: "https://github.com/MJ-Meet/Portfolio-1",
-      demo: "https://portfolio-1-mj-meets-projects.vercel.app",
-      date: "2024",
-      featured: true,
-      highlights: [
-        "Reduces reading time by 75% while preserving critical domain context",
-        "Supports structured export in Markdown, PDF, and text formats",
-        "Handles multi-page technical documentation with keyword extraction"
-      ]
-    },
-    {
-      id: "proj_campus_go",
-      title: "Campus Go — Interactive Portal",
-      category: "Web Development",
-      badge: "Web App",
-      shortDescription: "A modern, responsive campus navigation and resource discovery hub designed for university students, faculty, and visitors.",
-      fullDescription: "Campus Go delivers an intuitive student-centric interface for campus facility directories, real-time event discovery, and student club portals. Engineered with high-performance semantic HTML5, modern CSS3 animations, and Bootstrap 5 for seamless accessibility across smartphones and desktops.",
-      technologies: ["HTML5", "CSS3", "JavaScript", "Bootstrap 5", "Responsive UI"],
-      image: "assets/projects/campus-go.jpg",
-      github: "https://github.com/MJ-Meet/Portfolio-1",
-      demo: "https://portfolio-1-mj-meets-projects.vercel.app",
+      badge: "Agentic AI",
+      shortDescription: "An intelligent autonomous agent system engineered to assist engineers with rapid technical solutions and automated reasoning.",
+      fullDescription: "MechMind is an agentic AI solution leveraging foundation models and autonomous multi-agent pipelines to assist users with technical problem-solving, engineering formula lookups, and literature queries.",
+      technologies: ["Python", "Agentic AI", "LLMs", "LangChain", "NLP"],
+      image: "assets/projects/project-placeholder.svg",
+      github: "https://github.com/MJ-Meet",
+      demo: "",
       date: "2024",
       featured: false,
       highlights: [
-        "Fully responsive mobile-first architecture",
-        "Dynamic search and categorised facility filtering",
-        "Instant event schedule lookup"
+        "Autonomous multi-agent architecture for context-aware support",
+        "Sub-second lookup for domain-specific engineering workflows"
       ]
     },
     {
-      id: "proj_iris_classification",
-      title: "Iris Classification & ML Benchmark",
+      id: "proj_iris_benchmark",
+      title: "Machine Learning Benchmarking Suite",
       category: "Machine Learning",
-      badge: "ML Benchmark",
-      shortDescription: "A machine learning benchmarking suite comparing Decision Trees, SVM, KNN, and Logistic Regression with cross-validation.",
-      fullDescription: "A comprehensive machine learning implementation exploring feature correlations, hyperparameter tuning, and decision boundaries across multi-class datasets. Evaluates precision, recall, F1-scores, and confusion matrices to compare linear versus non-linear algorithmic performance.",
-      technologies: ["Python", "scikit-learn", "Machine Learning", "Pandas", "Data Visualization"],
-      image: "assets/projects/iris-classification.jpg",
-      github: "https://github.com/MJ-Meet/Portfolio-1",
-      demo: "https://portfolio-1-mj-meets-projects.vercel.app",
-      date: "2023",
+      badge: "ML Suite",
+      shortDescription: "Comparative machine learning implementation evaluating Decision Trees, SVM, KNN, and Logistic Regression with cross-validation.",
+      fullDescription: "Benchmarking machine learning algorithms across classification metrics including precision, recall, F1-score, and confusion matrices using scikit-learn, Pandas, and Matplotlib.",
+      technologies: ["Python", "scikit-learn", "Machine Learning", "Pandas", "Matplotlib"],
+      image: "assets/projects/project-placeholder.svg",
+      github: "https://github.com/MJ-Meet",
+      demo: "",
+      date: "2024",
       featured: false,
       highlights: [
-        "Achieved 98%+ validation accuracy with optimized decision boundaries",
-        "Comparative ROC-AUC and confusion matrix visualizations",
-        "Modular scikit-learn training pipeline"
+        "Cross-validated classification models with 98%+ accuracy",
+        "Generated ROC-AUC curves and comparative evaluation matrices"
       ]
     }
   ],
 
   skills: [
-    // Programming & ML
-    { id: "sk_python", name: "Python", category: "Programming", level: "Advanced", percentage: 88, icon: "bi-filetype-py", color: "#3776ab", description: "Core language for ML algorithms, data pipelines, and automation." },
-    { id: "sk_ml", name: "Machine Learning", category: "AI & ML", level: "Intermediate", percentage: 80, icon: "bi-cpu", color: "#8b5cf6", description: "Supervised & unsupervised learning with scikit-learn, regression, classification." },
-    { id: "sk_genai", name: "Generative AI & LLMs", category: "AI & ML", level: "Exploring", percentage: 70, icon: "bi-stars", color: "#ec4899", description: "Prompt engineering, LLM integration, IBM Watsonx, and autonomous agents." },
-    { id: "sk_nlp", name: "Natural Language Processing", category: "AI & ML", level: "Intermediate", percentage: 75, icon: "bi-chat-square-quote", color: "#06b6d4", description: "Text summarization, tokenization, semantic embeddings, and analysis." },
+    // Programming Languages
+    { id: "sk_python", name: "Python", category: "Programming", level: "Advanced", percentage: 88, icon: "bi-filetype-py", color: "#3776ab", description: "Primary language for GenAI, ML algorithms, data pipelines, and automation." },
+    { id: "sk_cpp", name: "C / C++", category: "Programming", level: "Advanced", percentage: 85, icon: "bi-filetype-raw", color: "#00599c", description: "Strong foundation in data structures, algorithms, and computational efficiency." },
+    { id: "sk_java", name: "Java", category: "Programming", level: "Intermediate", percentage: 75, icon: "bi-filetype-java", color: "#e76f00", description: "Object-oriented software development and enterprise fundamentals." },
+    { id: "sk_sql", name: "SQL", category: "Programming", level: "Intermediate", percentage: 80, icon: "bi-database", color: "#0284c7", description: "Relational queries, database management, schema design, and data retrieval." },
+    { id: "sk_js", name: "JavaScript", category: "Web Development", level: "Intermediate", percentage: 75, icon: "bi-filetype-js", color: "#eab308", description: "Modern ES6+ development, DOM manipulation, asynchronous APIs." },
 
-    // Data Science & Analytics
-    { id: "sk_pandas", name: "Pandas & Data Wrangling", category: "Data Science", level: "Advanced", percentage: 85, icon: "bi-table", color: "#150458", description: "High-performance data cleaning, aggregation, transformation, and manipulation." },
-    { id: "sk_numpy", name: "NumPy", category: "Data Science", level: "Intermediate", percentage: 80, icon: "bi-calculator", color: "#4d77cf", description: "Vectorized numerical computing, matrix mathematics, and array operations." },
-    { id: "sk_dataviz", name: "Data Visualization", category: "Data Science", level: "Intermediate", percentage: 78, icon: "bi-bar-chart-line", color: "#f59e0b", description: "Storytelling with data using Matplotlib, Seaborn, and interactive charts." },
-    { id: "sk_sql", name: "SQL & Databases", category: "Data Science", level: "Intermediate", percentage: 72, icon: "bi-database", color: "#0284c7", description: "Relational database querying, joins, aggregations, and data retrieval." },
+    // AI & Generative AI
+    { id: "sk_genai", name: "Generative AI & LLMs", category: "AI & ML", level: "Advanced", percentage: 88, icon: "bi-stars", color: "#ec4899", description: "Large Language Models, OCI GenAI Service, prompt engineering, and token optimization." },
+    { id: "sk_rag", name: "RAG Architecture", category: "AI & ML", level: "Advanced", percentage: 85, icon: "bi-diagram-3", color: "#8b5cf6", description: "Retrieval-Augmented Generation, vector databases, and semantic search pipelines." },
+    { id: "sk_prompting", name: "Prompt Engineering", category: "AI & ML", level: "Advanced", percentage: 90, icon: "bi-chat-left-quote", color: "#06b6d4", description: "Chain-of-thought, few-shot prompting, and hallucination reduction techniques." },
+    { id: "sk_ml", name: "Machine Learning", category: "AI & ML", level: "Intermediate", percentage: 80, icon: "bi-cpu", color: "#6366f1", description: "Supervised and unsupervised learning, model benchmarking, and scikit-learn." },
 
-    // Web & Development
-    { id: "sk_bootstrap", name: "Bootstrap 5", category: "Web Development", level: "Advanced", percentage: 85, icon: "bi-bootstrap", color: "#7952b3", description: "Rapid, stylish, responsive modern UI styling and component architecture." },
-    { id: "sk_js", name: "JavaScript (ES6+)", category: "Web Development", level: "Intermediate", percentage: 75, icon: "bi-filetype-js", color: "#eab308", description: "Interactive client-side web applications, DOM manipulation, async APIs." },
-    { id: "sk_html_css", name: "HTML5 & Modern CSS3", category: "Web Development", level: "Advanced", percentage: 88, icon: "bi-filetype-html", color: "#e34f26", description: "Semantic markup, modern flexbox, CSS grid, glassmorphism, responsive UX." },
+    // Cloud Platforms
+    { id: "sk_oci", name: "Oracle Cloud (OCI)", category: "Cloud & Tools", level: "Certified", percentage: 85, icon: "bi-cloud-check", color: "#f80000", description: "OCI Generative AI Service, cloud compute, architecture deployment, and AI services." },
 
-    // Tools & Engineering
-    { id: "sk_git", name: "Git & Version Control", category: "Tools", level: "Intermediate", percentage: 80, icon: "bi-git", color: "#f05032", description: "Branching strategies, collaborative workflows, and code versioning." },
-    { id: "sk_github", name: "GitHub", category: "Tools", level: "Intermediate", percentage: 82, icon: "bi-github", color: "#333", description: "Open-source collaboration, repository management, and deployment pipelines." },
-    { id: "sk_cloud", name: "Cloud & Watsonx", category: "Tools", level: "Intermediate", percentage: 68, icon: "bi-cloud-check", color: "#0ea5e9", description: "Cloud computing fundamentals and IBM Watsonx cloud infrastructure." },
-    { id: "sk_algorithms", name: "Algorithms & Problem Solving", category: "Programming", level: "Intermediate", percentage: 75, icon: "bi-diagram-3", color: "#10b981", description: "Algorithmic thinking, data structures, and computational optimization." }
+    // Analytics & BI Tools
+    { id: "sk_sac", name: "SAP Analytics Cloud (SAC)", category: "Data Science", level: "Certified", percentage: 88, icon: "bi-bar-chart-steps", color: "#008fd3", description: "Data modeling, story creation, predictive analytics, planning, and forecasting." },
+    { id: "sk_dataviz", name: "Data Visualization", category: "Data Science", level: "Intermediate", percentage: 82, icon: "bi-graph-up", color: "#f59e0b", description: "Transforming raw numbers into executive visual stories and interactive charts." },
+    { id: "sk_pandas", name: "Pandas & NumPy", category: "Data Science", level: "Intermediate", percentage: 80, icon: "bi-table", color: "#150458", description: "Exploratory data analysis (EDA), data cleaning, and vectorized computation." },
+
+    // Developer Tools
+    { id: "sk_git", name: "Git & GitHub", category: "Cloud & Tools", level: "Intermediate", percentage: 82, icon: "bi-github", color: "#333", description: "Version control, collaborative workflows, and repository management." },
+    { id: "sk_rest", name: "REST APIs", category: "Cloud & Tools", level: "Intermediate", percentage: 78, icon: "bi-arrow-left-right", color: "#10b981", description: "API consumption, integration with cloud foundation models, and web services." },
+    { id: "sk_dsa", name: "Data Structures & Algorithms", category: "Programming", level: "Advanced", percentage: 84, icon: "bi-code-square", color: "#4f46e5", description: "Algorithmic problem-solving, complexity analysis, and efficient data processing." }
   ],
 
   certificates: [
     {
-      id: "cert_ibm",
-      title: "AI & Cloud Virtual Internship",
-      issuer: "IBM × Edunet Foundation",
-      date: "2024",
-      badge: "Industry Credential",
-      category: "Artificial Intelligence",
-      description: "Comprehensive virtual internship program focusing on AI fundamentals, IBM Watsonx ecosystem, cloud computing foundations, and practical agent development.",
-      image: "assets/certificates/certificate-ibm.jpg",
-      verification: "https://www.edunetfoundation.org",
-      skills: ["IBM Watsonx", "Agentic AI", "Cloud Computing", "Python"]
+      id: "cert_oracle_oci",
+      title: "Oracle Cloud Infrastructure 2025 Generative AI Professional",
+      issuer: "Oracle",
+      date: "2025",
+      badge: "Oracle Certified Professional",
+      category: "Generative AI",
+      description: "Validated professional expertise in deploying and managing generative AI solutions on Oracle Cloud Infrastructure (OCI), including large language models, AI services, and cloud-native architectures.",
+      image: "assets/certificates/certificate-placeholder.svg",
+      verification: "https://www.oracle.com",
+      skills: ["Oracle Cloud Infrastructure", "OCI Generative AI Service", "LLMs", "RAG"]
     },
     {
-      id: "cert_python_ds",
-      title: "Python for Data Science & Machine Learning",
-      issuer: "Data Science Specialization",
-      date: "2024",
-      badge: "Data Science",
+      id: "cert_sap_sac",
+      title: "SAP Certified — Data Analyst, SAP Analytics Cloud",
+      issuer: "SAP",
+      date: "2026",
+      badge: "Industry Certified",
+      category: "Data Analytics",
+      description: "Industry-recognized certification validating mastery in data modeling, story creation, predictive analytics, planning, and executive dashboard design within SAP Analytics Cloud.",
+      image: "assets/certificates/certificate-placeholder.svg",
+      verification: "https://www.sap.com",
+      skills: ["SAP Analytics Cloud", "Data Modeling", "Predictive Analytics", "Planning & Forecasting"]
+    },
+    {
+      id: "cert_tata_genai",
+      title: "Tata GenAI Powered Data Analytics Job Simulation",
+      issuer: "Tata / Forage",
+      date: "2025",
+      badge: "Job Simulation",
       category: "Data Science",
-      description: "Mastery of Python data stacks including Pandas, NumPy, scikit-learn, exploratory data analysis, data pre-processing, and predictive machine learning models.",
-      image: "assets/certificates/certificate-python.jpg",
-      verification: "",
-      skills: ["Python", "Pandas", "NumPy", "Data Analytics"]
+      description: "Completed real-world simulation involving AI-assisted data analysis, business insight generation, and presenting data-driven recommendations to enterprise stakeholders.",
+      image: "assets/certificates/certificate-placeholder.svg",
+      verification: "https://www.theforage.com",
+      skills: ["Generative AI", "Business Intelligence", "Data Analytics", "Executive Storytelling"]
     },
     {
-      id: "cert_ml_foundations",
-      title: "Machine Learning Foundations & Algorithms",
-      issuer: "AI Learning Track",
-      date: "2024",
-      badge: "Machine Learning",
-      category: "Machine Learning",
-      description: "Foundational mastery of supervised and unsupervised machine learning algorithms, model evaluation metrics, cross-validation, and decision theory.",
-      image: "assets/certificates/certificate-ml.jpg",
-      verification: "",
-      skills: ["Supervised ML", "Model Evaluation", "scikit-learn"]
+      id: "cert_sap_fundamentals",
+      title: "Data Fundamentals",
+      issuer: "SAP",
+      date: "2026",
+      badge: "Core Data",
+      category: "Data Science",
+      description: "Covered foundational concepts in modern data management, data warehousing architectures, and automated analytics pipelines.",
+      image: "assets/certificates/certificate-placeholder.svg",
+      verification: "https://www.sap.com",
+      skills: ["Data Management", "Data Warehousing", "Analytics Pipelines"]
+    },
+    {
+      id: "cert_sap_planning",
+      title: "Performing Manual Planning with SAP Analytics Cloud",
+      issuer: "SAP",
+      date: "2026",
+      badge: "Advanced Planning",
+      category: "Data Analytics",
+      description: "Hands-on professional training in building and managing multi-version planning models, version management, and data entry workflows in SAP Analytics Cloud.",
+      image: "assets/certificates/certificate-placeholder.svg",
+      verification: "https://www.sap.com",
+      skills: ["Planning Models", "Version Management", "SAP Analytics Cloud"]
     }
   ],
 
   experience: [
     {
-      id: "exp_ibm",
-      organization: "IBM × Edunet Foundation",
-      role: "AI & Cloud Intern (Virtual)",
-      period: "2024",
-      badge: "Internship",
-      location: "Virtual / Remote",
-      description: "Completed an intensive industry-led internship exploring modern Artificial Intelligence and cloud deployments. Developed MechMind, an agentic AI engineering assistant leveraging IBM Watsonx foundation models. Gained real-world insights into building autonomous multi-agent pipelines and cloud solutions.",
-      skills: ["IBM Watsonx", "Agentic AI", "Python", "Cloud Architecture"]
+      id: "exp_student_innovator",
+      organization: "Indus University",
+      role: "Student Technology Innovator",
+      period: "June 2024 – Present",
+      badge: "Leadership & Innovation",
+      location: "Ahmedabad, Gujarat, India",
+      description: "Leading university initiatives to integrate AI and cloud technologies into academic projects and research. Mentoring peers on generative AI applications and cloud computing best practices, and collaborating with faculty on research exploring real-world applications of LLMs.",
+      skills: ["Generative AI", "Cloud Computing", "Peer Mentorship", "LLM Research", "Leadership"]
     }
   ],
 
   timeline: [
     {
-      year: "2024 - Present",
-      title: "Specializing in Generative AI & Agentic Systems",
-      subtitle: "Independent Exploration & Research",
-      description: "Deepening focus into autonomous AI agents, prompt chaining, large language model integration, and building real-world intelligent assistants.",
+      year: "2026",
+      title: "SAP Certified Data Analyst & Advanced Planning",
+      subtitle: "SAP Professional Accreditations",
+      description: "Earned certification in SAP Analytics Cloud covering data modeling, predictive analytics, executive dashboards, and multi-version planning models.",
+      icon: "bi-patch-check-fill"
+    },
+    {
+      year: "2025",
+      title: "Oracle Certified OCI Generative AI Professional",
+      subtitle: "Oracle Cloud Infrastructure",
+      description: "Achieved professional certification in deploying generative AI, large language models, and RAG architectures on Oracle Cloud Infrastructure.",
+      icon: "bi-cloud-check-fill"
+    },
+    {
+      year: "2025",
+      title: "RAG Chatbot & Tata GenAI Analytics",
+      subtitle: "Enterprise Simulations & Deployments",
+      description: "Built the RAG Intelligent Chatbot on OCI Generative AI service and completed the Tata GenAI Powered Data Analytics simulation on Forage.",
       icon: "bi-robot"
     },
     {
-      year: "2024",
-      title: "AI & Cloud Internship",
-      subtitle: "IBM × Edunet Foundation",
-      description: "Built the MechMind AI agent on IBM Watsonx, gained practical exposure to enterprise AI tools, cloud architectures, and machine learning pipelines.",
-      icon: "bi-briefcase"
-    },
-    {
-      year: "2023 - 2024",
-      title: "Machine Learning & Data Analytics",
-      subtitle: "Hands-on Project Development",
-      description: "Implemented end-to-end data analytics and ML classification systems including Life Pattern Detector and Iris Flower classification benchmark.",
-      icon: "bi-graph-up"
-    },
-    {
-      year: "2022 - 2023",
-      title: "Computer Science & Python Foundations",
-      subtitle: "University Academics",
-      description: "Established core engineering fundamentals, object-oriented programming in Python, algorithmic thinking, and web design with HTML, CSS, JavaScript, and Bootstrap.",
-      icon: "bi-mortarboard"
+      year: "2024 - Present",
+      title: "B.Tech in Computer Science & Technology Innovator",
+      subtitle: "Indus University, Ahmedabad",
+      description: "Commenced undergraduate studies in Computer Science & Engineering. Leading student initiatives as Technology Innovator.",
+      icon: "bi-mortarboard-fill"
     }
   ]
 };
 
-// Aliases for compatibility
-const DEFAULT_DATA = PORTFOLIO_DATA;
+// Global Exposure
 if (typeof window !== "undefined") {
   window.PORTFOLIO_DATA = PORTFOLIO_DATA;
-  window.DEFAULT_DATA = DEFAULT_DATA;
+  window.DEFAULT_DATA = PORTFOLIO_DATA;
 }
