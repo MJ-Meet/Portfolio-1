@@ -3,12 +3,8 @@
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/admin",
-      "destination": "/admin.html"
-    },
-    {
       "source": "/resume",
-      "destination": "/resume/resume.pdf"
+      "destination": "/assets/resume/resume.pdf"
     }
   ]
 }

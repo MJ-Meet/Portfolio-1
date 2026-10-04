@@ -1,849 +1,700 @@
 /**
- * app.js — Public Portfolio Logic
- * Meet Jethawa (MJ) — Personal Portfolio Management System
- *
- * Handles all rendering, filtering, interaction, and
- * behaviour for the public-facing index.html.
+ * app.js — Portfolio Controller & Dynamic Renderer
+ * Meet Jethawa (MJ) Portfolio
+ * High-performance, clean vanilla JS with Bootstrap 5
  */
 
-"use strict";
+// Global State
+let currentTheme = "light";
+let activeSkillCategory = "All";
+let activeProjectCategory = "All";
+let projectSearchQuery = "";
+let typewriterIndex = 0;
+let typewriterCharIndex = 0;
+let isTypewriterDeleting = false;
+let typewriterTimeout = null;
 
-/* ═══════════════════════════════════════════════════════
-   BOOTSTRAP / UTILITY
-═══════════════════════════════════════════════════════ */
-function el(id)    { return document.getElementById(id); }
-function qs(sel)   { return document.querySelector(sel); }
-function qsa(sel)  { return document.querySelectorAll(sel); }
+// Shorthand selector
+const $ = (id) => document.getElementById(id);
 
-/* ═══════════════════════════════════════════════════════
-   THEME
-═══════════════════════════════════════════════════════ */
-function applyTheme(theme) {
-  document.documentElement.setAttribute("data-theme", theme);
-  document.body.setAttribute("data-bs-theme", theme === "dark" ? "dark" : "light");
-  const icon = el("themeIcon");
-  if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
-  saveData("settings", { ...loadData("settings"), theme });
-}
-
+/* ─────────────────────────────────────────────────────────
+   1. Theme Controller (Dark / Light)
+───────────────────────────────────────────────────────── */
 function initTheme() {
-  const settings = loadData("settings");
-  applyTheme(settings?.theme || "light");
-}
+  const saved = localStorage.getItem("mj_portfolio_theme");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  currentTheme = saved || (prefersDark ? "dark" : "light");
+  applyTheme(currentTheme);
 
-el("themeToggle")?.addEventListener("click", () => {
-  const current = document.documentElement.getAttribute("data-theme") || "light";
-  applyTheme(current === "dark" ? "light" : "dark");
-});
-
-/* ═══════════════════════════════════════════════════════
-   NAVBAR — Active link on scroll
-═══════════════════════════════════════════════════════ */
-function initNavbar() {
-  const sections = qsa("section[id]");
-  const navLinks = qsa(".navbar-nav .nav-link");
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(l => l.classList.remove("active"));
-        const active = qs(`.navbar-nav .nav-link[href="#${entry.target.id}"]`);
-        if (active) active.classList.add("active");
+  const toggleBtn = $("themeToggleBtn");
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      currentTheme = currentTheme === "dark" ? "light" : "dark";
+      applyTheme(currentTheme);
+      try {
+        localStorage.setItem("mj_portfolio_theme", currentTheme);
+      } catch (e) {
+        console.warn("Storage not available", e);
       }
     });
-  }, { threshold: 0.35 });
+  }
+}
 
-  sections.forEach(s => observer.observe(s));
+function applyTheme(theme) {
+  document.documentElement.setAttribute("data-bs-theme", theme);
+  document.documentElement.setAttribute("data-theme", theme);
+  document.body.setAttribute("data-bs-theme", theme);
 
-  // Close mobile menu on link click
-  qsa(".navbar-nav .nav-link").forEach(link => {
-    link.addEventListener("click", () => {
-      const toggler = qs(".navbar-toggler");
-      const collapse = qs(".navbar-collapse");
-      if (collapse && collapse.classList.contains("show")) {
-        toggler?.click();
-      }
+  const icon = $("themeToggleIcon");
+  if (icon) {
+    if (theme === "dark") {
+      icon.className = "bi bi-sun-fill text-warning";
+    } else {
+      icon.className = "bi bi-moon-stars-fill text-primary";
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   2. Typewriter Effect
+───────────────────────────────────────────────────────── */
+function initTypewriter(phrases) {
+  if (!phrases || phrases.length === 0) return;
+  const target = $("typewriterTarget");
+  if (!target) return;
+
+  function tick() {
+    const currentPhrase = phrases[typewriterIndex];
+    if (isTypewriterDeleting) {
+      typewriterCharIndex--;
+      target.textContent = currentPhrase.substring(0, typewriterCharIndex);
+    } else {
+      typewriterCharIndex++;
+      target.textContent = currentPhrase.substring(0, typewriterCharIndex);
+    }
+
+    let delay = isTypewriterDeleting ? 45 : 90;
+
+    if (!isTypewriterDeleting && typewriterCharIndex === currentPhrase.length) {
+      delay = 1800; // Pause at end of phrase
+      isTypewriterDeleting = true;
+    } else if (isTypewriterDeleting && typewriterCharIndex === 0) {
+      isTypewriterDeleting = false;
+      typewriterIndex = (typewriterIndex + 1) % phrases.length;
+      delay = 400; // Pause before typing next
+    }
+
+    typewriterTimeout = setTimeout(tick, delay);
+  }
+
+  tick();
+}
+
+/* ─────────────────────────────────────────────────────────
+   3. Render Hero & Profile Information
+───────────────────────────────────────────────────────── */
+function renderHero(profile) {
+  if (!profile) return;
+
+  // Title, Badges & Headline
+  if ($("heroName")) $("heroName").textContent = profile.name || "Meet Jethawa";
+  if ($("heroBadgeText")) $("heroBadgeText").textContent = profile.heroBadge || "✨ Available for Opportunities";
+  if ($("heroHeadline")) $("heroHeadline").textContent = profile.headline || "";
+  if ($("heroBio")) $("heroBio").textContent = profile.bio || "";
+  if ($("brandName")) $("brandName").textContent = profile.shortName || "MJ";
+
+  // Resume buttons
+  const resumeUrl = profile.resume || "assets/resume/resume.pdf";
+  ["navResumeBtn", "heroResumeBtn", "aboutResumeBtn"].forEach((id) => {
+    const btn = $(id);
+    if (btn) {
+      btn.href = resumeUrl;
+      btn.setAttribute("target", "_blank");
+    }
+  });
+
+  // Social Links
+  if ($("heroGithub")) $("heroGithub").href = profile.github || "#";
+  if ($("heroLinkedin")) $("heroLinkedin").href = profile.linkedin || "#";
+  if ($("heroEmail")) $("heroEmail").href = `mailto:${profile.email || "meetjethava07@gmail.com"}`;
+
+  // Avatar Image with Fallback to SVG
+  const avatarImg = $("heroAvatarImg");
+  if (avatarImg) {
+    avatarImg.src = profile.profileImage || "assets/images/profile.jpg";
+    avatarImg.onerror = function () {
+      this.src = "assets/images/profile-placeholder.svg";
+    };
+  }
+
+  // Typewriter
+  if (profile.typingPhrases) {
+    initTypewriter(profile.typingPhrases);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   4. Animated Stats Counters
+───────────────────────────────────────────────────────── */
+function renderStats(data) {
+  const pCount = (data.projects || []).length;
+  const sCount = (data.skills || []).length;
+  const cCount = (data.certificates || []).length;
+  const eCount = (data.experience || []).length;
+
+  animateCount("statProjects", pCount);
+  animateCount("statSkills", sCount);
+  animateCount("statCertificates", cCount);
+  animateCount("statExperience", eCount);
+}
+
+function animateCount(elemId, target) {
+  const el = $(elemId);
+  if (!el) return;
+  let current = 0;
+  const step = Math.max(1, Math.ceil(target / 25));
+  const interval = setInterval(() => {
+    current += step;
+    if (current >= target) {
+      el.textContent = target + "+";
+      clearInterval(interval);
+    } else {
+      el.textContent = current;
+    }
+  }, 40);
+}
+
+/* ─────────────────────────────────────────────────────────
+   5. Render About Section
+───────────────────────────────────────────────────────── */
+function renderAbout(profile) {
+  if (!profile) return;
+
+  if ($("aboutHeadline")) $("aboutHeadline").textContent = profile.headline || "";
+  if ($("aboutBioText")) $("aboutBioText").textContent = profile.aboutText || profile.bio || "";
+  if ($("aboutCareerObjective")) $("aboutCareerObjective").textContent = profile.careerObjective || "";
+
+  // Quick info pills
+  if ($("infoEducation")) $("infoEducation").textContent = profile.education || "Computer Science";
+  if ($("infoLocation")) $("infoLocation").textContent = profile.location || "India";
+  if ($("infoEmail")) $("infoEmail").textContent = profile.email || "meetjethava07@gmail.com";
+  if ($("infoFocus")) $("infoFocus").textContent = profile.currentFocus || "AI/ML & Data Analytics";
+}
+
+/* ─────────────────────────────────────────────────────────
+   6. Render Skills & Category Filtering
+───────────────────────────────────────────────────────── */
+function renderSkills(skills) {
+  const container = $("skillsContainer");
+  if (!container || !skills) return;
+
+  const categories = ["All", "Programming", "AI & ML", "Data Science", "Web Development", "Tools"];
+  renderSkillFilterButtons(categories, skills);
+  filterAndRenderSkills(skills);
+}
+
+function renderSkillFilterButtons(categories, skills) {
+  const btnContainer = $("skillFilterButtons");
+  if (!btnContainer) return;
+
+  btnContainer.innerHTML = categories.map(cat => `
+    <button class="filter-btn ${cat === activeSkillCategory ? "active" : ""}" data-category="${cat}">
+      ${cat}
+    </button>
+  `).join("");
+
+  btnContainer.querySelectorAll(".filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      btnContainer.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeSkillCategory = btn.getAttribute("data-category");
+      filterAndRenderSkills(skills);
     });
   });
 }
 
-/* ═══════════════════════════════════════════════════════
-   TYPING ANIMATION
-═══════════════════════════════════════════════════════ */
-let typingInterval = null;
-function initTyping(phrases) {
-  const target = el("typingText");
-  if (!target || !phrases || phrases.length === 0) return;
-  if (typingInterval) clearInterval(typingInterval);
-
-  let phraseIndex = 0;
-  let charIndex   = 0;
-  let deleting    = false;
-
-  function tick() {
-    const current = phrases[phraseIndex];
-    if (!deleting) {
-      target.textContent = current.slice(0, ++charIndex);
-      if (charIndex === current.length) {
-        deleting = true;
-        setTimeout(tick, 1600);
-        return;
-      }
-    } else {
-      target.textContent = current.slice(0, --charIndex);
-      if (charIndex === 0) {
-        deleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-      }
-    }
-    typingInterval = setTimeout(tick, deleting ? 55 : 85);
-  }
-  tick();
-}
-
-/* ═══════════════════════════════════════════════════════
-   COUNTER ANIMATION
-═══════════════════════════════════════════════════════ */
-function animateCounter(el, target, duration = 1200) {
-  let start = 0;
-  const step = Math.ceil(target / (duration / 30));
-  const timer = setInterval(() => {
-    start += step;
-    if (start >= target) { el.textContent = target; clearInterval(timer); }
-    else el.textContent = start;
-  }, 30);
-}
-
-/* ═══════════════════════════════════════════════════════
-   RENDER HERO / PROFILE
-═══════════════════════════════════════════════════════ */
-function renderHero(profile) {
-  const name    = el("heroName");
-  const tagline = el("heroTagline");
-  const intro   = el("heroIntro");
-  const img     = el("heroImage");
-  const navBrand = el("navBrand");
-  const resumeBtn = el("resumeBtn");
-  const githubBtn = el("heroGithub");
-  const linkedinBtn = el("heroLinkedin");
-
-  if (name)    name.textContent    = profile.name    || "Meet Jethawa";
-  if (tagline) tagline.textContent = profile.headline || "";
-  if (intro)   intro.textContent   = profile.heroTagline || "";
-  if (navBrand) navBrand.textContent = profile.shortName || "MJ";
-  if (img && profile.profileImage) {
-    img.src = profile.profileImage;
-    img.alt = profile.name || "Meet Jethawa";
-    img.style.display = "block";
-    const ph = el("heroPH");
-    if (ph) ph.style.display = "none";
-  }
-  const resumeBtn2 = el("resumeBtn2");
-  if (profile.resume) {
-    const isData = profile.resume.startsWith("data:");
-    const downloadName = `${(profile.name || "Meet_Jethawa").replace(/\s+/g, "_")}_Resume.pdf`;
-    if (resumeBtn) {
-      resumeBtn.href = profile.resume;
-      if (isData) resumeBtn.setAttribute("download", downloadName);
-    }
-    if (resumeBtn2) {
-      resumeBtn2.href = profile.resume;
-      if (isData) resumeBtn2.setAttribute("download", downloadName);
-    }
-  }
-  if (githubBtn && profile.github)  githubBtn.href = profile.github;
-  if (linkedinBtn && profile.linkedin) linkedinBtn.href = profile.linkedin;
-
-  document.title = `${profile.name || "Meet Jethawa"} — Portfolio`;
-  initTyping(profile.typingPhrases || []);
-}
-
-/* ═══════════════════════════════════════════════════════
-   RENDER ABOUT
-═══════════════════════════════════════════════════════ */
-function renderAbout(profile) {
-  const setText = (id, val) => { if (el(id)) el(id).textContent = val || ""; };
-  setText("aboutName",       profile.name);
-  setText("aboutHeadline",   profile.headline);
-  setText("aboutBio",        profile.aboutText || profile.bio);
-  setText("aboutEducation",  profile.education);
-  setText("aboutObjective",  profile.careerObjective);
-  setText("aboutFocus",      profile.currentFocus);
-  setText("aboutLocation",   profile.location);
-  setText("aboutEmail",      profile.email);
-
-  const aboutImg = el("aboutImage");
-  if (aboutImg && profile.profileImage) {
-    aboutImg.src = profile.profileImage;
-    aboutImg.alt = profile.name;
-  }
-  const aboutGh = el("aboutGithub");
-  const aboutLi = el("aboutLinkedin");
-  if (aboutGh && profile.github)   aboutGh.href = profile.github;
-  if (aboutLi && profile.linkedin) aboutLi.href = profile.linkedin;
-}
-
-/* ═══════════════════════════════════════════════════════
-   RENDER STATS
-═══════════════════════════════════════════════════════ */
-function renderStats() {
-  const projects     = loadData("projects")     || [];
-  const skills       = loadData("skills")       || [];
-  const certificates = loadData("certificates") || [];
-  const experience   = loadData("experience")   || [];
-
-  const statProj = el("statProjects");
-  const statSkill = el("statSkills");
-  const statCert  = el("statCerts");
-  const statExp   = el("statExp");
-
-  if (statProj)  animateCounter(statProj,  projects.length);
-  if (statSkill) animateCounter(statSkill, skills.length);
-  if (statCert)  animateCounter(statCert,  certificates.length);
-  if (statExp)   animateCounter(statExp,   experience.length);
-}
-
-/* ═══════════════════════════════════════════════════════
-   RENDER SKILLS
-═══════════════════════════════════════════════════════ */
-let allSkills = [];
-let activeSkillFilter = "All";
-
-function renderSkills(skills) {
-  allSkills = skills;
-  renderSkillsFiltered();
-}
-
-function renderSkillsFiltered() {
-  const container = el("skillsContainer");
+function filterAndRenderSkills(skills) {
+  const container = $("skillsContainer");
   if (!container) return;
 
-  const filtered = activeSkillFilter === "All"
-    ? allSkills
-    : allSkills.filter(s => s.category === activeSkillFilter);
-
-  if (filtered.length === 0) {
-    container.innerHTML = `
-      <div class="col-12 text-center py-5">
-        <div class="empty-state">
-          <div class="empty-icon">🔍</div>
-          <h5>No skills found</h5>
-          <p class="text-muted">No skills in this category yet.</p>
-        </div>
-      </div>`;
-    return;
+  let filtered = skills;
+  if (activeSkillCategory !== "All") {
+    filtered = skills.filter(s => s.category.toLowerCase().includes(activeSkillCategory.toLowerCase()));
   }
 
   container.innerHTML = filtered.map(skill => `
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="skill-card card h-100 border-0 shadow-sm p-3">
-        <div class="d-flex align-items-center gap-2 mb-2">
-          <span class="skill-icon fs-4">${skill.icon || "⚙️"}</span>
-          <div>
-            <h6 class="mb-0 fw-semibold">${escapeHtml(skill.name)}</h6>
-            <span class="badge badge-category">${escapeHtml(skill.category)}</span>
+    <div class="col-sm-6 col-lg-4 col-xl-3">
+      <div class="card-modern skill-card">
+        <div>
+          <div class="skill-header">
+            <div class="skill-icon-badge" style="color: ${skill.color || 'var(--primary)'}">
+              <i class="bi ${skill.icon || 'bi-code-slash'}"></i>
+            </div>
+            <span class="skill-badge-level">${escapeHtml(skill.level || 'Competent')}</span>
+          </div>
+          <h5 class="fw-bold mb-1 fs-6">${escapeHtml(skill.name)}</h5>
+          <p class="text-muted small mb-3" style="min-height: 2.4rem;">${escapeHtml(skill.description || '')}</p>
+        </div>
+        <div>
+          <div class="d-flex justify-content-between small fw-semibold mb-1">
+            <span class="text-muted">Proficiency</span>
+            <span style="color: ${skill.color || 'var(--primary)'}">${skill.percentage}%</span>
+          </div>
+          <div class="progress-custom">
+            <div class="progress-bar-custom" style="width: ${skill.percentage}%; background: ${skill.color ? `linear-gradient(90deg, ${skill.color}, var(--primary))` : 'var(--grad-primary)'};"></div>
           </div>
         </div>
-        <div class="mb-1 d-flex justify-content-between">
-          <small class="text-muted">${escapeHtml(skill.level || "")}</small>
-          <small class="fw-semibold">${skill.percentage || 0}%</small>
-        </div>
-        <div class="progress skill-progress" style="height:6px;" role="progressbar" aria-valuenow="${skill.percentage || 0}" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar" style="width:${skill.percentage || 0}%"></div>
-        </div>
-        ${skill.description ? `<p class="skill-desc text-muted mt-2 mb-0 small">${escapeHtml(skill.description)}</p>` : ""}
       </div>
     </div>
   `).join("");
 }
 
-function initSkillFilters(skills) {
-  const categories = ["All", ...new Set(skills.map(s => s.category).filter(Boolean))];
-  const container = el("skillFilters");
-  if (!container) return;
+/* ─────────────────────────────────────────────────────────
+   7. Render Projects (With Live Search & Modals)
+───────────────────────────────────────────────────────── */
+function renderProjects(projects) {
+  const container = $("projectsContainer");
+  if (!container || !projects) return;
 
-  container.innerHTML = categories.map(cat => `
-    <button class="btn btn-sm filter-btn ${cat === "All" ? "active" : ""}" data-filter="${cat}">${cat}</button>
+  // Category filter buttons
+  const categories = ["All", "AI/ML", "Data Analytics", "Web Development", "Machine Learning"];
+  renderProjectFilterButtons(categories, projects);
+
+  // Search input listener
+  const searchInput = $("projectSearchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", (e) => {
+      projectSearchQuery = e.target.value.trim().toLowerCase();
+      filterAndRenderProjects(projects);
+    });
+  }
+
+  filterAndRenderProjects(projects);
+}
+
+function renderProjectFilterButtons(categories, projects) {
+  const btnContainer = $("projectFilterButtons");
+  if (!btnContainer) return;
+
+  btnContainer.innerHTML = categories.map(cat => `
+    <button class="filter-btn ${cat === activeProjectCategory ? "active" : ""}" data-cat="${cat}">
+      ${cat}
+    </button>
   `).join("");
 
-  container.querySelectorAll(".filter-btn").forEach(btn => {
+  btnContainer.querySelectorAll(".filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
-      container.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+      btnContainer.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-      activeSkillFilter = btn.dataset.filter;
-      renderSkillsFiltered();
+      activeProjectCategory = btn.getAttribute("data-cat");
+      filterAndRenderProjects(projects);
     });
   });
 }
 
-/* ═══════════════════════════════════════════════════════
-   RENDER PROJECTS
-═══════════════════════════════════════════════════════ */
-let allProjects = [];
-let activeProjectFilter = "All";
-let projectSearchQuery  = "";
-
-function renderProjects(projects) {
-  allProjects = projects.slice().sort((a, b) => (a.order || 0) - (b.order || 0));
-  renderFeaturedProjects();
-  renderProjectsFiltered();
-}
-
-function renderFeaturedProjects() {
-  const featured = allProjects.filter(p => p.featured);
-  const section  = el("featuredSection");
-  const container = el("featuredContainer");
-  if (!section || !container) return;
-
-  if (featured.length === 0) { section.style.display = "none"; return; }
-  section.style.display = "";
-
-  container.innerHTML = featured.map(p => buildProjectCard(p, "featured")).join("");
-  attachProjectCardEvents(container);
-}
-
-function renderProjectsFiltered() {
-  const container = el("projectsContainer");
+function filterAndRenderProjects(projects) {
+  const container = $("projectsContainer");
   if (!container) return;
 
-  let filtered = allProjects;
-  if (activeProjectFilter !== "All") {
-    filtered = filtered.filter(p => p.category === activeProjectFilter);
-  }
-  if (projectSearchQuery) {
-    const q = projectSearchQuery.toLowerCase();
+  let filtered = projects;
+  if (activeProjectCategory !== "All") {
     filtered = filtered.filter(p =>
-      (p.title || "").toLowerCase().includes(q) ||
-      (p.shortDescription || "").toLowerCase().includes(q) ||
-      (p.category || "").toLowerCase().includes(q) ||
-      (p.technologies || []).some(t => t.toLowerCase().includes(q))
+      p.category.toLowerCase().includes(activeProjectCategory.toLowerCase()) ||
+      (activeProjectCategory === "Machine Learning" && p.category.toLowerCase().includes("ml"))
+    );
+  }
+
+  if (projectSearchQuery) {
+    filtered = filtered.filter(p =>
+      p.title.toLowerCase().includes(projectSearchQuery) ||
+      p.shortDescription.toLowerCase().includes(projectSearchQuery) ||
+      (p.technologies || []).some(t => t.toLowerCase().includes(projectSearchQuery))
     );
   }
 
   if (filtered.length === 0) {
     container.innerHTML = `
       <div class="col-12 text-center py-5">
-        <div class="empty-state">
-          <div class="empty-icon">📂</div>
-          <h5>No projects found</h5>
-          <p class="text-muted">Try a different search or filter.</p>
+        <div class="card-modern p-5 d-inline-block text-center" style="max-width: 460px;">
+          <i class="bi bi-search text-muted fs-1 mb-3 d-block"></i>
+          <h5 class="fw-bold">No Projects Found</h5>
+          <p class="text-muted small mb-0">Try clearing the search query or selecting a different category filter.</p>
         </div>
-      </div>`;
+      </div>
+    `;
     return;
   }
 
-  container.innerHTML = filtered.map(p => buildProjectCard(p)).join("");
-  attachProjectCardEvents(container);
-}
-
-function buildProjectCard(p, variant = "") {
-  const techs = (p.technologies || []).map(t =>
-    `<span class="badge tech-badge">${escapeHtml(t)}</span>`).join(" ");
-  const img = p.image
-    ? `<img src="${p.image}" class="card-img-top project-card-img" alt="${escapeHtml(p.title)}" loading="lazy">`
-    : `<div class="project-placeholder-img d-flex align-items-center justify-content-center">
-         <span style="font-size:3rem;">💻</span>
-       </div>`;
-
-  return `
-    <div class="col-sm-6 col-lg-4">
-      <div class="card project-card h-100 border-0 shadow-sm">
-        ${img}
-        <div class="card-body d-flex flex-column">
-          <div class="d-flex align-items-start justify-content-between mb-2">
-            <h5 class="card-title mb-0 fw-semibold">${escapeHtml(p.title)}</h5>
-            <span class="badge badge-category ms-2 flex-shrink-0">${escapeHtml(p.category)}</span>
+  container.innerHTML = filtered.map(proj => `
+    <div class="col-md-6 col-lg-4">
+      <div class="card-modern project-card">
+        <div class="project-img-container">
+          <img src="${proj.image || 'assets/projects/project-placeholder.svg'}"
+               alt="${escapeHtml(proj.title)}"
+               class="project-img"
+               onerror="this.src='assets/projects/project-placeholder.svg'">
+          ${proj.featured ? `<span class="project-featured-badge"><i class="bi bi-star-fill me-1"></i> Featured</span>` : ''}
+          <span class="project-overlay-badge">${escapeHtml(proj.category)}</span>
+        </div>
+        <div class="project-body">
+          <h4 class="fw-bold mb-2 fs-5">${escapeHtml(proj.title)}</h4>
+          <p class="text-muted small mb-3 flex-grow-1">${escapeHtml(proj.shortDescription)}</p>
+          <div class="d-flex flex-wrap gap-1 mb-4">
+            ${(proj.technologies || []).slice(0, 4).map(t => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('')}
+            ${(proj.technologies || []).length > 4 ? `<span class="tech-tag">+${(proj.technologies || []).length - 4}</span>` : ''}
           </div>
-          <p class="card-text text-muted small flex-grow-1">${escapeHtml(p.shortDescription || "")}</p>
-          <div class="tech-badges mb-3">${techs}</div>
-          <div class="d-flex gap-2 flex-wrap">
-            <button class="btn btn-sm btn-outline-primary view-project-btn" data-id="${p.id}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" class="me-1"><path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/><path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg>
-              Details
+          <div class="d-flex gap-2 pt-2 border-top" style="border-color: var(--border-color) !important;">
+            <button class="btn btn-modern-primary btn-sm flex-grow-1" onclick="openProjectModal('${proj.id}')">
+              <i class="bi bi-eye"></i> Details
             </button>
-            ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" class="me-1"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-              GitHub
-            </a>` : ""}
-            ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" class="me-1"><path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/><path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/></svg>
-              Live Demo
-            </a>` : ""}
+            ${proj.github ? `
+              <a href="${proj.github}" target="_blank" class="btn btn-modern-outline btn-sm px-3" title="GitHub Source">
+                <i class="bi bi-github"></i>
+              </a>
+            ` : ''}
+            ${proj.demo ? `
+              <a href="${proj.demo}" target="_blank" class="btn btn-modern-outline btn-sm px-3" title="Live Preview">
+                <i class="bi bi-box-arrow-up-right"></i>
+              </a>
+            ` : ''}
           </div>
         </div>
       </div>
-    </div>`;
+    </div>
+  `).join("");
 }
 
-function attachProjectCardEvents(container) {
-  container.querySelectorAll(".view-project-btn").forEach(btn => {
-    btn.addEventListener("click", () => openProjectModal(btn.dataset.id));
-  });
-}
+/* ─────────────────────────────────────────────────────────
+   8. Project Details Modal
+───────────────────────────────────────────────────────── */
+function openProjectModal(projectId) {
+  const data = window.PORTFOLIO_DATA || {};
+  const project = (data.projects || []).find(p => p.id === projectId);
+  if (!project) return;
 
-function openProjectModal(id) {
-  const p = allProjects.find(x => x.id === id);
-  if (!p) return;
+  $("modalProjectTitle").textContent = project.title;
+  $("modalProjectCategory").textContent = project.category;
+  $("modalProjectDescription").textContent = project.fullDescription || project.shortDescription;
 
-  el("projModalTitle").textContent = p.title;
-  el("projModalCategory").textContent = p.category;
-  el("projModalDate").textContent = p.date || "";
-  el("projModalDescription").textContent = p.fullDescription || p.shortDescription || "";
-  el("projModalTechs").innerHTML = (p.technologies || []).map(t =>
-    `<span class="badge tech-badge me-1 mb-1">${escapeHtml(t)}</span>`).join("");
-
-  const imgEl = el("projModalImg");
-  if (p.image) { imgEl.src = p.image; imgEl.style.display = ""; }
-  else imgEl.style.display = "none";
-
-  const ghLink = el("projModalGithub");
-  const demoLink = el("projModalDemo");
-  if (ghLink) { ghLink.href = p.github || "#"; ghLink.style.display = p.github ? "" : "none"; }
-  if (demoLink) { demoLink.href = p.demo || "#"; demoLink.style.display = p.demo ? "" : "none"; }
-
-  const modal = new bootstrap.Modal(el("projectModal"));
-  modal.show();
-}
-
-function initProjectFilters() {
-  const categories = ["All", ...new Set(allProjects.map(p => p.category).filter(Boolean))];
-  const container  = el("projectFilters");
-  if (!container) return;
-
-  container.innerHTML = categories.map(cat =>
-    `<button class="btn btn-sm filter-btn ${cat === "All" ? "active" : ""}" data-filter="${cat}">${cat}</button>`
-  ).join("");
-
-  container.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      container.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      activeProjectFilter = btn.dataset.filter;
-      renderProjectsFiltered();
-    });
-  });
-}
-
-function initProjectSearch() {
-  const input = el("projectSearch");
-  if (!input) return;
-  input.addEventListener("input", (e) => {
-    projectSearchQuery = e.target.value.trim();
-    renderProjectsFiltered();
-  });
-}
-
-/* ═══════════════════════════════════════════════════════
-   RENDER EXPERIENCE
-═══════════════════════════════════════════════════════ */
-function renderExperience(experiences) {
-  const container = el("experienceContainer");
-  if (!container) return;
-
-  if (!experiences || experiences.length === 0) {
-    container.innerHTML = `
-      <div class="text-center py-5">
-        <div class="empty-state">
-          <div class="empty-icon">💼</div>
-          <h5>No experience listed yet</h5>
-          <p class="text-muted">Add experience from the Admin Dashboard.</p>
-        </div>
-      </div>`;
-    return;
+  // Image with fallback
+  const modalImg = $("modalProjectImage");
+  if (modalImg) {
+    modalImg.src = project.image || "assets/projects/project-placeholder.svg";
+    modalImg.onerror = function() { this.src = "assets/projects/project-placeholder.svg"; };
   }
 
-  container.innerHTML = experiences.map((exp, i) => {
-    const skills = (exp.skills || []).map(s => `<span class="badge badge-category me-1">${escapeHtml(s)}</span>`).join("");
-    return `
-      <div class="timeline-item ${i % 2 === 0 ? "left" : "right"}">
-        <div class="timeline-content card border-0 shadow-sm p-4">
-          <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
-            <div>
-              <h5 class="fw-bold mb-0">${escapeHtml(exp.role || "")}</h5>
-              <h6 class="text-primary mb-0">${escapeHtml(exp.organization || "")}</h6>
-            </div>
-            <span class="badge badge-date">
-              ${escapeHtml(exp.startDate || "")}${exp.endDate ? " – " + escapeHtml(exp.endDate) : ""}
-            </span>
-          </div>
-          ${exp.location ? `<p class="text-muted small mb-2">📍 ${escapeHtml(exp.location)}</p>` : ""}
-          <p class="mb-3">${escapeHtml(exp.description || "")}</p>
-          ${skills ? `<div class="mb-2">${skills}</div>` : ""}
-          ${exp.certificateUrl ? `<a href="${exp.certificateUrl}" target="_blank" ${exp.certificateUrl.startsWith("data:") ? 'download="experience-document.pdf"' : ""} class="btn btn-sm btn-outline-primary mt-1">📄 View Credential / LoR</a>` : ""}
-        </div>
-      </div>`;
-  }).join("");
+  // Tech tags
+  const tagsContainer = $("modalProjectTags");
+  if (tagsContainer) {
+    tagsContainer.innerHTML = (project.technologies || []).map(t => `
+      <span class="tech-tag fs-6 px-3 py-1">${escapeHtml(t)}</span>
+    `).join("");
+  }
+
+  // Key Highlights
+  const highlightsContainer = $("modalProjectHighlights");
+  if (highlightsContainer) {
+    if (project.highlights && project.highlights.length > 0) {
+      highlightsContainer.innerHTML = `
+        <h6 class="fw-bold mt-4 mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Key Capabilities & Highlights:</h6>
+        <ul class="text-muted small ps-3 mb-0">
+          ${project.highlights.map(h => `<li class="mb-1">${escapeHtml(h)}</li>`).join("")}
+        </ul>
+      `;
+    } else {
+      highlightsContainer.innerHTML = "";
+    }
+  }
+
+  // Action links
+  const ghBtn = $("modalProjectGithub");
+  if (ghBtn) {
+    if (project.github) {
+      ghBtn.href = project.github;
+      ghBtn.style.display = "inline-flex";
+    } else {
+      ghBtn.style.display = "none";
+    }
+  }
+
+  const demoBtn = $("modalProjectDemo");
+  if (demoBtn) {
+    if (project.demo) {
+      demoBtn.href = project.demo;
+      demoBtn.style.display = "inline-flex";
+    } else {
+      demoBtn.style.display = "none";
+    }
+  }
+
+  const modalEl = $("projectModal");
+  if (modalEl && window.bootstrap) {
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+  }
 }
 
-/* ═══════════════════════════════════════════════════════
-   RENDER CERTIFICATES
-═══════════════════════════════════════════════════════ */
-let allCertificates = [];
-let activeCertFilter = "All";
-
+/* ─────────────────────────────────────────────────────────
+   9. Render Certificates & Modal
+───────────────────────────────────────────────────────── */
 function renderCertificates(certs) {
-  allCertificates = certs;
-  renderCertificatesFiltered();
-}
+  const container = $("certificatesContainer");
+  if (!container || !certs) return;
 
-function renderCertificatesFiltered() {
-  const container = el("certificatesContainer");
-  if (!container) return;
-
-  const filtered = activeCertFilter === "All"
-    ? allCertificates
-    : allCertificates.filter(c => c.category === activeCertFilter);
-
-  if (filtered.length === 0) {
-    container.innerHTML = `
-      <div class="col-12 text-center py-5">
-        <div class="empty-state">
-          <div class="empty-icon">🏆</div>
-          <h5>No certificates found</h5>
-          <p class="text-muted">No certificates in this category yet.</p>
+  container.innerHTML = certs.map(cert => `
+    <div class="col-md-6 col-lg-4">
+      <div class="card-modern cert-card">
+        <div>
+          <div class="cert-thumbnail-box">
+            <img src="${cert.image || 'assets/certificates/certificate-placeholder.svg'}"
+                 alt="${escapeHtml(cert.title)}"
+                 class="cert-thumbnail-img"
+                 onerror="this.src='assets/certificates/certificate-placeholder.svg'">
+            <div class="position-absolute top-0 end-0 m-2">
+              <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1">
+                <i class="bi bi-patch-check-fill me-1"></i> Verified
+              </span>
+            </div>
+          </div>
+          <span class="text-gradient fw-bold small text-uppercase mb-1 d-block">${escapeHtml(cert.issuer)}</span>
+          <h5 class="fw-bold mb-2 fs-6">${escapeHtml(cert.title)}</h5>
+          <p class="text-muted small mb-3">${escapeHtml(cert.description || '')}</p>
         </div>
-      </div>`;
-    return;
-  }
-
-  container.innerHTML = filtered.map(cert => {
-    const isPdf = cert.image && (cert.image.startsWith("data:application/pdf") || cert.image.toLowerCase().endsWith(".pdf"));
-    const certVisual = cert.image
-      ? (isPdf
-          ? `<div class="cert-placeholder d-flex flex-column align-items-center justify-content-center bg-primary-subtle" style="height:160px;">
-               <span style="font-size:2.8rem;">📄</span>
-               <span class="badge bg-primary text-white mt-1">PDF Certificate</span>
-             </div>`
-          : `<img src="${cert.image}" class="card-img-top cert-img" alt="${escapeHtml(cert.title)}" loading="lazy">`)
-      : `<div class="cert-placeholder d-flex align-items-center justify-content-center">
-           <span style="font-size:3.5rem;">🏆</span>
-         </div>`;
-
-    return `
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="card cert-card h-100 border-0 shadow-sm">
-        ${certVisual}
-        <div class="card-body d-flex flex-column">
-          <h6 class="card-title fw-semibold mb-1">${escapeHtml(cert.title)}</h6>
-          <p class="text-muted small mb-1">${escapeHtml(cert.issuer || "")}</p>
-          <p class="text-muted small mb-2">📅 ${escapeHtml(cert.date || "")}</p>
-          <span class="badge badge-category mb-3">${escapeHtml(cert.category || "")}</span>
-          <button class="btn btn-sm btn-outline-primary mt-auto view-cert-btn" data-id="${cert.id}">View Certificate</button>
+        <div class="d-flex align-items-center justify-content-between pt-3 border-top" style="border-color: var(--border-color) !important;">
+          <span class="small text-muted"><i class="bi bi-calendar3 me-1"></i> ${escapeHtml(cert.date || '2024')}</span>
+          <button class="btn btn-modern-outline btn-sm" onclick="openCertModal('${cert.id}')">
+            <i class="bi bi-arrows-fullscreen me-1"></i> View
+          </button>
         </div>
       </div>
-    </div>`;
-  }).join("");
-
-  container.querySelectorAll(".view-cert-btn").forEach(btn => {
-    btn.addEventListener("click", () => openCertModal(btn.dataset.id));
-  });
+    </div>
+  `).join("");
 }
 
-function openCertModal(id) {
-  const cert = allCertificates.find(c => c.id === id);
+function openCertModal(certId) {
+  const data = window.PORTFOLIO_DATA || {};
+  const cert = (data.certificates || []).find(c => c.id === certId);
   if (!cert) return;
 
-  el("certModalTitle").textContent  = cert.title;
-  el("certModalIssuer").textContent = cert.issuer || "";
-  el("certModalDate").textContent   = cert.date || "";
-  el("certModalCat").textContent    = cert.category || "";
+  $("modalCertTitle").textContent = cert.title;
+  $("modalCertIssuer").textContent = cert.issuer;
+  $("modalCertDate").textContent = cert.date || "2024";
 
-  const imgEl = el("certModalImg");
-  const isPdf = cert.image && (cert.image.startsWith("data:application/pdf") || cert.image.toLowerCase().endsWith(".pdf"));
-  if (cert.image) {
-    if (isPdf) {
-      imgEl.style.display = "none";
-      const existingPdfLink = el("certModalPdfBtn");
-      if (existingPdfLink) existingPdfLink.remove();
-      imgEl.insertAdjacentHTML("afterend", `
-        <div id="certModalPdfBtn" class="text-center py-4 bg-light rounded mb-3">
-          <div style="font-size:3rem;">📄</div>
-          <div class="fw-semibold mt-1 mb-2">PDF Certificate Document</div>
-          <a href="${cert.image}" target="_blank" download="${(cert.title || "Certificate").replace(/\s+/g, "_")}.pdf" class="btn btn-primary btn-sm">
-            📥 Download / View Full PDF
-          </a>
-        </div>
-      `);
+  const img = $("modalCertImage");
+  if (img) {
+    img.src = cert.image || "assets/certificates/certificate-placeholder.svg";
+    img.onerror = function() { this.src = "assets/certificates/certificate-placeholder.svg"; };
+  }
+
+  const verBtn = $("modalCertVerification");
+  if (verBtn) {
+    if (cert.verification) {
+      verBtn.href = cert.verification;
+      verBtn.style.display = "inline-flex";
     } else {
-      const existingPdfLink = el("certModalPdfBtn");
-      if (existingPdfLink) existingPdfLink.remove();
-      imgEl.src = cert.image;
-      imgEl.style.display = "";
+      verBtn.style.display = "none";
     }
-  } else {
-    imgEl.style.display = "none";
-    const existingPdfLink = el("certModalPdfBtn");
-    if (existingPdfLink) existingPdfLink.remove();
   }
 
-  const verifyBtn = el("certModalVerify");
-  if (verifyBtn) {
-    verifyBtn.href = cert.verification || "#";
-    verifyBtn.style.display = cert.verification ? "" : "none";
+  const modalEl = $("certificateModal");
+  if (modalEl && window.bootstrap) {
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
   }
-
-  const modal = new bootstrap.Modal(el("certModal"));
-  modal.show();
 }
 
-function initCertFilters(certs) {
-  const categories = ["All", ...new Set(certs.map(c => c.category).filter(Boolean))];
-  const container  = el("certFilters");
-  if (!container) return;
-
-  container.innerHTML = categories.map(cat =>
-    `<button class="btn btn-sm filter-btn ${cat === "All" ? "active" : ""}" data-filter="${cat}">${cat}</button>`
-  ).join("");
-
-  container.querySelectorAll(".filter-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      container.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      activeCertFilter = btn.dataset.filter;
-      renderCertificatesFiltered();
-    });
-  });
-}
-
-/* ═══════════════════════════════════════════════════════
-   RENDER TIMELINE
-═══════════════════════════════════════════════════════ */
-function renderTimeline(items) {
-  const container = el("timelineContainer");
-  if (!container) return;
-
-  if (!items || items.length === 0) {
-    container.innerHTML = `<p class="text-muted text-center">Learning timeline will appear here.</p>`;
-    return;
-  }
-
-  container.innerHTML = items.map((item, i) => `
-    <div class="timeline-step ${i % 2 === 0 ? "step-left" : "step-right"}">
-      <div class="timeline-dot">${item.icon || "⭐"}</div>
-      <div class="timeline-card card border-0 shadow-sm p-3">
-        <h6 class="fw-semibold mb-1">${escapeHtml(item.title || "")}</h6>
-        <p class="text-muted small mb-1">${escapeHtml(item.description || "")}</p>
-        <span class="badge badge-date">${escapeHtml(item.date || "")}</span>
-      </div>
-    </div>`).join("");
-}
-
-/* ═══════════════════════════════════════════════════════
-   RENDER CURRENT LEARNING
-═══════════════════════════════════════════════════════ */
-function renderLearning(items) {
-  const container = el("learningContainer");
-  if (!container) return;
-
-  if (!items || items.length === 0) {
-    container.innerHTML = `
-      <div class="col-12 text-center py-4">
-        <p class="text-muted">No current learning items added yet.</p>
-      </div>`;
-    return;
-  }
-
-  container.innerHTML = items.map(item => `
-    <div class="col-sm-6 col-lg-4">
-      <div class="card learning-card border-0 shadow-sm p-3 h-100">
-        <h6 class="fw-semibold mb-1">${escapeHtml(item.topic || "")}</h6>
-        <p class="text-muted small mb-2">${escapeHtml(item.description || "")}</p>
-        <div class="d-flex justify-content-between mb-1">
-          <small class="text-muted">Progress</small>
-          <small class="fw-semibold">${item.progress || 0}%</small>
+/* ─────────────────────────────────────────────────────────
+   10. Render Experience & Timeline
+───────────────────────────────────────────────────────── */
+function renderExperience(experience, timeline) {
+  // Experience cards
+  const expContainer = $("experienceContainer");
+  if (expContainer && experience) {
+    expContainer.innerHTML = experience.map(exp => `
+      <div class="card-modern p-4 mb-4">
+        <div class="d-flex flex-wrap justify-content-between align-items-start gap-2 mb-2">
+          <div>
+            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 mb-2 d-inline-block">
+              ${escapeHtml(exp.badge || 'Virtual Internship')}
+            </span>
+            <h4 class="fw-bold mb-1 fs-5">${escapeHtml(exp.role)}</h4>
+            <h5 class="text-primary fs-6 mb-0">${escapeHtml(exp.organization)}</h5>
+          </div>
+          <span class="text-muted small fw-semibold"><i class="bi bi-calendar3 me-1"></i> ${escapeHtml(exp.period || '2024')}</span>
         </div>
-        <div class="progress" style="height:8px;" role="progressbar" aria-valuenow="${item.progress || 0}" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:${item.progress || 0}%"></div>
+        <p class="text-muted small mt-2 mb-3">${escapeHtml(exp.description)}</p>
+        <div class="d-flex flex-wrap gap-1">
+          ${(exp.skills || []).map(s => `<span class="tech-tag">${escapeHtml(s)}</span>`).join('')}
         </div>
       </div>
-    </div>`).join("");
+    `).join("");
+  }
+
+  // Milestones Timeline
+  const tlContainer = $("timelineContainer");
+  if (tlContainer && timeline) {
+    tlContainer.innerHTML = timeline.map(item => `
+      <div class="timeline-item">
+        <div class="timeline-node">
+          <i class="bi ${item.icon || 'bi-mortarboard'}"></i>
+        </div>
+        <div class="card-modern timeline-card">
+          <span class="text-gradient fw-bold small text-uppercase mb-1 d-block">${escapeHtml(item.year)}</span>
+          <h5 class="fw-bold mb-1 fs-6">${escapeHtml(item.title)}</h5>
+          <p class="text-muted small mb-0">${escapeHtml(item.description)}</p>
+        </div>
+      </div>
+    `).join("");
+  }
 }
 
-/* ═══════════════════════════════════════════════════════
-   CONTACT FORM
-═══════════════════════════════════════════════════════ */
+/* ─────────────────────────────────────────────────────────
+   11. Contact Form & Feedback Toasts
+───────────────────────────────────────────────────────── */
 function initContactForm() {
-  const form = el("contactForm");
+  const form = $("contactForm");
   if (!form) return;
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const name    = el("contactName").value.trim();
-    const email   = el("contactEmail").value.trim();
-    const subject = el("contactSubject").value.trim();
-    const message = el("contactMessage").value.trim();
+    const name = $("contactName")?.value.trim() || "";
+    const email = $("contactEmail")?.value.trim() || "";
+    const subject = $("contactSubject")?.value.trim() || "";
+    const message = $("contactMessage")?.value.trim() || "";
 
-    // Validation
-    let valid = true;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!name || !email || !message) {
+      showToast("Please fill in your name, email, and message.", "warning");
+      return;
+    }
 
-    clearContactErrors();
+    // Save to localStorage
+    if (typeof saveContactMessage === "function") {
+      saveContactMessage({ name, email, subject, message });
+    }
 
-    if (!name) { showFieldError("contactName", "Name is required."); valid = false; }
-    if (!email || !emailRegex.test(email)) { showFieldError("contactEmail", "A valid email is required."); valid = false; }
-    if (!subject) { showFieldError("contactSubject", "Subject is required."); valid = false; }
-    if (!message || message.length < 10) { showFieldError("contactMessage", "Message must be at least 10 characters."); valid = false; }
-
-    if (!valid) return;
-
-    const msg = {
-      id:      generateId("msg"),
-      name,
-      email,
-      subject,
-      message,
-      date:    new Date().toLocaleString(),
-      status:  "unread"
-    };
-
-    addItem("messages", msg);
+    // Clear form
     form.reset();
-    showToast("Your message has been saved successfully! I'll get back to you soon.", "success");
+
+    // Show stylish success toast
+    showToast(`Thank you, ${name}! Your message has been sent successfully. ✨`, "success");
   });
 }
 
-function clearContactErrors() {
-  qsa(".contact-error").forEach(e => e.remove());
-  qsa("#contactForm .is-invalid").forEach(e => e.classList.remove("is-invalid"));
-}
+function showToast(msg, type = "success") {
+  const container = $("toastContainer");
+  if (!container) return;
 
-function showFieldError(fieldId, msg) {
-  const field = el(fieldId);
-  if (!field) return;
-  field.classList.add("is-invalid");
-  const err = document.createElement("div");
-  err.className = "invalid-feedback contact-error";
-  err.textContent = msg;
-  field.parentNode.appendChild(err);
-}
+  const bgClass = type === "success" ? "bg-success text-white" : type === "warning" ? "bg-warning text-dark" : "bg-primary text-white";
+  const icon = type === "success" ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill";
 
-/* ═══════════════════════════════════════════════════════
-   TOAST NOTIFICATION
-═══════════════════════════════════════════════════════ */
-function showToast(message, type = "success") {
-  const container = el("toastContainer") || createToastContainer();
-  const id = "toast_" + Date.now();
-  const bgMap = { success: "bg-success", error: "bg-danger", warning: "bg-warning text-dark", info: "bg-info text-dark" };
-  const bg = bgMap[type] || "bg-secondary";
-
+  const toastId = "toast_" + Date.now();
   const html = `
-    <div id="${id}" class="toast align-items-center text-white border-0 ${bg}" role="alert" aria-live="assertive" aria-atomic="true">
+    <div id="${toastId}" class="toast align-items-center ${bgClass} border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="d-flex">
-        <div class="toast-body">${escapeHtml(message)}</div>
+        <div class="toast-body d-flex align-items-center gap-2">
+          <i class="bi ${icon} fs-5"></i>
+          <span>${escapeHtml(msg)}</span>
+        </div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
-    </div>`;
+    </div>
+  `;
+
   container.insertAdjacentHTML("beforeend", html);
-  const toastEl = el(id);
-  const t = new bootstrap.Toast(toastEl, { delay: 4000 });
-  t.show();
-  toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
+  const toastEl = $(toastId);
+  if (toastEl && window.bootstrap) {
+    const bsToast = new bootstrap.Toast(toastEl, { delay: 4000 });
+    bsToast.show();
+    toastEl.addEventListener("hidden.bs.toast", () => toastEl.remove());
+  }
 }
 
-function createToastContainer() {
-  const c = document.createElement("div");
-  c.id = "toastContainer";
-  c.className = "toast-container position-fixed bottom-0 end-0 p-3";
-  c.style.zIndex = "1100";
-  document.body.appendChild(c);
-  return c;
-}
-
-/* ═══════════════════════════════════════════════════════
-   BACK TO TOP
-═══════════════════════════════════════════════════════ */
-function initBackToTop() {
-  const btn = el("backToTop");
-  if (!btn) return;
-  window.addEventListener("scroll", () => {
-    btn.style.display = window.scrollY > 400 ? "flex" : "none";
-  });
-  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-}
-
-/* ═══════════════════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════════════════ */
-function renderFooter(profile) {
-  const fName = el("footerName");
-  const fHeadline = el("footerHeadline");
-  const fGh = el("footerGithub");
-  const fLi = el("footerLinkedin");
-  const fEmail = el("footerEmail");
-  const fYear = el("footerYear");
-
-  if (fName) fName.textContent = profile.name || "Meet Jethawa";
-  if (fHeadline) fHeadline.textContent = profile.headline || "";
-  if (fGh && profile.github) fGh.href = profile.github;
-  if (fLi && profile.linkedin) fLi.href = profile.linkedin;
-  if (fEmail && profile.email) fEmail.href = `mailto:${profile.email}`;
-  if (fYear) fYear.textContent = new Date().getFullYear();
-}
-
-/* ═══════════════════════════════════════════════════════
-   SMOOTH SCROLL
-═══════════════════════════════════════════════════════ */
-function initSmoothScroll() {
-  qsa('a[href^="#"]').forEach(a => {
-    a.addEventListener("click", e => {
-      const target = document.querySelector(a.getAttribute("href"));
-      if (target) {
-        e.preventDefault();
-        const navHeight = qs(".navbar")?.offsetHeight || 70;
-        window.scrollTo({ top: target.offsetTop - navHeight, behavior: "smooth" });
-      }
+/* ─────────────────────────────────────────────────────────
+   12. Copy to Clipboard Utility
+───────────────────────────────────────────────────────── */
+function copyToClipboard(text, label = "Item") {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast(`${label} copied to clipboard! 📋`, "success");
     });
-  });
+  } else {
+    showToast(`Contact: ${text}`, "primary");
+  }
 }
 
-/* ═══════════════════════════════════════════════════════
-   HTML ESCAPE
-═══════════════════════════════════════════════════════ */
+/* ─────────────────────────────────────────────────────────
+   13. Navbar Scroll & Back To Top
+───────────────────────────────────────────────────────── */
+function initNavigation() {
+  const navbar = $("mainNavbar");
+  const backToTop = $("backToTopBtn");
+
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+
+    // Navbar shadow
+    if (navbar) {
+      if (scrollY > 40) {
+        navbar.classList.add("scrolled");
+      } else {
+        navbar.classList.remove("scrolled");
+      }
+    }
+
+    // Back to top visibility
+    if (backToTop) {
+      if (scrollY > 400) {
+        backToTop.classList.add("visible");
+      } else {
+        backToTop.classList.remove("visible");
+      }
+    }
+  });
+
+  if (backToTop) {
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+}
+
+/* ─────────────────────────────────────────────────────────
+   Helper: HTML Escaping
+───────────────────────────────────────────────────────── */
 function escapeHtml(str) {
-  if (typeof str !== "string") return str || "";
+  if (typeof str !== "string") return str ?? "";
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+    .replace(/'/g, "&#039;");
 }
 
-/* ═══════════════════════════════════════════════════════
-   MAIN INIT
-═══════════════════════════════════════════════════════ */
+/* ─────────────────────────────────────────────────────────
+   Application Entrypoint
+───────────────────────────────────────────────────────── */
 function startApp() {
-  initStorage();
   initTheme();
+  initNavigation();
 
-  const profile      = loadData("profile")      || DEFAULT_DATA.profile;
-  const projects     = loadData("projects")     || DEFAULT_DATA.projects || [];
-  const skills       = loadData("skills")       || DEFAULT_DATA.skills || [];
-  const certificates = loadData("certificates") || DEFAULT_DATA.certificates || [];
-  const experience   = loadData("experience")   || DEFAULT_DATA.experience || [];
-  const timeline     = loadData("timeline")     || DEFAULT_DATA.timeline || [];
-  const learning     = loadData("learning")     || DEFAULT_DATA.learning || [];
+  // Load portfolio data from data.js
+  const data = window.PORTFOLIO_DATA || (typeof PORTFOLIO_DATA !== "undefined" ? PORTFOLIO_DATA : {});
 
-  renderHero(profile);
-  renderAbout(profile);
-  renderStats();
-  renderSkills(skills);
-  initSkillFilters(skills);
-  renderProjects(projects);
-  initProjectFilters();
-  initProjectSearch();
-  renderExperience(experience);
-  renderCertificates(certificates);
-  initCertFilters(certificates);
-  renderTimeline(timeline);
-  renderLearning(learning);
-  renderFooter(profile);
+  renderHero(data.profile);
+  renderStats(data);
+  renderAbout(data.profile);
+  renderSkills(data.skills);
+  renderProjects(data.projects);
+  renderCertificates(data.certificates);
+  renderExperience(data.experience, data.timeline);
   initContactForm();
-  initNavbar();
-  initBackToTop();
-  initSmoothScroll();
+
+  // Set page year
+  if ($("currentYear")) $("currentYear").textContent = new Date().getFullYear();
 }
 
+// Reliable boot
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", startApp);
 } else {

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="100%" height="100%">
+  <defs>
+    <linearGradient id="certBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+    <linearGradient id="techGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Border & Background -->
+  <rect width="800" height="560" rx="16" fill="url(#certBg)" stroke="#e2e8f0" stroke-width="4"/>
+  <rect x="25" y="25" width="750" height="510" rx="10" fill="none" stroke="#4f46e5" stroke-opacity="0.25" stroke-width="2"/>
+  <rect x="35" y="35" width="730" height="490" rx="8" fill="none" stroke="#6366f1" stroke-opacity="0.1" stroke-width="1" stroke-dasharray="8,6"/>
+
+  <!-- Corner Ornaments -->
+  <circle cx="45" cy="45" r="8" fill="#4f46e5" fill-opacity="0.4"/>
+  <circle cx="755" cy="45" r="8" fill="#4f46e5" fill-opacity="0.4"/>
+  <circle cx="45" cy="515" r="8" fill="#4f46e5" fill-opacity="0.4"/>
+  <circle cx="755" cy="515" r="8" fill="#4f46e5" fill-opacity="0.4"/>
+
+  <!-- Certificate Emblem Badge -->
+  <g transform="translate(400, 120)">
+    <circle cx="0" cy="0" r="44" fill="url(#goldGrad)"/>
+    <circle cx="0" cy="0" r="36" fill="#ffffff" fill-opacity="0.2"/>
+    <text x="0" y="8" font-family="system-ui, sans-serif" font-size="28" fill="#ffffff" text-anchor="middle">★</text>
+  </g>
+
+  <!-- Header -->
+  <text x="400" y="200" font-family="'Space Grotesk', system-ui, sans-serif" font-size="26" font-weight="800" fill="#0f172a" text-anchor="middle" letter-spacing="4">CERTIFICATE OF COMPLETION</text>
+  <text x="400" y="235" font-family="system-ui, sans-serif" font-size="14" fill="#64748b" text-anchor="middle" letter-spacing="1">PROUDLY PRESENTED FOR TECHNICAL EXCELLENCE TO</text>
+
+  <!-- Recipient -->
+  <text x="400" y="295" font-family="'Space Grotesk', system-ui, sans-serif" font-size="34" font-weight="800" fill="#4f46e5" text-anchor="middle">Meet Jethawa</text>
+  <line x1="260" y1="315" x2="540" y2="315" stroke="url(#techGrad)" stroke-width="2.5"/>
+
+  <!-- Field Description -->
+  <text x="400" y="355" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="#1e293b" text-anchor="middle">Artificial Intelligence &amp; Cloud Technologies</text>
+  <text x="400" y="380" font-family="system-ui, sans-serif" font-size="13" fill="#64748b" text-anchor="middle">Verified Practical Project &amp; Technical Competency</text>
+
+  <!-- Signatures & Seal -->
+  <g transform="translate(180, 450)">
+    <line x1="0" y1="0" x2="160" y2="0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="80" y="22" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#64748b" text-anchor="middle">AUTHORIZED ISSUER</text>
+  </g>
+
+  <g transform="translate(460, 450)">
+    <line x1="0" y1="0" x2="160" y2="0" stroke="#94a3b8" stroke-width="1.5"/>
+    <text x="80" y="22" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#64748b" text-anchor="middle">VERIFIED CREDENTIAL</text>
+  </g>
+</svg>

@@ -1,477 +1,687 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meet Jethawa — Portfolio</title>
-  <meta name="description" content="Personal portfolio of Meet Jethawa — Computer Science Student | AI/ML | Data Analytics" />
+  <title>Meet Jethawa — AI/ML &amp; Data Science Portfolio</title>
+  
+  <!-- Meta Information -->
+  <meta name="description" content="Personal Portfolio of Meet Jethawa — Computer Science Student, AI/ML Developer, and Data Analytics Enthusiast. Explore featured projects, certifications, and technical skills." />
   <meta name="author" content="Meet Jethawa" />
+  <meta name="keywords" content="Meet Jethawa, AI, Machine Learning, Data Analytics, Python, IBM Watsonx, Agentic AI, Generative AI, Portfolio" />
 
-  <!-- Bootstrap 5 CSS -->
+  <!-- Open Graph -->
+  <meta property="og:title" content="Meet Jethawa — AI/ML &amp; Data Science Portfolio" />
+  <meta property="og:description" content="Explore cutting-edge AI/ML, Data Science, and autonomous agent projects by Meet Jethawa." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://portfolio-1-mj-meets-projects.vercel.app" />
+
+  <!-- Favicon Monogram -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%234f46e5'/><text x='50' y='65' font-family='system-ui,sans-serif' font-size='48' font-weight='900' fill='white' text-anchor='middle'>MJ</text></svg>" />
+
+  <!-- Bootstrap 5.3.3 CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css?v=3" />
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════
-     NAVBAR
-════════════════════════════════════════════════ -->
-<nav class="navbar navbar-expand-lg fixed-top" aria-label="Main navigation">
-  <div class="container">
-    <a class="navbar-brand" href="#home" id="navBrand">MJ</a>
+  <!-- Ambient Glow Background Blobs -->
+  <div class="ambient-glow-wrapper">
+    <div class="ambient-blob ambient-blob-1"></div>
+    <div class="ambient-blob ambient-blob-2"></div>
+    <div class="ambient-blob ambient-blob-3"></div>
+  </div>
 
-    <div class="d-flex align-items-center gap-2 order-lg-last">
-      <!-- Theme Toggle -->
-      <button id="themeToggle" class="btn btn-sm btn-outline-secondary rounded-circle border-0 p-1 px-2" aria-label="Toggle dark/light mode" title="Toggle theme">
-        <span id="themeIcon">🌙</span>
-      </button>
-      <!-- Resume -->
-      <a href="resume/resume.pdf" target="_blank" class="btn btn-sm btn-primary ms-1" id="resumeBtn" download>
-        📄 Resume
+  <!-- ═══════════════════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════════════════ -->
+  <nav id="mainNavbar" class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="brand-badge text-decoration-none" href="#home">
+        <div class="brand-logo-icon">MJ</div>
+        <span id="brandName">Meet Jethawa</span>
       </a>
-      <!-- Hamburger -->
-      <button class="navbar-toggler ms-1" type="button" data-bs-toggle="collapse"
-        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-        aria-label="Toggle navigation">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-        </svg>
-      </button>
-    </div>
 
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto me-3 gap-1">
-        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
-        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-        <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
-        <li class="nav-item"><a class="nav-link" href="#certificates">Certificates</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+      <!-- Controls: Mobile Toggle + Theme Switcher -->
+      <div class="d-flex align-items-center gap-2 order-lg-3">
+        <button id="themeToggleBtn" class="btn-theme-toggle" aria-label="Toggle Dark/Light Mode" title="Toggle theme">
+          <i id="themeToggleIcon" class="bi bi-moon-stars-fill text-primary"></i>
+        </button>
 
-<!-- ════════════════════════════════════════════════
-     HERO SECTION
-════════════════════════════════════════════════ -->
-<section id="home">
-  <div class="container">
-    <div class="row align-items-center gy-5">
-      <!-- Text Column -->
-      <div class="col-lg-7 order-2 order-lg-1 text-center text-lg-start">
-        <div class="fade-in-up">
-          <p class="section-badge mb-3">👋 Hello, I'm</p>
-          <h1 class="hero-name" id="heroName">Meet Jethawa</h1>
-          <p class="hero-headline" id="heroTagline">Computer Science Student | AI/ML | Data Analytics</p>
-
-          <div class="typing-wrapper mb-3">
-            <span id="typingText"></span><span class="typing-cursor" aria-hidden="true"></span>
-          </div>
-
-          <p class="hero-intro mb-4" id="heroIntro">Building the Future with AI &amp; Data</p>
-
-          <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start mb-4">
-            <a href="#projects" class="btn btn-primary px-4 py-2">
-              🚀 View Projects
-            </a>
-            <a href="resume/resume.pdf" class="btn btn-outline-primary px-4 py-2" id="resumeBtn2" target="_blank" download>
-              📄 Download Resume
-            </a>
-          </div>
-
-          <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start">
-            <a href="#" class="social-link" id="heroGithub" target="_blank" rel="noopener">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
-              </svg>
-              GitHub
-            </a>
-            <a href="#" class="social-link" id="heroLinkedin" target="_blank" rel="noopener">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-              </svg>
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Image Column -->
-      <div class="col-lg-5 order-1 order-lg-2 text-center">
-        <div class="fade-in-up">
-          <img id="heroImage" src="" alt="Meet Jethawa"
-            class="hero-avatar" loading="lazy"
-            onerror="this.style.display='none';document.getElementById('heroPH').style.display='flex'">
-          <div id="heroPH" class="hero-avatar-placeholder" style="display:none">🧑‍💻</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════
-     STATS SECTION
-════════════════════════════════════════════════ -->
-<section id="stats" style="padding:60px 0; background: var(--bg-alt);">
-  <div class="container">
-    <div class="row g-4 justify-content-center">
-      <div class="col-6 col-md-3">
-        <div class="stat-card"><div class="stat-number" id="statProjects">0</div><div class="stat-label">Projects</div></div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card"><div class="stat-number" id="statSkills">0</div><div class="stat-label">Skills</div></div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card"><div class="stat-number" id="statCerts">0</div><div class="stat-label">Certificates</div></div>
-      </div>
-      <div class="col-6 col-md-3">
-        <div class="stat-card"><div class="stat-number" id="statExp">0</div><div class="stat-label">Experience</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════
-     ABOUT SECTION
-════════════════════════════════════════════════ -->
-<section id="about">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">About Me</span>
-      <h2 class="section-title" id="aboutName">Meet Jethawa</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="row align-items-center gy-5">
-      <div class="col-md-4 text-center">
-        <img id="aboutImage" src="" alt="About Meet Jethawa"
-          class="about-image" loading="lazy"
-          onerror="this.style.display='none';document.getElementById('aboutPH').style.display='flex'">
-        <div id="aboutPH" class="about-placeholder" style="display:none">🧑‍💻</div>
-      </div>
-      <div class="col-md-8">
-        <p class="lead mb-4" id="aboutBio"></p>
-        <div class="row gy-2 mb-4">
-          <div class="col-12">
-            <div class="about-info-item">
-              <span class="about-info-label">🎓 Education</span>
-              <span id="aboutEducation"></span>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="about-info-item">
-              <span class="about-info-label">📍 Location</span>
-              <span id="aboutLocation"></span>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="about-info-item">
-              <span class="about-info-label">✉️ Email</span>
-              <span id="aboutEmail"></span>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="about-info-item">
-              <span class="about-info-label">🎯 Focus</span>
-              <span id="aboutFocus"></span>
-            </div>
-          </div>
-          <div class="col-12">
-            <div class="about-info-item">
-              <span class="about-info-label">💡 Objective</span>
-              <span id="aboutObjective"></span>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex gap-3 flex-wrap">
-          <a href="#" class="btn btn-primary" id="aboutGithub" target="_blank" rel="noopener">GitHub</a>
-          <a href="#" class="btn btn-outline-primary" id="aboutLinkedin" target="_blank" rel="noopener">LinkedIn</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════
-     SKILLS SECTION
-════════════════════════════════════════════════ -->
-<section id="skills">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">What I Know</span>
-      <h2 class="section-title">My Skills</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Skill Filters -->
-    <div class="d-flex flex-wrap gap-2 justify-content-center mb-4" id="skillFilters" role="group" aria-label="Skill category filters"></div>
-
-    <div class="row g-3" id="skillsContainer">
-      <div class="col-12 text-center py-5">
-        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════
-     FEATURED PROJECTS
-════════════════════════════════════════════════ -->
-<section id="featuredSection" style="display:none; background: var(--bg-alt);">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">Highlighted Work</span>
-      <h2 class="section-title">⭐ Featured Projects</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="row g-4" id="featuredContainer"></div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════
-     ALL PROJECTS
-════════════════════════════════════════════════ -->
-<section id="projects">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">My Work</span>
-      <h2 class="section-title">Projects</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <!-- Search & Filters -->
-    <div class="row align-items-center gy-3 mb-4">
-      <div class="col-md-5">
-        <div class="search-box">
-          <span class="search-icon">🔍</span>
-          <input type="search" id="projectSearch" class="form-control"
-            placeholder="Search projects…" aria-label="Search projects">
-        </div>
-      </div>
-      <div class="col-md-7">
-        <div class="d-flex flex-wrap gap-2 justify-content-md-end" id="projectFilters" role="group" aria-label="Project category filters"></div>
-      </div>
-    </div>
-
-    <div class="row g-4" id="projectsContainer">
-      <div class="col-12 text-center py-5">
-        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Project Details Modal -->
-<div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projModalLabel" aria-modal="true" role="dialog">
-  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div>
-          <h5 class="modal-title fw-bold" id="projModalTitle"></h5>
-          <span class="badge badge-category" id="projModalCategory"></span>
-          <small class="text-muted ms-2" id="projModalDate"></small>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <img id="projModalImg" src="" alt="Project" class="img-fluid rounded mb-3" style="display:none;max-height:300px;object-fit:cover;width:100%">
-        <p id="projModalDescription" class="mb-3"></p>
-        <h6 class="fw-semibold mb-2">Technologies Used</h6>
-        <div id="projModalTechs"></div>
-      </div>
-      <div class="modal-footer gap-2">
-        <a id="projModalGithub" href="#" target="_blank" rel="noopener" class="btn btn-outline-secondary">GitHub</a>
-        <a id="projModalDemo"   href="#" target="_blank" rel="noopener" class="btn btn-primary">Live Demo</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════════════
-     EXPERIENCE SECTION
-════════════════════════════════════════════════ -->
-<section id="experience" style="background: var(--bg-alt);">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">My Journey</span>
-      <h2 class="section-title">Experience</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="experience-timeline" id="experienceContainer">
-      <div class="text-center py-5">
-        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════════════
-     CERTIFICATES SECTION
-════════════════════════════════════════════════ -->
-<section id="certificates">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">Achievements</span>
-      <h2 class="section-title">Certificates</h2>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="d-flex flex-wrap gap-2 justify-content-center mb-4" id="certFilters" role="group" aria-label="Certificate category filters"></div>
-
-    <div class="row g-4" id="certificatesContainer">
-      <div class="col-12 text-center py-5">
-        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Certificate Modal -->
-<div class="modal fade" id="certModal" tabindex="-1" aria-labelledby="certModalLabel" aria-modal="true" role="dialog">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fw-bold" id="certModalTitle"></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body text-center">
-        <img id="certModalImg" src="" alt="Certificate" class="img-fluid rounded mb-3" style="display:none;max-height:300px">
-        <p class="mb-1"><strong>Issuer:</strong> <span id="certModalIssuer"></span></p>
-        <p class="mb-1"><strong>Date:</strong>   <span id="certModalDate"></span></p>
-        <p class="mb-3"><strong>Category:</strong> <span id="certModalCat"></span></p>
-      </div>
-      <div class="modal-footer">
-        <a id="certModalVerify" href="#" target="_blank" rel="noopener" class="btn btn-primary" style="display:none">
-          ✅ Verify Certificate
+        <a id="navResumeBtn" href="assets/resume/resume.pdf" target="_blank" class="btn btn-modern-primary btn-sm d-none d-sm-inline-flex">
+          <i class="bi bi-file-earmark-pdf-fill"></i> Resume
         </a>
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+
+        <button class="navbar-toggler border-0 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="bi bi-list fs-2 text-primary"></i>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse order-lg-2" id="navbarContent">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 py-2 py-lg-0 gap-1">
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#experience">Experience</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#certificates">Certificates</a></li>
+          <li class="nav-item"><a class="nav-link nav-link-custom" href="#contact">Contact</a></li>
+        </ul>
       </div>
     </div>
-  </div>
-</div>
+  </nav>
 
-<!-- ════════════════════════════════════════════════
-     LEARNING TIMELINE
-════════════════════════════════════════════════ -->
-<section id="timeline" style="background: var(--bg-alt);">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">How I Got Here</span>
-      <h2 class="section-title">My Learning Journey</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="learning-timeline" id="timelineContainer"></div>
-  </div>
-</section>
+  <!-- ═══════════════════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <header id="home" class="hero-section">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        
+        <!-- Hero Content -->
+        <div class="col-lg-7 text-center text-lg-start">
+          <div class="status-badge">
+            <span class="status-dot-pulse"></span>
+            <span id="heroBadgeText">✨ Available for AI/ML &amp; Data Internships</span>
+          </div>
 
-<!-- ════════════════════════════════════════════════
-     CURRENTLY LEARNING
-════════════════════════════════════════════════ -->
-<section id="learning">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">Always Growing</span>
-      <h2 class="section-title">Currently Learning</h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="row g-4" id="learningContainer">
-      <div class="col-12 text-center py-5">
-        <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+          <h1 class="hero-title">
+            Hi, I'm <span id="heroName" class="text-gradient">Meet Jethawa</span>
+          </h1>
+
+          <!-- Typewriter Dynamic Subtitle -->
+          <div class="typewriter-wrapper justify-content-center justify-content-lg-start">
+            <span class="text-muted me-1">&gt;</span>
+            <span id="typewriterTarget">AI &amp; Machine Learning Enthusiast</span>
+            <span class="typewriter-cursor"></span>
+          </div>
+
+          <p id="heroBio" class="hero-lead mx-auto mx-lg-0">
+            I'm a passionate Computer Science student specializing in Artificial Intelligence, Machine Learning, and Data Analytics. I love building intelligent software systems that turn raw data into actionable insights and deploying autonomous AI agents.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start mb-4">
+            <a href="#projects" class="btn btn-modern-primary">
+              <i class="bi bi-rocket-takeoff-fill"></i> Explore Projects
+            </a>
+            <a id="heroResumeBtn" href="assets/resume/resume.pdf" target="_blank" class="btn btn-modern-outline">
+              <i class="bi bi-file-earmark-arrow-down-fill text-danger"></i> Download CV
+            </a>
+            <a href="#contact" class="btn btn-modern-outline">
+              <i class="bi bi-chat-dots-fill text-primary"></i> Let's Connect
+            </a>
+          </div>
+
+          <!-- Social Links -->
+          <div class="d-flex align-items-center gap-2 justify-content-center justify-content-lg-start">
+            <span class="text-muted small fw-semibold me-2">Follow:</span>
+            <a id="heroGithub" href="https://github.com/MJ-Meet" target="_blank" class="social-link-pill" title="GitHub Profile">
+              <i class="bi bi-github"></i>
+            </a>
+            <a id="heroLinkedin" href="https://linkedin.com/in/meetjethawa" target="_blank" class="social-link-pill" title="LinkedIn Profile">
+              <i class="bi bi-linkedin"></i>
+            </a>
+            <a id="heroEmail" href="mailto:meetjethava07@gmail.com" class="social-link-pill" title="Send Email">
+              <i class="bi bi-envelope-fill"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Avatar Showcase Card with Floating Badges -->
+        <div class="col-lg-5">
+          <div class="hero-card-wrapper">
+            <div class="hero-avatar-glow"></div>
+            
+            <div class="hero-avatar-frame">
+              <div class="hero-avatar-inner">
+                <img id="heroAvatarImg"
+                     src="assets/images/profile.jpg"
+                     alt="Meet Jethawa"
+                     class="hero-avatar-img"
+                     onerror="this.src='assets/images/profile-placeholder.svg'" />
+              </div>
+            </div>
+
+            <!-- Floating Tech Chips -->
+            <div class="floating-tech-chip chip-1">
+              <i class="bi bi-filetype-py"></i> Python &amp; ML
+            </div>
+            <div class="floating-tech-chip chip-2">
+              <i class="bi bi-robot"></i> Agentic AI
+            </div>
+            <div class="floating-tech-chip chip-3">
+              <i class="bi bi-graph-up-arrow"></i> Data Analytics
+            </div>
+            <div class="floating-tech-chip chip-4">
+              <i class="bi bi-stars"></i> LLMs &amp; AI
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- ════════════════════════════════════════════════
-     CONTACT SECTION
-════════════════════════════════════════════════ -->
-<section id="contact" style="background: var(--bg-alt);">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-badge">Get In Touch</span>
-      <h2 class="section-title">Contact Me</h2>
-      <div class="section-line"></div>
-      <p class="text-muted">Have a question, opportunity, or just want to connect? Drop me a message!</p>
+  <!-- ═══════════════════════════════════════════════════════
+       QUICK STATS SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section class="py-4">
+    <div class="container">
+      <div class="row g-3 g-md-4">
+        <div class="col-6 col-lg-3">
+          <div class="card-modern stat-card">
+            <div class="stat-icon-wrapper">
+              <i class="bi bi-code-square"></i>
+            </div>
+            <div id="statProjects" class="stat-number text-gradient">5+</div>
+            <div class="stat-label">AI &amp; Data Projects</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card-modern stat-card">
+            <div class="stat-icon-wrapper">
+              <i class="bi bi-lightning-charge-fill"></i>
+            </div>
+            <div id="statSkills" class="stat-number text-gradient-purple">15+</div>
+            <div class="stat-label">Core Tech Skills</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card-modern stat-card">
+            <div class="stat-icon-wrapper">
+              <i class="bi bi-patch-check-fill"></i>
+            </div>
+            <div id="statCertificates" class="stat-number text-gradient">3+</div>
+            <div class="stat-label">Certifications</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card-modern stat-card">
+            <div class="stat-icon-wrapper">
+              <i class="bi bi-briefcase-fill"></i>
+            </div>
+            <div id="statExperience" class="stat-number text-gradient-purple">1+</div>
+            <div class="stat-label">Industry Internship</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="row justify-content-center">
-      <div class="col-md-8 col-lg-6">
-        <div class="contact-card p-4 p-md-5">
-          <form id="contactForm" novalidate>
-            <div class="mb-3">
-              <label for="contactName" class="form-label">Your Name <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="contactName" placeholder="John Doe" required autocomplete="name">
+  <!-- ═══════════════════════════════════════════════════════
+       ABOUT ME SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-tag">About Me</span>
+        <h2 class="section-title">Background &amp; Academic Focus</h2>
+        <p class="section-subtitle">Dedicated to applying artificial intelligence and machine learning to build intelligent, autonomous, and data-driven systems.</p>
+      </div>
+
+      <div class="row g-4 align-items-stretch">
+        
+        <!-- Left Column: Bio & Quick Facts -->
+        <div class="col-lg-6">
+          <div class="card-modern p-4 p-md-5 h-100 d-flex flex-column justify-content-between">
+            <div>
+              <h3 class="fw-bold mb-3 fs-4">Turning Data &amp; Algorithms Into Real-World Impact</h3>
+              <p id="aboutBioText" class="text-muted mb-4">
+                I am a dedicated Computer Science undergraduate with a deep focus on machine learning algorithms, deep learning models, data exploration, and intelligent systems. Through hands-on projects and virtual internships with organizations like IBM and Edunet Foundation, I have developed expertise in building NLP summarizers, predictive analytics models, and agentic workflows.
+              </p>
+
+              <!-- Quick Info Grid -->
+              <div class="row g-3 mb-4">
+                <div class="col-sm-6">
+                  <div class="info-pill-item">
+                    <div class="info-pill-icon"><i class="bi bi-mortarboard-fill"></i></div>
+                    <div>
+                      <div class="text-muted small fw-semibold">Education</div>
+                      <div id="infoEducation" class="fw-bold small">B.Tech / B.Sc. in CS</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="info-pill-item">
+                    <div class="info-pill-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div>
+                      <div class="text-muted small fw-semibold">Location</div>
+                      <div id="infoLocation" class="fw-bold small">Gujarat, India</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="info-pill-item">
+                    <div class="info-pill-icon"><i class="bi bi-envelope-check-fill"></i></div>
+                    <div>
+                      <div class="text-muted small fw-semibold">Email</div>
+                      <div id="infoEmail" class="fw-bold small text-truncate" style="max-width: 140px;">meetjethava07@gmail.com</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="info-pill-item">
+                    <div class="info-pill-icon"><i class="bi bi-bullseye"></i></div>
+                    <div>
+                      <div class="text-muted small fw-semibold">Focus</div>
+                      <div id="infoFocus" class="fw-bold small">Generative AI &amp; Agents</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="contactEmail" class="form-label">Email Address <span class="text-danger">*</span></label>
-              <input type="email" class="form-control" id="contactEmail" placeholder="john@example.com" required autocomplete="email">
+
+            <!-- Career Objective Note -->
+            <div class="p-3 rounded-4 bg-primary-subtle border border-primary-subtle">
+              <div class="d-flex gap-2">
+                <i class="bi bi-compass text-primary fs-5 mt-1"></i>
+                <div>
+                  <div class="fw-bold text-primary small mb-1">Career Objective</div>
+                  <p id="aboutCareerObjective" class="text-muted small mb-0">
+                    To leverage artificial intelligence, machine learning, and advanced analytics to solve high-impact, real-world problems while continuously expanding my technical mastery in Generative AI, LLMs, and intelligent autonomous agents.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="contactSubject" class="form-label">Subject <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="contactSubject" placeholder="What's this about?" required>
+
+          </div>
+        </div>
+
+        <!-- Right Column: 4 Core Pillars of Expertise -->
+        <div class="col-lg-6">
+          <div class="row g-3 h-100">
+            <div class="col-sm-6">
+              <div class="card-modern pillar-card">
+                <div class="pillar-icon bg-primary text-white">
+                  <i class="bi bi-cpu-fill"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Machine Learning</h5>
+                <p class="text-muted small mb-0">Supervised &amp; unsupervised learning, model benchmarking, regression, classification with scikit-learn.</p>
+              </div>
             </div>
-            <div class="mb-4">
-              <label for="contactMessage" class="form-label">Message <span class="text-danger">*</span></label>
-              <textarea class="form-control" id="contactMessage" rows="5" placeholder="Write your message here…" required minlength="10"></textarea>
+
+            <div class="col-sm-6">
+              <div class="card-modern pillar-card">
+                <div class="pillar-icon bg-success text-white">
+                  <i class="bi bi-bar-chart-fill"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Data Science</h5>
+                <p class="text-muted small mb-0">Exploratory data analysis (EDA), pattern detection, Pandas data manipulation, and Seaborn visual analytics.</p>
+              </div>
             </div>
-            <div class="d-grid">
-              <button type="submit" class="btn btn-primary py-2">
-                📩 Send Message
-              </button>
+
+            <div class="col-sm-6">
+              <div class="card-modern pillar-card">
+                <div class="pillar-icon bg-warning text-dark">
+                  <i class="bi bi-robot"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Agentic AI &amp; LLMs</h5>
+                <p class="text-muted small mb-0">Multi-agent systems, prompt engineering, IBM Watsonx foundations, and NLP summarization tools.</p>
+              </div>
             </div>
-          </form>
+
+            <div class="col-sm-6">
+              <div class="card-modern pillar-card">
+                <div class="pillar-icon bg-info text-white">
+                  <i class="bi bi-code-slash"></i>
+                </div>
+                <h5 class="fw-bold mb-2">Python &amp; Web</h5>
+                <p class="text-muted small mb-0">Clean Python development, modular code architecture, Git workflows, and modern responsive Bootstrap 5 UI.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       SKILLS SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="skills" class="py-5">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="section-tag">Skills &amp; Toolkit</span>
+        <h2 class="section-title">Technical Expertise</h2>
+        <p class="section-subtitle">Proficiencies in programming languages, machine learning frameworks, data science libraries, and modern development tools.</p>
+      </div>
+
+      <!-- Skill Filter Buttons -->
+      <div class="text-center mb-4">
+        <div id="skillFilterButtons" class="nav-pills-custom">
+          <!-- Populated dynamically via app.js -->
+        </div>
+      </div>
+
+      <!-- Skills Grid Container -->
+      <div id="skillsContainer" class="row g-3 g-md-4">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PROJECTS SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="projects" class="py-5">
+    <div class="container">
+      <div class="text-center mb-4">
+        <span class="section-tag">Featured Work</span>
+        <h2 class="section-title">Projects &amp; Systems</h2>
+        <p class="section-subtitle">A showcase of agentic AI systems, machine learning benchmarks, data analytics dashboards, and web applications.</p>
+      </div>
+
+      <!-- Filter Buttons & Live Search -->
+      <div class="row align-items-center g-3 mb-4">
+        <div class="col-lg-8 text-center text-lg-start">
+          <div id="projectFilterButtons" class="nav-pills-custom">
+            <!-- Populated dynamically via app.js -->
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="input-group">
+            <span class="input-group-text bg-transparent border-end-0" style="border-color: var(--border-color);">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input id="projectSearchInput"
+                   type="text"
+                   class="form-control border-start-0 ps-0"
+                   style="border-color: var(--border-color); background: var(--bg-surface-glass);"
+                   placeholder="Search by title, tech or keyword..." />
+          </div>
+        </div>
+      </div>
+
+      <!-- Projects Grid Container -->
+      <div id="projectsContainer" class="row g-4">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       PROJECT DETAIL MODAL
+  ═══════════════════════════════════════════════════════ -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="modalProjectTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content card-modern border-0">
+        <div class="modal-header border-bottom" style="border-color: var(--border-color) !important;">
+          <div>
+            <span id="modalProjectCategory" class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 mb-1">Category</span>
+            <h4 class="modal-title fw-bold" id="modalProjectTitle">Project Title</h4>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="rounded-4 overflow-hidden mb-4 border" style="max-height: 320px; border-color: var(--border-color) !important;">
+            <img id="modalProjectImage" src="" alt="Project Banner" class="w-100 h-100 object-fit-cover" />
+          </div>
+
+          <h6 class="fw-bold mb-2">Technologies Used:</h6>
+          <div id="modalProjectTags" class="d-flex flex-wrap gap-1 mb-3"></div>
+
+          <h6 class="fw-bold mb-2">System Overview &amp; Architecture:</h6>
+          <p id="modalProjectDescription" class="text-muted small leading-relaxed"></p>
+
+          <div id="modalProjectHighlights"></div>
+        </div>
+        <div class="modal-footer border-top d-flex justify-content-between" style="border-color: var(--border-color) !important;">
+          <button type="button" class="btn btn-modern-outline btn-sm" data-bs-dismiss="modal">Close</button>
+          <div class="d-flex gap-2">
+            <a id="modalProjectGithub" href="#" target="_blank" class="btn btn-modern-outline btn-sm">
+              <i class="bi bi-github"></i> View Repository
+            </a>
+            <a id="modalProjectDemo" href="#" target="_blank" class="btn btn-modern-primary btn-sm">
+              <i class="bi bi-box-arrow-up-right"></i> Live Preview
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- ════════════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════════════ -->
-<footer>
-  <div class="container">
-    <div class="row gy-4 align-items-center justify-content-between text-center text-md-start">
-      <div class="col-md-6">
-        <div class="footer-brand mb-1" id="footerName">Meet Jethawa</div>
-        <p class="text-muted mb-0 small" id="footerHeadline">Computer Science Student | AI/ML | Data Analytics</p>
+  <!-- ═══════════════════════════════════════════════════════
+       EXPERIENCE & TIMELINE SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="experience" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-tag">Career &amp; Learning</span>
+        <h2 class="section-title">Experience &amp; Milestones</h2>
+        <p class="section-subtitle">Real-world internship experiences, key technological breakthroughs, and academic progress.</p>
       </div>
-      <div class="col-md-6 text-md-end">
-        <div class="d-flex gap-3 justify-content-center justify-content-md-end flex-wrap">
-          <a href="#" class="footer-link" id="footerGithub" target="_blank" rel="noopener">GitHub</a>
-          <a href="#" class="footer-link" id="footerLinkedin" target="_blank" rel="noopener">LinkedIn</a>
-          <a href="#" class="footer-link" id="footerEmail">Email</a>
+
+      <div class="row g-4 g-lg-5">
+        <!-- Experience Column -->
+        <div class="col-lg-6">
+          <h3 class="fw-bold mb-4 fs-4 d-flex align-items-center gap-2">
+            <i class="bi bi-briefcase-fill text-primary"></i> Practical Experience
+          </h3>
+          <div id="experienceContainer">
+            <!-- Rendered dynamically via app.js -->
+          </div>
+        </div>
+
+        <!-- Milestones Timeline Column -->
+        <div class="col-lg-6">
+          <h3 class="fw-bold mb-4 fs-4 d-flex align-items-center gap-2">
+            <i class="bi bi-clock-history text-secondary"></i> Growth Timeline
+          </h3>
+          <div id="timelineContainer" class="timeline-modern">
+            <!-- Rendered dynamically via app.js -->
+          </div>
         </div>
       </div>
     </div>
-    <hr style="border-color: var(--border); margin: 1.5rem 0 1rem;">
-    <div class="row align-items-center text-center text-md-start">
-      <div class="col-md-6">
-        <p class="text-muted small mb-0">© <span id="footerYear"></span> Meet Jethawa. All rights reserved.</p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CERTIFICATES SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="certificates" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-tag">Credentials</span>
+        <h2 class="section-title">Certifications &amp; Credentials</h2>
+        <p class="section-subtitle">Verified accreditations in Artificial Intelligence, Cloud Computing, and Machine Learning.</p>
       </div>
-      <div class="col-md-6 text-md-end mt-2 mt-md-0">
-        <small class="text-muted">Built with HTML5, CSS3, Bootstrap 5 &amp; Vanilla JS</small>
-        <span class="text-muted mx-2">•</span>
-        <a href="admin.html" class="footer-link small text-decoration-none" title="Admin Dashboard">⚙️ Admin</a>
+
+      <div id="certificatesContainer" class="row g-4">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificate Preview Modal -->
+  <div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="modalCertTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content card-modern border-0">
+        <div class="modal-header border-bottom" style="border-color: var(--border-color) !important;">
+          <div>
+            <span id="modalCertIssuer" class="text-gradient fw-bold small text-uppercase d-block">Issuer</span>
+            <h5 class="modal-title fw-bold" id="modalCertTitle">Certificate Title</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-4 text-center">
+          <div class="rounded-4 overflow-hidden border mb-3" style="border-color: var(--border-color) !important;">
+            <img id="modalCertImage" src="" alt="Certificate" class="w-100 h-auto" />
+          </div>
+          <div class="small text-muted"><i class="bi bi-calendar3 me-1"></i> Issued: <span id="modalCertDate">2024</span></div>
+        </div>
+        <div class="modal-footer border-top d-flex justify-content-between" style="border-color: var(--border-color) !important;">
+          <button type="button" class="btn btn-modern-outline btn-sm" data-bs-dismiss="modal">Close</button>
+          <a id="modalCertVerification" href="#" target="_blank" class="btn btn-modern-primary btn-sm">
+            <i class="bi bi-shield-check me-1"></i> Verify Credential
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</footer>
 
-<!-- Back to Top -->
-<button id="backToTop" aria-label="Back to top" title="Back to top">▲</button>
+  <!-- ═══════════════════════════════════════════════════════
+       CONTACT SECTION
+  ═══════════════════════════════════════════════════════ -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <span class="section-tag">Get In Touch</span>
+        <h2 class="section-title">Let's Connect &amp; Collaborate</h2>
+        <p class="section-subtitle">Interested in discussing AI/ML opportunities, data projects, or collaborative research? Drop me a message.</p>
+      </div>
 
-<!-- Toast Container -->
-<div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:1100;"></div>
+      <div class="row g-4 g-lg-5 align-items-stretch">
+        
+        <!-- Left Column: Contact Cards -->
+        <div class="col-lg-5 d-flex flex-column justify-content-between gap-3">
+          
+          <div class="card-modern contact-info-card">
+            <div class="contact-info-icon"><i class="bi bi-envelope-at-fill"></i></div>
+            <div class="flex-grow-1 overflow-hidden">
+              <div class="text-muted small fw-semibold">Email Address</div>
+              <div class="fw-bold text-truncate">meetjethava07@gmail.com</div>
+            </div>
+            <button class="btn btn-modern-outline btn-sm px-3" onclick="copyToClipboard('meetjethava07@gmail.com', 'Email')" title="Copy Email">
+              <i class="bi bi-copy"></i>
+            </button>
+          </div>
 
-<!-- Bootstrap 5 JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Portfolio JS -->
-<script src="js/data.js?v=2"></script>
-<script src="js/storage.js?v=2"></script>
-<script src="js/app.js?v=2"></script>
+          <div class="card-modern contact-info-card">
+            <div class="contact-info-icon"><i class="bi bi-linkedin"></i></div>
+            <div class="flex-grow-1 overflow-hidden">
+              <div class="text-muted small fw-semibold">LinkedIn Profile</div>
+              <div class="fw-bold text-truncate">linkedin.com/in/meetjethawa</div>
+            </div>
+            <a href="https://linkedin.com/in/meetjethawa" target="_blank" class="btn btn-modern-outline btn-sm px-3" title="Open LinkedIn">
+              <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+          </div>
+
+          <div class="card-modern contact-info-card">
+            <div class="contact-info-icon"><i class="bi bi-github"></i></div>
+            <div class="flex-grow-1 overflow-hidden">
+              <div class="text-muted small fw-semibold">GitHub Repositories</div>
+              <div class="fw-bold text-truncate">github.com/MJ-Meet</div>
+            </div>
+            <a href="https://github.com/MJ-Meet" target="_blank" class="btn btn-modern-outline btn-sm px-3" title="Open GitHub">
+              <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+          </div>
+
+          <div class="card-modern contact-info-card">
+            <div class="contact-info-icon"><i class="bi bi-geo-alt-fill"></i></div>
+            <div class="flex-grow-1 overflow-hidden">
+              <div class="text-muted small fw-semibold">Location</div>
+              <div class="fw-bold">Gujarat, India (Open to Remote)</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Form -->
+        <div class="col-lg-7">
+          <div class="card-modern p-4 p-md-5">
+            <h4 class="fw-bold mb-3 fs-4">Send a Direct Message</h4>
+            <p class="text-muted small mb-4">Fill out the form below and I will get back to you as soon as possible.</p>
+
+            <form id="contactForm">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="contactName" placeholder="Your Name" required />
+                    <label for="contactName">Your Full Name</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-floating">
+                    <input type="email" class="form-control" id="contactEmail" placeholder="name@example.com" required />
+                    <label for="contactEmail">Email Address</label>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-floating">
+                    <input type="text" class="form-control" id="contactSubject" placeholder="Subject" />
+                    <label for="contactSubject">Subject / Inquiry Topic</label>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="Leave a message here" id="contactMessage" style="height: 140px" required></textarea>
+                    <label for="contactMessage">Your Message</label>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button type="submit" class="btn btn-modern-primary w-100 py-3">
+                    <i class="bi bi-send-fill me-1"></i> Send Message
+                  </button>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════ -->
+  <footer class="footer-custom">
+    <div class="container text-center">
+      <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
+        <div class="brand-logo-icon">MJ</div>
+        <span class="fw-bold fs-5">Meet Jethawa</span>
+      </div>
+
+      <p class="text-muted small max-w-md mx-auto mb-4" style="max-width: 500px;">
+        Computer Science Student specializing in Artificial Intelligence, Machine Learning, and Data Analytics. Passionate about building intelligent systems.
+      </p>
+
+      <div class="d-flex justify-content-center gap-3 mb-4">
+        <a href="#home" class="text-muted small text-decoration-none">Home</a>
+        <a href="#about" class="text-muted small text-decoration-none">About</a>
+        <a href="#skills" class="text-muted small text-decoration-none">Skills</a>
+        <a href="#projects" class="text-muted small text-decoration-none">Projects</a>
+        <a href="#certificates" class="text-muted small text-decoration-none">Certificates</a>
+        <a href="#contact" class="text-muted small text-decoration-none">Contact</a>
+      </div>
+
+      <div class="text-muted small border-top pt-3" style="border-color: var(--border-color) !important;">
+        &copy; <span id="currentYear">2026</span> Meet Jethawa. Crafted with Bootstrap 5 &amp; Vanilla JavaScript.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Back to Top Button -->
+  <button id="backToTopBtn" class="back-to-top-btn" aria-label="Back to Top" title="Back to Top">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- Feedback Toast Container -->
+  <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1090;"></div>
+
+  <!-- Bootstrap 5.3.3 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Portfolio Logic & Data -->
+  <script src="js/data.js?v=3"></script>
+  <script src="js/storage.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
+
 </body>
 </html>
