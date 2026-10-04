@@ -574,37 +574,84 @@ function renderAchievements(achievements) {
   const placeholderSvg = 'assets/achievements/achievement-placeholder.svg';
 
   container.innerHTML = achievements.map(ach => {
-    const trophyImg = ach.trophyImage || placeholderSvg;
-    const certImg = ach.certificateImage || placeholderSvg;
+    const hasTrophy = Boolean(ach.trophyImage);
+    const hasCert = Boolean(ach.certificateImage);
+
+    let mediaHtml = '';
+    let buttonsHtml = '';
+
+    if (hasTrophy && hasCert) {
+      mediaHtml = `
+        <div class="achievement-media-grid">
+          <div class="achievement-media-box" onclick="openAchievementModal('${ach.trophyImage}', '${escapeHtml(ach.title)} — Trophy', '${escapeHtml(ach.badge)}')">
+            <img src="${ach.trophyImage}" alt="Trophy" class="achievement-img" onerror="this.src='${placeholderSvg}'" />
+            <div class="achievement-media-overlay">
+              <span class="badge bg-warning text-dark fw-bold rounded-pill px-3 py-1">
+                <i class="bi bi-trophy-fill me-1"></i> Trophy
+              </span>
+              <span class="view-hint"><i class="bi bi-arrows-fullscreen"></i> View</span>
+            </div>
+          </div>
+          <div class="achievement-media-box" onclick="openAchievementModal('${ach.certificateImage}', '${escapeHtml(ach.title)} — Certificate', '📜 Award Certificate')">
+            <img src="${ach.certificateImage}" alt="Certificate" class="achievement-img" onerror="this.src='${placeholderSvg}'" />
+            <div class="achievement-media-overlay">
+              <span class="badge bg-primary text-white fw-bold rounded-pill px-3 py-1">
+                <i class="bi bi-award-fill me-1"></i> Certificate
+              </span>
+              <span class="view-hint"><i class="bi bi-arrows-fullscreen"></i> View</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-muted small mt-2 mb-0">
+          <i class="bi bi-zoom-in me-1"></i> Click on trophy or certificate to enlarge
+        </p>
+      `;
+
+      buttonsHtml = `
+        <button class="btn btn-modern-primary btn-sm" onclick="openAchievementModal('${ach.trophyImage}', '${escapeHtml(ach.title)} — Trophy', '${escapeHtml(ach.badge)}')">
+          <i class="bi bi-trophy me-1"></i> View Trophy
+        </button>
+        <button class="btn btn-modern-outline btn-sm" onclick="openAchievementModal('${ach.certificateImage}', '${escapeHtml(ach.title)} — Certificate', '📜 Award Certificate')">
+          <i class="bi bi-file-earmark-image me-1"></i> View Certificate
+        </button>
+      `;
+    } else {
+      const displayImg = ach.certificateImage || ach.trophyImage || placeholderSvg;
+      const isCertificate = Boolean(ach.certificateImage);
+      const badgeIcon = isCertificate ? 'bi-award-fill' : 'bi-trophy-fill';
+      const badgeLabel = isCertificate ? 'Award Certificate' : 'Award Trophy';
+      const badgeClass = isCertificate ? 'bg-primary text-white' : 'bg-warning text-dark';
+
+      mediaHtml = `
+        <div class="achievement-media-single">
+          <div class="achievement-media-box achievement-media-box-single" onclick="openAchievementModal('${displayImg}', '${escapeHtml(ach.title)}', '${escapeHtml(ach.badge)}')">
+            <img src="${displayImg}" alt="${badgeLabel}" class="achievement-img" onerror="this.src='${placeholderSvg}'" />
+            <div class="achievement-media-overlay">
+              <span class="badge ${badgeClass} fw-bold rounded-pill px-3 py-1">
+                <i class="bi ${badgeIcon} me-1"></i> ${badgeLabel}
+              </span>
+              <span class="view-hint"><i class="bi bi-arrows-fullscreen"></i> View Certificate</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-muted small mt-2 mb-0">
+          <i class="bi bi-zoom-in me-1"></i> Click certificate to enlarge and view details
+        </p>
+      `;
+
+      buttonsHtml = `
+        <button class="btn btn-modern-primary btn-sm" onclick="openAchievementModal('${displayImg}', '${escapeHtml(ach.title)}', '${escapeHtml(ach.badge)}')">
+          <i class="bi ${isCertificate ? 'bi-award' : 'bi-trophy'} me-1"></i> View ${isCertificate ? 'Certificate' : 'Trophy'}
+        </button>
+      `;
+    }
 
     return `
     <div class="card-modern achievement-card p-4 p-lg-5 mb-4">
       <div class="row g-4 align-items-center">
         <!-- Visuals: Trophy & Certificate -->
         <div class="col-lg-6">
-          <div class="achievement-media-grid">
-            <div class="achievement-media-box" onclick="openAchievementModal('${trophyImg}', '${escapeHtml(ach.title)} — Trophy', '${escapeHtml(ach.badge)}')">
-              <img src="${trophyImg}" alt="Trophy" class="achievement-img" onerror="this.src='${placeholderSvg}'" />
-              <div class="achievement-media-overlay">
-                <span class="badge bg-warning text-dark fw-bold rounded-pill px-3 py-1">
-                  <i class="bi bi-trophy-fill me-1"></i> Trophy
-                </span>
-                <span class="view-hint"><i class="bi bi-arrows-fullscreen"></i> View</span>
-              </div>
-            </div>
-            <div class="achievement-media-box" onclick="openAchievementModal('${certImg}', '${escapeHtml(ach.title)} — Certificate', '📜 Award Certificate')">
-              <img src="${certImg}" alt="Certificate" class="achievement-img" onerror="this.src='${placeholderSvg}'" />
-              <div class="achievement-media-overlay">
-                <span class="badge bg-primary text-white fw-bold rounded-pill px-3 py-1">
-                  <i class="bi bi-award-fill me-1"></i> Certificate
-                </span>
-                <span class="view-hint"><i class="bi bi-arrows-fullscreen"></i> View</span>
-              </div>
-            </div>
-          </div>
-          <p class="text-center text-muted small mt-2 mb-0">
-            <i class="bi bi-zoom-in me-1"></i> Click on trophy or certificate to enlarge
-          </p>
+          ${mediaHtml}
         </div>
 
         <!-- Details -->
@@ -639,12 +686,7 @@ function renderAchievements(achievements) {
             </div>
 
             <div class="d-flex gap-2 flex-wrap">
-              <button class="btn btn-modern-primary btn-sm" onclick="openAchievementModal('${trophyImg}', '${escapeHtml(ach.title)} — Trophy', '${escapeHtml(ach.badge)}')">
-                <i class="bi bi-trophy me-1"></i> View Trophy
-              </button>
-              <button class="btn btn-modern-outline btn-sm" onclick="openAchievementModal('${certImg}', '${escapeHtml(ach.title)} — Certificate', '📜 Award Certificate')">
-                <i class="bi bi-file-earmark-image me-1"></i> View Certificate
-              </button>
+              ${buttonsHtml}
             </div>
           </div>
         </div>

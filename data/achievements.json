@@ -19,5 +19,26 @@
       "IBM SkillsBuild",
       "Stage Presentation"
     ]
+  },
+  {
+    "id": "ach_gdg_cloud_kochi_exceptional",
+    "title": "Exceptional Performance Distinction — Code Vipassana Season 13",
+    "event": "Season 13: Building 100% Postgres Compatible AI Applications with Google Cloud (Code Vipassana)",
+    "organization": "Google Developer Groups Cloud • Kochi",
+    "date": "2026",
+    "location": "Kochi, Kerala, India (Virtual)",
+    "institution": "Google Developer Groups (GDG)",
+    "badge": "⭐ Exceptional Performance",
+    "description": "Awarded by Google Developer Groups Cloud Kochi in recognition of extraordinary mastery, dedication, and skill in hands-on learning of Google Cloud, focusing on architecting and building 100% Postgres compatible AI applications with Google Cloud during Code Vipassana Season 13.",
+    "trophyImage": "",
+    "certificateImage": "assets/achievements/gdg-cloud-kochi-exceptional-performance.png",
+    "technologies": [
+      "Google Cloud",
+      "PostgreSQL",
+      "Cloud AI Applications",
+      "Database Architecture",
+      "Code Vipassana",
+      "GDG Cloud Kochi"
+    ]
   }
 ]

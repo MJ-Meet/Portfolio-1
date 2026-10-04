@@ -1185,6 +1185,11 @@ a {
   gap: 1.25rem;
 }
 
+.achievement-media-single {
+  display: block;
+  width: 100%;
+}
+
 .achievement-media-box {
   position: relative;
   border-radius: 16px;
@@ -1197,6 +1202,17 @@ a {
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.achievement-media-box-single {
+  height: 380px;
+  width: 100%;
+}
+
+.achievement-media-box-single .achievement-img {
+  object-fit: contain;
+  background: rgba(15, 23, 42, 0.45);
+  padding: 6px;
 }
 
 .achievement-media-box:hover {
@@ -1244,6 +1260,9 @@ a {
   }
   .achievement-media-box {
     height: 280px;
+  }
+  .achievement-media-box-single {
+    height: 260px;
   }
   .hero-section {
     padding: 5rem 0 3.5rem 0;
