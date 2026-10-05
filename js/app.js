@@ -794,11 +794,52 @@ function copyToClipboard(text, label = "Item") {
 }
 
 /* ─────────────────────────────────────────────────────────
-   13. Navbar Scroll & Back To Top
+   13. Navbar Scroll, Auto-Close & Back To Top
 ───────────────────────────────────────────────────────── */
 function initNavigation() {
   const navbar = $("mainNavbar");
+  const navbarCollapse = $("navbarContent");
   const backToTop = $("backToTopBtn");
+  const navLinks = document.querySelectorAll(".nav-link-custom");
+
+  // Helper function to smoothly close mobile dropdown
+  function closeMobileNavbar() {
+    if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+      if (window.bootstrap && bootstrap.Collapse) {
+        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse) || new bootstrap.Collapse(navbarCollapse, { toggle: false });
+        bsCollapse.hide();
+      } else {
+        navbarCollapse.classList.remove("show");
+      }
+    }
+  }
+
+  // 1. Auto-close mobile navbar when any nav link is tapped
+  navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      closeMobileNavbar();
+    });
+  });
+
+  // 2. Auto-close mobile navbar when brand badge is tapped
+  const brandBadge = document.querySelector(".brand-badge");
+  if (brandBadge) {
+    brandBadge.addEventListener("click", () => {
+      closeMobileNavbar();
+    });
+  }
+
+  // 3. Auto-close mobile navbar when clicking outside of navbar
+  document.addEventListener("click", (e) => {
+    if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+      if (navbar && !navbar.contains(e.target)) {
+        closeMobileNavbar();
+      }
+    }
+  });
+
+  // 4. Scroll events: navbar glassmorphic elevation, scrollspy, and back-to-top
+  const sections = document.querySelectorAll("section[id], header[id]");
 
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
@@ -819,6 +860,26 @@ function initNavigation() {
       } else {
         backToTop.classList.remove("visible");
       }
+    }
+
+    // Active scrollspy highlighting
+    let currentSectionId = "";
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 120;
+      const sectionHeight = section.offsetHeight;
+      if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+        currentSectionId = section.getAttribute("id");
+      }
+    });
+
+    if (currentSectionId) {
+      navLinks.forEach(link => {
+        if (link.getAttribute("href") === `#${currentSectionId}`) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
     }
   });
 
